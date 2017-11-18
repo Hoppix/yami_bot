@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 var utility = require( __dirname + "/utility.js");
+var config =  require('./config.json')
 
 var defaultGuild;
 var defaultChannel;
@@ -107,4 +108,4 @@ client.on("voiceStateUpdate", (oldMember, newMember) =>
 });
 
 
-client.login('');
+client.login(config.token);
