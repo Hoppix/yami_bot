@@ -107,4 +107,4 @@ client.on("voiceStateUpdate", (oldMember, newMember) =>
 });
 
 
-client.login('MzA2NDA3MjU1NDU5MjMzNzky.DPIqzw.icBfLb-a3XdIScS2HRW_6o6vLEU');
+client.login('');
