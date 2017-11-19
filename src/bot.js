@@ -56,6 +56,9 @@ client.on('message', message => {
   }
 });
 
+/**
+* Event for logging voiceChannel updates
+**/
 client.on("voiceStateUpdate", (oldMember, newMember) =>
 {
    var oldChannel = oldMember.voiceChannel;
