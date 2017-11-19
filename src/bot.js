@@ -44,7 +44,7 @@ client.on('ready', () =>
   }
   console.log("defaultChannel: " + defaultChannel.name)
 
-  defaultVoiceChannel = defaultGuildChannels.find("name", "General");
+  defaultVoiceChannel = defaultGuildChannels.find("name", "Manu-rage-Kuppel");
 
   defaultChannel.send("Now running on Node.js!");
 
@@ -56,7 +56,7 @@ client.on('ready', () =>
 client.on('message', message =>
 {
   //TODO error handling
-  //TODO OPUS
+
   var cmd = message.content.split(" ");
   if(cmd[0] == "yami")
   {
@@ -66,9 +66,13 @@ client.on('message', message =>
       {
         var ytl = cmd[2];
 
+        if(message.member.voiceChannel)
+        {
+          defaultVoiceChannel = message.member.voiceChannel;
+        }
         // Play streams using ytdl-core
         const ytdl = require('ytdl-core');
-        const streamOptions = { seek: 0, volume: 1 };
+        const streamOptions = { seek: 0, volume: 0.2 };
         const broadcast = client.createVoiceBroadcast();
 
         defaultVoiceChannel.join()
@@ -79,6 +83,11 @@ client.on('message', message =>
           })
           .catch(console.error);
       }
+    }
+    if(cmd[1] == "stop")
+    {
+      client.voiceConnections.array()[0].disconnect();
+      defaultVoiceChannel.leave();
     }
   }
 });
@@ -123,6 +132,8 @@ client.on("voiceStateUpdate", (oldMember, newMember) =>
      //user switched channel
      oldChannelName = oldChannel.name;
      newChannelName = newChannel.name;
+
+     if(oldChannelName == newChannelName) return;
 
      message = time + "User: " + username + " switched from: " + oldChannelName + " to: " + newChannelName;
      console.log(message);
