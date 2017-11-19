@@ -70,7 +70,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) =>
    var oldChannelName;
    var message;
 
-   var time = utility.parseDateString();
+   var time = utility.parseDateString() + " | ";
 
 
    if(!oldChannel && newChannel)
@@ -78,7 +78,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) =>
       //user joins channel
       newChannelName = newChannel.name;
 
-      message = time + " | " + "User: " + username + " joined channel: " + newChannelName;
+      message = time + "User: " + username + " joined channel: " + newChannelName;
       console.log(message);
       defaultChannel.send(message);
    }
@@ -87,7 +87,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) =>
      //user leaves channel
      oldChannelName = oldChannel.name;
 
-     message = time + " | " + "User: " + username + " left channel: " + oldChannelName;
+     message = time + "User: " + username + " left channel: " + oldChannelName;
      console.log(message);
      defaultChannel.send(message);
    }
@@ -97,7 +97,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) =>
      oldChannelName = oldChannel.name;
      newChannelName = newChannel.name;
 
-     message = time + " | " + "User: " + username + " switched from: " + oldChannelName + " to: " + newChannelName;
+     message = time + "User: " + username + " switched from: " + oldChannelName + " to: " + newChannelName;
      console.log(message);
      defaultChannel.send(message);
    }
@@ -110,5 +110,30 @@ client.on("voiceStateUpdate", (oldMember, newMember) =>
 
 });
 
+
+client.on("presenceUpdate", (oldMember, newMember) => {
+
+    var time = utility.parseDateString() + " | ";
+
+    if(oldMember.presence.status !== newMember.presence.status)
+    {
+        var newPresence = newMember.presence.status;
+        var message = time + "User "+ newMember.user.username + " went " + newPresence;
+
+        console.log(message);
+        defaultChannel.send(message);
+        utility.writeLogFile(message);
+    }
+    else if(oldMember.presence.game !== newMember.presence.game)
+    {
+      if(newMember.presence.game == null || newMember.presence.game == undefined ) return;
+       var newPresence = newMember.presence.game.name;
+       var message = time + "User "+ oldMember.user.username + " is now playing: " + newPresence;
+
+       console.log(message);
+       defaultChannel.send(message);
+       utility.writeLogFile(message);
+    }
+});
 
 client.login(config.token);
