@@ -6,6 +6,7 @@ var config =  require('./config.json')
 
 var defaultGuild;
 var defaultChannel;
+var defaultVoiceChannel;
 
 var defaultGuildChannels;
 var defaultGuildMembers;
@@ -43,6 +44,8 @@ client.on('ready', () =>
   }
   console.log("defaultChannel: " + defaultChannel.name)
 
+  defaultVoiceChannel = defaultGuildChannels.find("name", "General");
+
   defaultChannel.send("Now running on Node.js!");
 
 });
@@ -50,9 +53,33 @@ client.on('ready', () =>
 /**
 * triggered on any message the client receives
 **/
-client.on('message', message => {
-  if (message.content === 'ping') {
-    message.reply('pong');
+client.on('message', message =>
+{
+  //TODO error handling
+  //TODO OPUS
+  var cmd = message.content.split(" ");
+  if(cmd[0] == "yami")
+  {
+    if(cmd[1] == "play")
+    {
+      if(cmd[2] !== undefined)
+      {
+        var ytl = cmd[2];
+
+        // Play streams using ytdl-core
+        const ytdl = require('ytdl-core');
+        const streamOptions = { seek: 0, volume: 1 };
+        const broadcast = client.createVoiceBroadcast();
+
+        defaultVoiceChannel.join()
+          .then(connection => {
+            const stream = ytdl(ytl, { filter : 'audioonly' });
+            broadcast.playStream(stream);
+            const dispatcher = connection.playBroadcast(broadcast);
+          })
+          .catch(console.error);
+      }
+    }
   }
 });
 
@@ -115,6 +142,7 @@ client.on("presenceUpdate", (oldMember, newMember) => {
 
     var time = utility.parseDateString() + " | ";
 
+    //user comes online or goes offline
     if(oldMember.presence.status !== newMember.presence.status)
     {
         var newPresence = newMember.presence.status;
@@ -124,6 +152,7 @@ client.on("presenceUpdate", (oldMember, newMember) => {
         defaultChannel.send(message);
         utility.writeLogFile(message);
     }
+    //user starts playing a game
     else if(oldMember.presence.game !== newMember.presence.game)
     {
       if(newMember.presence.game == null || newMember.presence.game == undefined ) return;
