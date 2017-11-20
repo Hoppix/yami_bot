@@ -70,6 +70,7 @@ client.on('message', message =>
         {
           defaultVoiceChannel = message.member.voiceChannel;
         }
+        if(!defaultVoiceChannel) return;
         // Play streams using ytdl-core
         const ytdl = require('ytdl-core');
         const streamOptions = { seek: 0, volume: 0.2 };
@@ -167,6 +168,7 @@ client.on("presenceUpdate", (oldMember, newMember) => {
     else if(oldMember.presence.game !== newMember.presence.game)
     {
       if(newMember.presence.game == null || newMember.presence.game == undefined ) return;
+      
        var newPresence = newMember.presence.game.name;
        var message = time + "User "+ oldMember.user.username + " is now playing: " + newPresence;
 
