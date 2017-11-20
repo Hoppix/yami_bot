@@ -18,7 +18,7 @@ var defaultGuildMembers;
 client.on('ready', () =>
 {
   console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
-  client.user.setGame(`work in progress`);
+  client.user.setGame(`Type: yami help`);
 
   defaultGuild = client.guilds.array()[0];
   if(!defaultGuild)
@@ -55,7 +55,6 @@ client.on('ready', () =>
 **/
 client.on('message', message =>
 {
-  //TODO error handling
 
   var cmd = message.content.split(" ");
   if(cmd[0] == "yami")
@@ -84,10 +83,22 @@ client.on('message', message =>
           .catch(console.error);
       }
     }
-    if(cmd[1] == "stop")
+    else if(cmd[1] == "stop")
     {
+      //TODO error handling when not in channel
       client.voiceConnections.array()[0].disconnect();
       defaultVoiceChannel.leave();
+    }
+    else if(cmd[1] == "help")
+    {
+      //TODO print help msg
+      var respondChan = message.channel;
+      var embed = {embed: {
+                            color: 3447003,
+                            description: "\"yami help\": prints this message \n \"yami play\ <youtubelink>\": plays youtube video in current voice channel \n \"yami stop\": stops playback"
+                          }}
+      respondChan.send(embed);
+
     }
   }
 });
