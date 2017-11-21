@@ -22,5 +22,23 @@ module.exports =
       }
       console.log("saved logfile");
     });
+  },
+
+  uptimeSince: function(oDate)
+  {
+    var rDate = new Date();
+    var diff = rDate = oDate;
+
+    var hours   = Math.floor(diff / 3.6e6);
+    var minutes = Math.floor((diff % 3.6e6) / 6e4);
+    var seconds = Math.floor((diff % 6e4) / 1000);
+
+    var oReturn =
+    {
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds
+    }
+    return oReturn;
   }
 };

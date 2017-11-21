@@ -11,6 +11,8 @@ var defaultVoiceChannel;
 var defaultGuildChannels;
 var defaultGuildMembers;
 
+var started;
+
 
 /**
 * Initiates default variables
@@ -46,6 +48,8 @@ client.on('ready', () =>
 
   defaultVoiceChannel = defaultGuildChannels.find("name", "Manu-rage-Kuppel");
 
+  started = new Date();
+
   defaultChannel.send("Now running on Node.js!");
 
 });
@@ -56,6 +60,7 @@ client.on('ready', () =>
 client.on('message', message =>
 {
 
+  var respondChan = message.channel;
   var cmd = message.content.split(" ");
   if(cmd[0] == "yami")
   {
@@ -93,13 +98,17 @@ client.on('message', message =>
     else if(cmd[1] == "help")
     {
       //TODO print help msg
-      var respondChan = message.channel;
       var embed = {embed: {
                             color: 3447003,
                             description: "\"yami help\": prints this message \n \"yami play\ <youtubelink>\": plays youtube video in current voice channel \n \"yami stop\": stops playback"
                           }}
       respondChan.send(embed);
 
+    }
+    else if (cmd[1] == "uptime")
+    {
+      var oUptime = utility.uptimeSince(started);
+      respondChan.send("Yami has been running for: " + oUptime.hours + " hours, " + oUptime.minutes + " minutes, and " + oUptime.seconds + " seconds.");
     }
   }
 });
@@ -179,7 +188,7 @@ client.on("presenceUpdate", (oldMember, newMember) => {
     else if(oldMember.presence.game !== newMember.presence.game)
     {
       if(newMember.presence.game == null || newMember.presence.game == undefined ) return;
-      
+
        var newPresence = newMember.presence.game.name;
        var message = time + "User "+ oldMember.user.username + " is now playing: " + newPresence;
 
