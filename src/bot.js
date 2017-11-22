@@ -22,7 +22,7 @@ client.on('ready', () =>
   console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
   client.user.setGame(`Type: yami help`);
 
-  defaultGuild = client.guilds.array()[0];
+  defaultGuild = client.guilds.array()[1];
   if(!defaultGuild)
   {
     console.log("no guilds found!");
@@ -107,8 +107,8 @@ client.on('message', message =>
     }
     else if (cmd[1] == "uptime")
     {
-      var oUptime = utility.uptimeSince(started);
-      respondChan.send("Yami has been running for: " + oUptime.hours + " hours, " + oUptime.minutes + " minutes, and " + oUptime.seconds + " seconds.");
+      //var oUptime = utility.uptimeSince(started);
+      //respondChan.send("Yami has been running for: " + oUptime.hours + " hours, " + oUptime.minutes + " minutes, and " + oUptime.seconds + " seconds.");
     }
   }
 });
