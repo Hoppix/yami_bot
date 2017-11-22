@@ -107,8 +107,11 @@ client.on('message', message =>
     }
     else if (cmd[1] == "uptime")
     {
-      //var oUptime = utility.uptimeSince(started);
-      //respondChan.send("Yami has been running for: " + oUptime.hours + " hours, " + oUptime.minutes + " minutes, and " + oUptime.seconds + " seconds.");
+      var oUptime = utility.uptimeSince(started);
+      var message = "Yami has been running for: " + oUptime.hours + " hours, " + oUptime.minutes + " minutes, and " + oUptime.seconds + " seconds.";
+
+      respondChan.send(message);
+      console.log(message);
     }
   }
 });
