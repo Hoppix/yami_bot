@@ -4,14 +4,14 @@
  */
 module.exports =
 	{
-		playYoutubeLink: function (sLink)
+		playYoutubeLink: function (sLink, oMessage, oClient)
 		{
 			if (sLink !== undefined)
 			{
-				if (!message.member) return;
-				if (!message.member.voiceChannel) return;
+				if (!oMessage.member) return;
+				if (!oMessage.member.voiceChannel) return;
 
-				oTargetChannel = message.member.voiceChannel;
+				var oTargetChannel = oMessage.member.voiceChannel;
 
 				// Play streams using ytdl-core
 				const ytdl = require('ytdl-core');

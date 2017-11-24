@@ -9,43 +9,43 @@ module.exports =
 			var oldChannel = oldMember.voiceChannel;
 			var newChannel = newMember.voiceChannel;
 
-			var username = newMember.user.username;
+			var sUsername = newMember.user.username;
 
-			var newChannelName;
-			var oldChannelName;
-			var message;
+			var sNewChannelName;
+			var sOldChannelName;
+			var sMessage;
 
 			var time = oUtility.parseDateString() + " | ";
 
 			if (!oldChannel && newChannel)
 			{
 				//User joins a channel
-				newChannelName = newChannel.name;
-				message = time + "User: " + username + " joined channel: " + newChannelName;
+				sNewChannelName = newChannel.name;
+				sMessage = time + "User: " + sUsername + " joined channel: " + sNewChannelName;
 
 			}
 			else if (oldChannel && !newChannel)
 			{
 				//User leaves a channel
-				oldChannelName = oldChannel.name;
-				message = time + "User: " + username + " left channel: " + oldChannelName;
+				sOldChannelName = oldChannel.name;
+				sMessage = time + "User: " + sUsername + " left channel: " + sOldChannelName;
 
 			}
 			else if (oldChannel && newChannel)
 			{
 				//User switched a channel
-				oldChannelName = oldChannel.name;
-				newChannelName = newChannel.name;
-				if (oldChannelName === newChannelName || !oldChannelName || !newChannelName) return;
-				message = time + "User: " + username + " switched from: " + oldChannelName + " to: " + newChannelName;
+				sOldChannelName = oldChannel.name;
+				sNewChannelName = newChannel.name;
+				if (sOldChannelName === sNewChannelName || !sOldChannelName || !sNewChannelName) return;
+				sMessage = time + "User: " + sUsername + " switched from: " + sOldChannelName + " to: " + sNewChannelName;
 			}
 			else
 			{
 				//Nothing happened
-				message = "I logged an voiceStateUpdateEvent but nothing was triggered!"
+				sMessage = "I logged an voiceStateUpdateEvent but nothing was triggered!"
 			}
-			console.log(message)
-			oDefaultChannel.send(message);
-			oUtility.writeLogFile(message);
+			console.log(sMessage)
+			oDefaultChannel.send(sMessage);
+			oUtility.writeLogFile(sMessage);
 		}
 	}

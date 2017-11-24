@@ -74,12 +74,12 @@ oClient.on('message', message =>
 {
 	var aCommand = message.content.split(" ");
 
-	if (aCommand[0] == sCommandPrefix)
+	if (aCommand[0] === sCommandPrefix)
 	{
 		switch (aCommand[1])
 		{
 			case "play":
-				oMessageHandler.playYoutubeLink(aCommand[2]);
+				oMessageHandler.playYoutubeLink(aCommand[2], message, oClient);
 				break;
 			case "stop":
 				oMessageHandler.stopYoutubeLink(oClient);

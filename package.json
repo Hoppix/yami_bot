@@ -9,9 +9,10 @@
   "author": "Hoppix",
   "license": "ISC",
   "dependencies": {
+    "bufferutil": "^3.0.3",
     "discord.js": "^11.2.1",
-    "ffmpeg": "0.0.4",
     "fs": "0.0.1-security",
+    "ffmpeg": "0.0.4",
     "opusscript": "0.0.4",
     "ytdl-core": "^0.18.2"
   }
