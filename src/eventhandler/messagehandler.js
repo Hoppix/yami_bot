@@ -29,12 +29,9 @@ module.exports =
 		},
 		stopYoutubeLink: function (oClient)
 		{
-			const aConnections = oClient.voiceConnections.array();
-			for (v in aConnections)
-			{
-				v.disconnect();
-				v.channel.leave();
-			}
+			const oConnection = oClient.voiceConnections.array()[0];
+			oConnection.disconnect();
+			oConnection.channel.leave();
 		},
 		printHelpMessage: function (oMessage)
 		{
