@@ -1,5 +1,5 @@
-var fs = require('fs');
-var file = "./logs/log.txt";
+const fs = require('fs');
+const file = "./logs/log.txt";
 
 module.exports =
 {
@@ -27,7 +27,7 @@ module.exports =
   uptimeSince: function(oDate)
   {
     var rDate = new Date();
-    var diff = rDate = oDate;
+    var diff = rDate - oDate;
 
     var hours   = Math.floor(diff / 3.6e6);
     var minutes = Math.floor((diff % 3.6e6) / 6e4);
