@@ -57,7 +57,8 @@ oClient.on('ready', () =>
 	oDefaultVoiceChannel = defaultGuildChannels.find("name", sDefaultVoiceChannelName);
 	if (!oDefaultVoiceChannel)
 	{
-		console.log("");
+		console.log("No VoiceChannel named " + sDefaultVoiceChannelName + " found!");
+		return;
 	}
 
 	//log found data + set messages etc.
