@@ -3,7 +3,7 @@ const oClient = new oDiscord.Client();
 
 const oConfig = require("./src/config.json");
 const oUtility = require("./src/utility.js");
-const oVoiceHandler = require("./src/eventhandler/voicehandler")
+const oVoiceHandler = require("./src/eventhandler/voicehandler");
 const oMessageHandler = require("./src/eventhandler/messagehandler");
 const oPresenceHandler = require("./src/eventhandler/presencehandler");
 
@@ -18,8 +18,8 @@ var defaultGuildChannels;
 const sDefaultGuildName = "Zettai Ryouiki";
 const sDefaultGuildChannelName = "debugging";
 const sDefaultVoiceChannelName = "General";
-const sPlayMessage = "Type: yami help"
-const sCommandPrefix = "yami"
+const sPlayMessage = "Type: yami help";
+const sCommandPrefix = "yami";
 
 /**
  * Initiates default variables
