@@ -38,6 +38,7 @@ module.exports =
 			const oHelp = {name: "yami help:", value: "Prints this message"};
 			const oPlay = {name: "yami play -youtubelink-:", value: "Plays youtube video in current voice channel"};
 			const oStop = {name: "yami stop:", value: "Stops playback and leaves channel"};
+			const oUptime = {name: "yami uptime:", value:"Prints uptime"};
 			const oFooter = {text: "Author: Hoppix#6723"};
 
 			const oEmbed =
@@ -45,7 +46,7 @@ module.exports =
 					embed: {
 						color: 900000,
 						description: "@Github: https://github.com/Hoppix/yami_bot_js",
-						fields: [oHelp, oPlay, oStop],
+						fields: [oHelp, oPlay, oStop, oUptime],
 						footer: oFooter
 					}
 				}

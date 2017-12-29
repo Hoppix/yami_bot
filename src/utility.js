@@ -46,5 +46,10 @@ module.exports =
 					seconds: seconds
 				}
 			return oReturn;
+		},
+
+		calculateMonHunDmg: function (iSharpness, iAttack, iAffinity)
+		{
+
 		}
 	};
