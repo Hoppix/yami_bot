@@ -74,9 +74,9 @@ oClient.on('ready', () =>
  **/
 oClient.on('message', message =>
 {
-	if (message.charAt(0) !== sCommandPrefix) return;
+	if (message.content.charAt(0) !== sCommandPrefix) return;
 
-	var aCommand = message.content.split(" ");
+	var aCommand = message.content.substring(1, message.content.length).split(" ");
 
 	switch (aCommand[0])
 	{
