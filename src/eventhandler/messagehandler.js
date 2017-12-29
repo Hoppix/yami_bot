@@ -1,3 +1,5 @@
+const oMhCalculator = require("./src/mhCalculator.js");
+
 /**
  * handler vor dispatching action triggered by discord.js message events
  * @type {{}}
@@ -56,5 +58,15 @@ module.exports =
 		{
 			const oUptime = oUtility.uptimeSince(oStartedDate);
 			oMessage.reply("Yami has been running for: " + oUptime.hours + " hours, " + oUptime.minutes + " minutes, and " + oUptime.seconds + " seconds.");
+		},
+		handleWeaponCalculation: function(aCommand, oMessage)
+		{
+			if(aCommand.length !== 5)
+			{
+				oMessage.reply("Wrong Parameters!");
+				return;
+			}
+			const sWeaponStrength = oMhCalculator.mhCalculateWeaponStrength(aCommand[0], aCommand[1], aCommand[2], aCommand[3], aCommand[4]);
+			oMessage.reply("Weapon Strength: " + sWeaponStrength);
 		}
 	}

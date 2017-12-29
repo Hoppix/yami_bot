@@ -19,7 +19,7 @@ const sDefaultGuildName = "Zettai Ryouiki";
 const sDefaultGuildChannelName = "debugging";
 const sDefaultVoiceChannelName = "General";
 const sPlayMessage = "Type: yami help";
-const sCommandPrefix = "yami";
+const sCommandPrefix = "!";
 const sStartMessage = "v1.3 Yami: Timestamp fix, better logging, message event handling!";
 
 /**
@@ -74,28 +74,31 @@ oClient.on('ready', () =>
  **/
 oClient.on('message', message =>
 {
+	if (message.charAt(0) !== sCommandPrefix) return;
+
 	var aCommand = message.content.split(" ");
 
-	if (aCommand[0] === sCommandPrefix)
+	switch (aCommand[0])
 	{
-		switch (aCommand[1])
-		{
-			case "play":
-				oMessageHandler.playYoutubeLink(aCommand[2], message, oClient);
-				break;
-			case "stop":
-				oMessageHandler.stopYoutubeLink(oClient);
-				break;
-			case "help":
-				oMessageHandler.printHelpMessage(message);
-				break;
-			case "uptime":
-				oMessageHandler.printUptimeMessage(oUtility, message, oStartedDate);
-				break;
-			default:
-				message.reply("No arguments provided!");
-		}
+		case "play":
+			oMessageHandler.playYoutubeLink(aCommand[1], message, oClient);
+			break;
+		case "stop":
+			oMessageHandler.stopYoutubeLink(oClient);
+			break;
+		case "help":
+			oMessageHandler.printHelpMessage(message);
+			break;
+		case "uptime":
+			oMessageHandler.printUptimeMessage(oUtility, message, oStartedDate);
+			break;
+		case "mhwpnstr":
+			oMessageHandler.handleWeaponCalculation(aCommand.slice(1, aCommand.length), message);
+			break;
+		default:
+			message.reply("No arguments provided!");
 	}
+
 });
 
 /**
