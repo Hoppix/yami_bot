@@ -18,9 +18,9 @@ var defaultGuildChannels;
 const sDefaultGuildName = "Zettai Ryouiki";
 const sDefaultGuildChannelName = "debugging";
 const sDefaultVoiceChannelName = "General";
-const sPlayMessage = "Type: yami help";
+const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
-const sStartMessage = "v1.3 Yami: Timestamp fix, better logging, message event handling!";
+const sStartMessage = "v1.4 Yami: New Monster Hunter weapon calculation!";
 
 /**
  * Initiates default variables
@@ -94,6 +94,9 @@ oClient.on('message', message =>
 			break;
 		case "mhwpnstr":
 			oMessageHandler.handleWeaponCalculation(aCommand.slice(1, aCommand.length), message);
+			break;
+		case "mhwpncmp":
+			oMessageHandler.handleWeaponCompare(aCommand.slice(1, aCommand.length), message);
 			break;
 		default:
 			message.reply("No arguments provided!");

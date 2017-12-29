@@ -1,6 +1,6 @@
 {
   "name": "yami_bot_js",
-  "version": "1.2.0",
+  "version": "1.4.0",
   "description": "yami_bot migration",
   "main": "bot.js",
   "scripts": {

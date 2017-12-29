@@ -44,45 +44,42 @@ module.exports =
 	{
 		mhCalculateWeaponStrength: function (sSharpness, iAttack, iAffinity, iElemental, sWeapon)
 		{
-			
-			var fSharpnessPhysical =  mhSharpPhysicalMap.get(sSharpness.toUpperCase());
+
+			var fSharpnessPhysical = mhSharpPhysicalMap.get(sSharpness.toUpperCase());
 			var fSharpnessElemental = mhSharpElementalMap.get(sSharpness.toUpperCase());
-			
-			if(fSharpnessPhysical === undefined)
+
+			if (fSharpnessPhysical === undefined)
 			{
 				return "Invalid Sharpness";
-			}				
-			
+			}
+
 			var fBloat = mhBloatMap.get(sWeapon.toUpperCase());
-			
-			if(fBloat === undefined)
+
+			if (fBloat === undefined)
 			{
 				return "Invalid Weapontype";
 			}
 
-			var fCritDamage = 1 + (iAffinity/100) * 0.25;
+			var fCritDamage = 1 + (iAffinity / 100) * 0.25;
 
-
-			var fWeaponPhysical = fSharpnessPhysical * (iAttack/fBloat);
-			var fWeaponElemental = fSharpnessElemental * (iElemental/10);
+			var fWeaponPhysical = fSharpnessPhysical * (iAttack / fBloat);
+			var fWeaponElemental = fSharpnessElemental * (iElemental / 10);
 
 			return (fCritDamage * fWeaponPhysical) + fWeaponElemental;
-		}
-		
-		//{ weapon: "weapon a", value: 4}
+		},
 		mhCompareWeapons: function (sSharpness, iAttack, iAffinity, iElemental, sSharpness2, iAttack2, iAffinity2, iElemental2, sWeapon)
 		{
 			var fWeapon1 = mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, sWeapon);
 			var fWeapon2 = mhCalculateWeaponStrength(sSharpness2, iAttack2, iAffinity2, iElemental2, sWeapon);
-			
-			if(typeof fWeapon1 === "string")
+
+			if (typeof fWeapon1 === "string")
 			{
 				return fWeapon1;
 			}
-			
-			if(fWeapon1 > fWeapon2)
-				return { weapon: "weapon 1", value: (fWeapon1/fWeapon2)-1};
+
+			if (fWeapon1 > fWeapon2)
+				return {weapon: "Weapon 1", value: (fWeapon1 / fWeapon2) - 1};
 			else
-				return { weapon: "weapon 2", value: (fWeapon2/fWeapon1)-1};
+				return {weapon: "Weapon 2", value: (fWeapon2 / fWeapon1) - 1};
 		}
 	}
