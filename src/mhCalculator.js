@@ -42,8 +42,19 @@ mhSharpElementalMap.set("PURPLE", 1.2);
 
 module.exports =
 	{
-		mhCalculateWeaponStrength: function (iSharpness, iAttack, iAffinity, iElemental)
+		mhCalculateWeaponStrength: function (sSharpness, iAttack, iAffinity, iElemental, sWeapon)
 		{
+			var fSharpnessPhysical =  mhSharpPhysicalMap.get(sSharpness.toUpperCase());
+			var fSharpnessElemental = mhSharpElementalMap.get(sSharpness.toUpperCase());
 
+			var fBloat = mhBloatMap.get(sWeapon.toUpperCase());
+
+			var fCritDamage = 1 + (iAffinity/100) * 0.25;
+
+
+			var fWeaponPhysical = fSharpnessPhysical * (iAttack/fBloat)
+			var fWeaponElemental = fSharpnessElemental * (iElemental/10);
+
+			return (fCritDamage * fWeaponPhysical) + fWeaponElemental;
 		}
 	}
