@@ -77,6 +77,6 @@ module.exports =
 				return
 			}
 			const oBetterWeapon = oMhCalculator.mhCompareWeapons(aCommand[0], aCommand[1], aCommand[2], aCommand[3], aCommand[4], aCommand[5], aCommand[6], aCommand[7], aCommand[8]);
-			oMessage.reply(oBetterWeapon.weapon + "is better by " + (oBetterWeapon.value * 100) + "percent");
+			oMessage.reply(oBetterWeapon.weapon + "is better by " + (oBetterWeapon.value) + "percent");
 		}
 	};
