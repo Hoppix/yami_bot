@@ -76,7 +76,15 @@ module.exports =
 				oMessage.reply("Wrong Parameters!");
 				return
 			}
+			
 			const oBetterWeapon = oMhCalculator.mhCompareWeapons(aCommand[0], aCommand[1], aCommand[2], aCommand[3], aCommand[4], aCommand[5], aCommand[6], aCommand[7], aCommand[8]);
+			
+			if (typeof oBetterWeapon === "String")
+			{
+				oMessage.reply(oBetterWeapon);
+				return
+			}
+			
 			oMessage.reply(oBetterWeapon.weapon + " is better by " + (oBetterWeapon.value) + "%");
 		}
 	};

@@ -66,9 +66,13 @@ function mhCompareWeaponsDummy(sSharpness, iAttack, iAffinity, iElemental, sShar
 {
 	var fWeapon1 = mhCalculateWeaponStrengthDummy(sSharpness, iAttack, iAffinity, iElemental, sWeapon);
 	var fWeapon2 = mhCalculateWeaponStrengthDummy(sSharpness2, iAttack2, iAffinity2, iElemental2, sWeapon);
-	if (typeof fWeapon1 === "string")
+	if (typeof fWeapon1 === "String")
 	{
 		return fWeapon1;
+	}
+	if (typeof fWeapon2 === "String")
+	{
+		return fWeapon2;
 	}
 	if (fWeapon1 > fWeapon2)
 	{
@@ -85,7 +89,7 @@ module.exports =
 	{
 		mhCalculateWeaponStrength: function (sSharpness, iAttack, iAffinity, iElemental, sWeapon)
 		{
-			if (typeof fWeapon1 !== "string")
+			if (typeof fWeapon1 !== "String")
 			{
 				return mhCalculateWeaponStrengthDummy(sSharpness, iAttack, iAffinity, iElemental, sWeapon);
 			}
