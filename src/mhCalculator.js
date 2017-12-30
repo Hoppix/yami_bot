@@ -59,7 +59,8 @@ function mhCalculateWeaponStrengthDummy(sSharpness, iAttack, iAffinity, iElement
 	var fCritDamage = 1 + (iAffinity / 100) * 0.25;
 	var fWeaponPhysical = fSharpnessPhysical * (iAttack / fBloat);
 	var fWeaponElemental = fSharpnessElemental * (iElemental / 10);
-	return oUtility.roundByDecimal(((fCritDamage * fWeaponPhysical) + fWeaponElemental), 1);
+
+	return (fCritDamage * fWeaponPhysical) + fWeaponElemental;
 }
 
 function mhCompareWeaponsDummy(sSharpness, iAttack, iAffinity, iElemental, sSharpness2, iAttack2, iAffinity2, iElemental2, sWeapon)
@@ -68,15 +69,15 @@ function mhCompareWeaponsDummy(sSharpness, iAttack, iAffinity, iElemental, sShar
 	var fWeapon2 = mhCalculateWeaponStrengthDummy(sSharpness2, iAttack2, iAffinity2, iElemental2, sWeapon);
 	if (typeof fWeapon1 === "string")
 	{
-		return fWeapon1;
+		return {weapon: fWeapon1, value: 0};
 	}
 	if (fWeapon1 > fWeapon2)
 	{
-		return {weapon: "Weapon 1", value: oUtility.roundByDecimal((fWeapon1 / fWeapon2) - 1, 3)};
+		return {weapon: "Weapon 1", value: (fWeapon1 / fWeapon2) - 1};
 	}
 	else
 	{
-		return {weapon: "Weapon 2", value: oUtility.roundByDecimal((fWeapon2 / fWeapon1) - 1, 3)};
+		return {weapon: "Weapon 2", value: (fWeapon2 / fWeapon1) - 1};
 	}
 
 }
@@ -85,13 +86,10 @@ module.exports =
 	{
 		mhCalculateWeaponStrength: function (sSharpness, iAttack, iAffinity, iElemental, sWeapon)
 		{
-			if (typeof fWeapon1 !== "string")
-			{
-				return mhCalculateWeaponStrengthDummy(sSharpness, iAttack, iAffinity, iElemental, sWeapon);
-			}
+			return mhCalculateWeaponStrengthDummy(sSharpness, iAttack, iAffinity, iElemental, sWeapon);
 		},
 		mhCompareWeapons: function (sSharpness, iAttack, iAffinity, iElemental, sSharpness2, iAttack2, iAffinity2, iElemental2, sWeapon)
 		{
-			return mhCompareWeaponsDummy(sSharpness, iAttack, iAffinity, iElemental, sSharpness2, iAttack2, iAffinity2, iElemental2, sWeapon)*100;
+			return mhCompareWeaponsDummy(sSharpness, iAttack, iAffinity, iElemental, sSharpness2, iAttack2, iAffinity2, iElemental2, sWeapon);
 		}
 	}

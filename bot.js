@@ -89,6 +89,9 @@ oClient.on('message', message =>
 		case "help":
 			oMessageHandler.printHelpMessage(message);
 			break;
+		case "mhhelp":
+			oMessageHandler.printMhHelpMessage(message);
+			break;
 		case "uptime":
 			oMessageHandler.printUptimeMessage(oUtility, message, oStartedDate);
 			break;

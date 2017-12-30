@@ -46,9 +46,5 @@ module.exports =
 					seconds: seconds
 				}
 			return oReturn;
-		},
-		roundByDecimal: function(n, d)
-		{
-			return Math.round(n * 10^d) / 10^d;
 		}
 	};
