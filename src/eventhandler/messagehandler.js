@@ -38,7 +38,7 @@ module.exports =
 		printHelpMessage: function (oMessage)
 		{
 			const oHelp = {name: "!help:", value: "Prints this message"};
-			const oPlay = {name: "!play youtubelink:", value: "Plays youtube video in current voice channel"};
+			const oPlay = {name: "!play [youtubelink]", value: "Plays youtube video in current voice channel"};
 			const oStop = {name: "!stop:", value: "Stops playback and leaves channel"};
 			const oUptime = {name: "!uptime:", value: "Prints uptime"};
 			const oMhHelp = {name: "!mhhelp", value: "Lists available commands for Monster Hunter Weapon calculation"};
@@ -58,14 +58,16 @@ module.exports =
 		printMhHelpMessage: function (oMessage)
 		{
 			const oWeaponStrength = {
-				name: "!mhwpnstr sharpness attack affinity elemental weapontype",
+				name: "!mhwpnstr [sharpness] [attack] [affinity] [elemental] [weapontype]",
 				value: "Calculates the true weapon strength for a certain weapon"
 			};
 			const oWeaponCompare = {
-				name: "!mhwpncmp sharpness1 attack1 affinity1 elemental1 \n sharpness2 attack2 affinity2 elemental2 weapontype",
+				name: "!mhwpncmp [sharpness1] [attack1] [affinity1] [elemental1] [sharpness2] [attack2] [affinity2] [elemental2] [weapontype]",
 				value: "Calculates by how much percent a weapon outperforms the other"
 			};
 			const oSharpness = {name: "sharpness", value: "red, orange, yellow, green, blue, white, purple"};
+			const oAttack = {name: "attack", value: "attack value as shown in game"}
+			const oElemental = {name: "elemental", value: "elemental damage as shown in game (0 when none)"};
 			const oAffinity = {name: "affinity", value: "a number between 0 and 100"};
 			const oWeaponType = {
 				name: "weapontype",
@@ -79,7 +81,7 @@ module.exports =
 					embed: {
 						color: 900000,
 						description: "Monster Hunter Calculation commands:",
-						fields: [oWeaponStrength, oWeaponCompare, oSharpness, oAffinity, oWeaponType],
+						fields: [oWeaponStrength, oWeaponCompare, oSharpness,oAttack, oAffinity, oElemental, oWeaponType],
 						footer: oFooter
 					}
 				};
