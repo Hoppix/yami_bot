@@ -41,7 +41,7 @@ mhSharpElementalMap.set("BLUE", 1.06);
 mhSharpElementalMap.set("WHITE", 1.12);
 mhSharpElementalMap.set("PURPLE", 1.2);
 
-function mhCalculateWeaponStrengthDummy(sSharpness, iAttack, iAffinity, iElemental, sWeapon)
+function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, sWeapon)
 {
 
 	var fSharpnessPhysical = mhSharpPhysicalMap.get(sSharpness.toUpperCase());
@@ -63,10 +63,10 @@ function mhCalculateWeaponStrengthDummy(sSharpness, iAttack, iAffinity, iElement
 	return (fCritDamage * fWeaponPhysical) + fWeaponElemental;
 }
 
-function mhCompareWeaponsDummy(sSharpness, iAttack, iAffinity, iElemental, sSharpness2, iAttack2, iAffinity2, iElemental2, sWeapon)
+function mhCompareWeapons(sSharpness, iAttack, iAffinity, iElemental, sSharpness2, iAttack2, iAffinity2, iElemental2, sWeapon)
 {
-	var fWeapon1 = mhCalculateWeaponStrengthDummy(sSharpness, iAttack, iAffinity, iElemental, sWeapon);
-	var fWeapon2 = mhCalculateWeaponStrengthDummy(sSharpness2, iAttack2, iAffinity2, iElemental2, sWeapon);
+	var fWeapon1 = mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, sWeapon);
+	var fWeapon2 = mhCalculateWeaponStrength(sSharpness2, iAttack2, iAffinity2, iElemental2, sWeapon);
 	if (typeof fWeapon1 === "string")
 	{
 		return {weapon: fWeapon1, value: 0};
@@ -82,14 +82,5 @@ function mhCompareWeaponsDummy(sSharpness, iAttack, iAffinity, iElemental, sShar
 
 }
 
-module.exports =
-	{
-		mhCalculateWeaponStrength: function (sSharpness, iAttack, iAffinity, iElemental, sWeapon)
-		{
-			return mhCalculateWeaponStrengthDummy(sSharpness, iAttack, iAffinity, iElemental, sWeapon);
-		},
-		mhCompareWeapons: function (sSharpness, iAttack, iAffinity, iElemental, sSharpness2, iAttack2, iAffinity2, iElemental2, sWeapon)
-		{
-			return mhCompareWeaponsDummy(sSharpness, iAttack, iAffinity, iElemental, sSharpness2, iAttack2, iAffinity2, iElemental2, sWeapon);
-		}
-	}
+module.exports.mhCompareWeapons = mhCompareWeapons;
+module.exports.mhCalculateWeaponStrength = mhCalculateWeaponStrength;
