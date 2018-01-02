@@ -1,11 +1,11 @@
 /**
  * Created by khopf on 29/12/2017.
  */
-const oUtility = require("./utility.js");
-
 var mhBloatMap = new Map();
 var mhSharpPhysicalMap = new Map();
 var mhSharpElementalMap = new Map();
+var mhWeaponMvMap = new Map();
+var mhGeneralTestDummy = new Map();
 
 //Values for weapon debloating
 mhBloatMap.set("SNS", 1.4);
@@ -40,6 +40,28 @@ mhSharpElementalMap.set("GREEN", 1.0);
 mhSharpElementalMap.set("BLUE", 1.06);
 mhSharpElementalMap.set("WHITE", 1.12);
 mhSharpElementalMap.set("PURPLE", 1.2);
+
+//Values for estimated average motion values
+mhWeaponMvMap.set("SNS", 15); //~average
+mhWeaponMvMap.set("DS", 8);  //~average
+mhWeaponMvMap.set("GS", 110); //Lv3 Draw Charge
+mhWeaponMvMap.set("LS", 25); //~average
+mhWeaponMvMap.set("HM", 50); //average on std combo
+mhWeaponMvMap.set("HH", 30); //left-right swing
+mhWeaponMvMap.set("LC", 25); //mid triple thrust
+mhWeaponMvMap.set("GL", 30); //~average
+mhWeaponMvMap.set("SA", 5.4);
+mhWeaponMvMap.set("CB", 3.6);
+mhWeaponMvMap.set("IG", 3.1);
+mhWeaponMvMap.set("BOW", 1.2);
+mhWeaponMvMap.set("LBG", 1.3);
+mhWeaponMvMap.set("HBG", 1.5);
+
+//Test dummy for weapon Calculation
+//Those numbers are an estimated average for general precision
+mhGeneralTestDummy.set("PW", 50);
+mhGeneralTestDummy.set("EW", 30);
+
 
 function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, sWeapon)
 {
@@ -81,6 +103,8 @@ function mhCompareWeapons(sSharpness, iAttack, iAffinity, iElemental, sSharpness
 	}
 
 }
+
+
 
 module.exports.mhCompareWeapons = mhCompareWeapons;
 module.exports.mhCalculateWeaponStrength = mhCalculateWeaponStrength;
