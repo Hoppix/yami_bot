@@ -48,18 +48,18 @@ mhWeaponMvMap.set("GS", 110); //Lv3 Draw Charge
 mhWeaponMvMap.set("LS", 25); //~average
 mhWeaponMvMap.set("HM", 50); //average on std combo
 mhWeaponMvMap.set("HH", 30); //left-right swing
-mhWeaponMvMap.set("LC", 25); //mid triple thrust
+mhWeaponMvMap.set("LC", 25); //triple thrust
 mhWeaponMvMap.set("GL", 30); //~average
-mhWeaponMvMap.set("SA", 5.4);
-mhWeaponMvMap.set("CB", 3.6);
-mhWeaponMvMap.set("IG", 3.1);
-mhWeaponMvMap.set("BOW", 1.2);
-mhWeaponMvMap.set("LBG", 1.3);
-mhWeaponMvMap.set("HBG", 1.5);
+mhWeaponMvMap.set("SA", 30); // average Swordcombo, Phial missing
+mhWeaponMvMap.set("CB", 44); //axe-combo, no phals, no shield charge
+mhWeaponMvMap.set("IG", 20); //average std combo, red extract activated
+mhWeaponMvMap.set("BOW", 0); //calculation way too different
+mhWeaponMvMap.set("LBG", 0); //calculation way too different
+mhWeaponMvMap.set("HBG", 0); //calculation way too different
 
 //Test dummy for weapon Calculation
 //Those numbers are an estimated average for general precision
-mhGeneralTestDummy.set("PW", 50);
+mhGeneralTestDummy.set("PW", 60);
 mhGeneralTestDummy.set("EW", 30);
 
 
@@ -78,9 +78,15 @@ function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, s
 	{
 		return "Invalid Weapontype";
 	}
+
+	var iMotionValue = mhWeaponMvMap.get(sWeapon.toUpperCase());
+  var iHitzonePhysical = mhGeneralTestDummy.PW;
+	var iHitzoneElemental = mhGeneralTestDummy.EW;
+
+
 	var fCritDamage = 1 + (iAffinity / 100) * 0.25;
-	var fWeaponPhysical = fSharpnessPhysical * (iAttack / fBloat);
-	var fWeaponElemental = fSharpnessElemental * (iElemental / 10);
+	var fWeaponPhysical = fSharpnessPhysical * (iAttack / fBloat) * (iMotionValue/100);// * (iHitzonePhysical/100); //causing error
+	var fWeaponElemental = fSharpnessElemental * (iElemental / 10);// * (iHitzoneElemental/100); //causing error
 
 	return (fCritDamage * fWeaponPhysical) + fWeaponElemental;
 }
