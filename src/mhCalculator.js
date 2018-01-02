@@ -80,13 +80,13 @@ function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, s
 	}
 
 	var iMotionValue = mhWeaponMvMap.get(sWeapon.toUpperCase());
-  var iHitzonePhysical = mhGeneralTestDummy.PW;
-	var iHitzoneElemental = mhGeneralTestDummy.EW;
+  var iHitzonePhysical = mhGeneralTestDummy.get("PW");
+	var iHitzoneElemental = mhGeneralTestDummy.get("EW");
 
 
 	var fCritDamage = 1 + (iAffinity / 100) * 0.25;
-	var fWeaponPhysical = fSharpnessPhysical * (iAttack / fBloat) * (iMotionValue/100);// * (iHitzonePhysical/100); //causing error
-	var fWeaponElemental = fSharpnessElemental * (iElemental / 10);// * (iHitzoneElemental/100); //causing error
+	var fWeaponPhysical = fSharpnessPhysical * (iAttack / fBloat) * (iMotionValue/100) * (iHitzonePhysical/100); //causing error
+	var fWeaponElemental = fSharpnessElemental * (iElemental / 10) * (iHitzoneElemental/100); //causing error
 
 	return (fCritDamage * fWeaponPhysical) + fWeaponElemental;
 }
