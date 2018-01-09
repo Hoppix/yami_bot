@@ -1,5 +1,6 @@
 const fs = require('fs');
-const file = "./logs/log.txt";
+
+const logfile = "./logs/log.txt";
 
 module.exports =
 	{
@@ -16,11 +17,27 @@ module.exports =
 			return h + ":" + m + ":" + s;
 		},
 
+		readLogfile: function (readfile)
+		{
+			var ret = [];
+			console.log("-------READING " + readfile + "--------\n")
+			var s = fs.readFileSync(readfile, "utf8");
+
+			ret = s.split('#');
+
+			for(var i = 0; i < ret.length; i++)
+			{
+				ret[i] = ret[i].split(";");
+			}
+
+			return ret;
+		},
+
 		writeLogFile: function (str)
 		{
 			if (!str) return;
 
-			fs.appendFile(file, str + "\n", function (err)
+			fs.appendFile(logfile, str + "\n", function (err)
 			{
 				if (err)
 				{

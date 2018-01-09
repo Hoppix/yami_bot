@@ -1,6 +1,8 @@
 /**
  * Created by khopf on 29/12/2017.
  */
+const utility = require('./utility.js');
+
 var mhBloatMap = new Map();
 var mhSharpPhysicalMap = new Map();
 var mhSharpElementalMap = new Map();
@@ -11,12 +13,12 @@ var mhGeneralTestDummy = new Map();
 mhBloatMap.set("SNS", 1.4);
 mhBloatMap.set("DS", 1.4);
 mhBloatMap.set("GS", 4.8);
-mhBloatMap.set("LS", 3.3);
+mhBloatMap.set("LS", 3.4);
 mhBloatMap.set("HM", 5.2);
-mhBloatMap.set("HH", 5.2);
+mhBloatMap.set("HH", 4.2);
 mhBloatMap.set("LC", 2.3);
 mhBloatMap.set("GL", 2.3);
-mhBloatMap.set("SA", 5.4);
+mhBloatMap.set("SA", 3.5);
 mhBloatMap.set("CB", 3.6);
 mhBloatMap.set("IG", 3.1);
 mhBloatMap.set("BOW", 1.2);
@@ -62,6 +64,8 @@ mhWeaponMvMap.set("HBG", 0); //calculation way too different
 mhGeneralTestDummy.set("PW", 60);
 mhGeneralTestDummy.set("EW", 30);
 
+var data = utility.readLogfile('../MH_Data/mhw_GS.MV');
+console.log(data);
 
 function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, sWeapon)
 {
@@ -80,13 +84,12 @@ function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, s
 	}
 
 	var iMotionValue = mhWeaponMvMap.get(sWeapon.toUpperCase());
-  var iHitzonePhysical = mhGeneralTestDummy.get("PW");
+	var iHitzonePhysical = mhGeneralTestDummy.get("PW");
 	var iHitzoneElemental = mhGeneralTestDummy.get("EW");
 
-
 	var fCritDamage = 1 + (iAffinity / 100) * 0.25;
-	var fWeaponPhysical = fSharpnessPhysical * (iAttack / fBloat) * (iMotionValue/100) * (iHitzonePhysical/100); //causing error
-	var fWeaponElemental = fSharpnessElemental * (iElemental / 10) * (iHitzoneElemental/100); //causing error
+	var fWeaponPhysical = fSharpnessPhysical * (iAttack / fBloat) * (iMotionValue / 100) * (iHitzonePhysical / 100);
+	var fWeaponElemental = fSharpnessElemental * (iElemental / 10) * (iHitzoneElemental / 100);
 
 	return (fCritDamage * fWeaponPhysical) + fWeaponElemental;
 }
@@ -109,8 +112,6 @@ function mhCompareWeapons(sSharpness, iAttack, iAffinity, iElemental, sSharpness
 	}
 
 }
-
-
 
 module.exports.mhCompareWeapons = mhCompareWeapons;
 module.exports.mhCalculateWeaponStrength = mhCalculateWeaponStrength;

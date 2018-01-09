@@ -125,7 +125,6 @@ oClient.on("presenceUpdate", (oldMember, newMember) =>
 	{
 		oPresenceHandler.handleStatusUpdate(oUtility, newMember, oldMember, oDefaultChannel);
 	}
-
 	//user starts playing a game
 	else if (oldMember.presence.game !== newMember.presence.game)
 	{
