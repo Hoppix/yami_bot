@@ -64,8 +64,11 @@ mhWeaponMvMap.set("HBG", 0); //calculation way too different
 mhGeneralTestDummy.set("PW", 60);
 mhGeneralTestDummy.set("EW", 30);
 
-var data = utility.readLogfile('../MH_Data/mhw_GS.MV');
-console.log(data);
+//read data files for motion values
+var dataGS = utility.readLogfile('../MH_Data/mhw_GS.MV');
+console.log(dataGS);
+var dataLS = utility.readLogfile('../MH_Data/mhw_LS.MV');
+console.log(dataLS);
 
 function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, sWeapon)
 {
