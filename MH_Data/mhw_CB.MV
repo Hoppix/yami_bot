@@ -12,3 +12,12 @@ Sword:JumpAttack;21;1#
 Sword:JumpTransform;45;1#
 Sword;SlideAttack;46;1#
 Axe:JumpAttack;46;1#
+Axe:TransformM;28;1#
+Axe:JumpTransform;21;1#
+Axe:UpwardSlash;36;1#
+Axe:HorizontalSLash;37;1#
+Axe:FowardSlash;45;1#
+Axe:AmpedDischargeI;21;1#
+Axe:AmpedDischargeII;11,68;2#
+Axe:AmpedDischargeIII;93;1#
+
