@@ -2,6 +2,7 @@
  * Created by khopf on 29/12/2017.
  */
 const utility = require('./utility.js');
+const webscraper = require('./webscraper.js');
 
 var mhBloatMap = new Map();
 var mhSharpPhysicalMap = new Map();
@@ -65,10 +66,12 @@ mhGeneralTestDummy.set("PW", 60);
 mhGeneralTestDummy.set("EW", 30);
 
 //read data files for motion values
-var dataGS = utility.readLogfile('../MH_Data/mhw_GS.MV');
+var dataGS = utility.readWeaponfile('../MH_Data/mhw_GS.MV');
 console.log(dataGS);
-var dataLS = utility.readLogfile('../MH_Data/mhw_LS.MV');
+var dataLS = utility.readWeaponfile('../MH_Data/mhw_LS.MV');
 console.log(dataLS);
+
+
 
 function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, sWeapon)
 {
