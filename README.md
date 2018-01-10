@@ -10,3 +10,6 @@ Discord bot made with nodejs and discordjs
 - Webscraping Kiranico for Monster Hunter World data once game is out.
 - Using data for calculating best weapon for certain monsters.
 
+### Authors
+@Rathalos93 Wolf#4328
+@Hoppix Hoppix#6723
