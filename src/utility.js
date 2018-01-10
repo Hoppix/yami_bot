@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const logfile = "./logs/log.txt";
+const logfile = "../logs/log.txt";
 
 module.exports =
 	{
@@ -17,19 +17,27 @@ module.exports =
 			return h + ":" + m + ":" + s;
 		},
 
-		readLogfile: function (readfile)
+		readWeaponfile: function (readfile)
 		{
 			var ret = [];
-			console.log("-------READING " + readfile + "--------\n")
+			console.log("-------READING " + readfile + "--------");
 			var s = fs.readFileSync(readfile, "utf8");
 
 			ret = s.split('#');
 
-			for(var i = 0; i < ret.length; i++)
+			for (var i = 0; i < ret.length; i++)
 			{
-				ret[i] = ret[i].split(";");
-			}
+				if (ret[i] !== undefined)
+				{
+					ret[i] = ret[i].split(";");
+					if (ret[i][1] !== undefined && ret[i][1].includes(','))
+					{
+						ret[i][1] = ret[i][1].split(',');
+					}
+				}
 
+			}
+			ret.pop();
 			return ret;
 		},
 
