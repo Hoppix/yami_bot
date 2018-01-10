@@ -11,5 +11,5 @@ Discord bot made with nodejs and discordjs
 - Using data for calculating best weapon for certain monsters.
 
 ### Authors
-@Rathalos93 Wolf#4328
+@Rathalos93 Wolf#4328 \br
 @Hoppix Hoppix#6723
