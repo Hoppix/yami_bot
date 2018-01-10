@@ -1,0 +1,14 @@
+Sword:Slash;12;1#
+Sword:BackSlash;15;1#
+Sword:RoundSlash;28;1#
+Sword:FowardSlash;20;1#
+Sword:UpwardSlash;13;1#
+Sword:Charge;28,19;1#
+Sword:Shield;13,9;1#
+Sword:ElementalSlash;75;1#
+Sword:TransformfromAxe;45;1#
+Sword:FadeSlash;25;1#
+Sword:JumpAttack;21;1#
+Sword:JumpTransform;45;1#
+Sword;SlideAttack;46;1#
+Axe:JumpAttack;46;1#
