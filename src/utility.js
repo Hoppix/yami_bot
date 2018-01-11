@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const logfile = "../logs/log.txt";
+const logfile = "./logs/log.txt";
 
 module.exports =
 	{
