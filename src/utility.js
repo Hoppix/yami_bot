@@ -32,7 +32,7 @@ module.exports =
 					ret[i] = ret[i].split(";");
 					ret[i][0] = ret[i][0].replace("\n", "");
 					ret[i][0] = ret[i][0].replace("\r", "");
-					if (ret[i][1] !== undefined) // && ret[i][1].includes(',')
+					if (ret[i][1] !== undefined)
 					{
 						ret[i][1] = ret[i][1].split(',');
 					}
@@ -59,8 +59,15 @@ module.exports =
 			const s = fs.readFileSync(sPath, "utf8");
 
 			var ret = s.split('#');
-			ret.pop();
 
+			for(var i = 0; i < ret.length; i++)
+			{
+				ret[i] = ret[i].split(";");
+				ret[i][0] = ret[i][0].replace("\n", "");
+				ret[i][0] = ret[i][0].replace("\r", "");
+			}
+
+			ret.pop();
 			return ret;
 		},
 

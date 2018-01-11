@@ -171,6 +171,11 @@ for(i = 0; i<mvData.length; i++)
 }
 console.log(mhDSmvMap);
 
+
+//read data files for MonsterDummies
+var data = utility.readMonsterListFile('../MH_Data/MonsterList.ML');
+console.log(data);
+
 function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, sWeapon)
 {
 
