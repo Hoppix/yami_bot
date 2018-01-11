@@ -30,12 +30,13 @@ module.exports =
 				if (ret[i] !== undefined)
 				{
 					ret[i] = ret[i].split(";");
-					if (ret[i][1] !== undefined && ret[i][1].includes(','))
+					ret[i][0] = ret[i][0].replace("\n", "");
+					ret[i][0] = ret[i][0].replace("\r", "");
+					if (ret[i][1] !== undefined) // && ret[i][1].includes(',')
 					{
 						ret[i][1] = ret[i][1].split(',');
 					}
 				}
-
 			}
 			ret.pop();
 			return ret;

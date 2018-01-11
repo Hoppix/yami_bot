@@ -10,6 +10,9 @@ var mhSharpElementalMap = new Map();
 var mhWeaponMvMap = new Map();
 var mhGeneralTestDummy = new Map();
 
+var mhMvMapMap = new Map();
+var mhGSmvMap = new Map();
+
 //Values for weapon debloating
 mhBloatMap.set("SNS", 1.4);
 mhBloatMap.set("DS", 1.4);
@@ -71,7 +74,11 @@ console.log(dataGS);
 var dataLS = utility.readWeaponfile('../MH_Data/mhw_LS.MV');
 console.log(dataLS);
 
-
+for(i = 0; i<dataGS.length; i++)
+{
+	mhGSmvMap.set(dataGS[i][0], dataGS[i][1]);
+}
+console.log(mhGSmvMap);
 
 function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, sWeapon)
 {
