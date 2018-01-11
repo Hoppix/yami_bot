@@ -12,6 +12,19 @@ var mhGeneralTestDummy = new Map();
 
 var mhMvMapMap = new Map();
 var mhGSmvMap = new Map();
+var mhLSmvMap = new Map();
+var mhSNSmvMap = new Map();
+var mhDSmvMap = new Map();
+var mhHMmvMap = new Map();
+var mhHHmvMap = new Map();
+var mhLCmvMap = new Map();
+var mhGLmvMap = new Map();
+var mhSAmvMap = new Map();
+var mhCBmvMap = new Map();
+var mhIGmvMap = new Map();
+var mhLBGmvMap = new Map();
+var mhHBGmvMap = new Map();
+var mhBOWmvMap = new Map();
 
 //Values for weapon debloating
 mhBloatMap.set("SNS", 1.4);
@@ -68,17 +81,95 @@ mhWeaponMvMap.set("HBG", 0); //calculation way too different
 mhGeneralTestDummy.set("PW", 80);
 mhGeneralTestDummy.set("EW", 30);
 
-//read data files for motion values
-var dataGS = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_GS.MV');
-console.log(dataGS);
-var dataLS = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_LS.MV');
-console.log(dataLS);
+mhMvMapMap.set("GS", mhGSmvMap);
+mhMvMapMap.set("LS", mhLSmvMap);
+mhMvMapMap.set("SNS", mhSNSmvMap);
+mhMvMapMap.set("DS", mhDSmvMap);
+mhMvMapMap.set("HM", mhHMmvMap);
+mhMvMapMap.set("HH", mhHHmvMap);
+mhMvMapMap.set("LC", mhLCmvMap);
+mhMvMapMap.set("GL", mhGLmvMap);
+mhMvMapMap.set("SA", mhSAmvMap);
+mhMvMapMap.set("CB", mhCBmvMap);
+mhMvMapMap.set("IG", mhIGmvMap);
+mhMvMapMap.set("LBG", mhLBGmvMap);
+mhMvMapMap.set("HBG", mhHBGmvMap);
+mhMvMapMap.set("BOW", mhBOWmvMap);
 
-for(i = 0; i<dataGS.length; i++)
+//read data files for motion values
+var mvData = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_GS.MV');
+for(i = 0; i<mvData.length; i++)
 {
-	mhGSmvMap.set(dataGS[i][0], dataGS[i][1]);
+	mhGSmvMap.set(mvData[i][0], mvData[i][1]);
 }
+console.log(mvData);
 console.log(mhGSmvMap);
+mvData = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_LS.MV');
+for(i = 0; i<mvData.length; i++)
+{
+	mhLSmvMap.set(mvData[i][0], mvData[i][1]);
+}
+mvData = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_SNS.MV');
+for(i = 0; i<mvData.length; i++)
+{
+	mhSNSmvMap.set(mvData[i][0], mvData[i][1]);
+}
+mvData = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_DS.MV');
+for(i = 0; i<mvData.length; i++)
+{
+	mhDSmvMap.set(mvData[i][0], mvData[i][1]);
+}
+mvData = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_HM.MV');
+for(i = 0; i<mvData.length; i++)
+{
+	mhHMmvMap.set(mvData[i][0], mvData[i][1]);
+}
+mvData = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_HH.MV');
+for(i = 0; i<mvData.length; i++)
+{
+	mhHHmvMap.set(mvData[i][0], mvData[i][1]);
+}
+mvData = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_LC.MV');
+for(i = 0; i<mvData.length; i++)
+{
+	mhLCmvMap.set(mvData[i][0], mvData[i][1]);
+}
+mvData = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_GL.MV');
+for(i = 0; i<mvData.length; i++)
+{
+	mhGLmvMap.set(mvData[i][0], mvData[i][1]);
+}
+mvData = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_SA.MV');
+for(i = 0; i<mvData.length; i++)
+{
+	mhSAmvMap.set(mvData[i][0], mvData[i][1]);
+}
+mvData = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_CB.MV');
+for(i = 0; i<mvData.length; i++)
+{
+	mhCBmvMap.set(mvData[i][0], mvData[i][1]);
+}
+mvData = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_IG.MV');
+for(i = 0; i<mvData.length; i++)
+{
+	mhIGmvMap.set(mvData[i][0], mvData[i][1]);
+}
+mvData = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_LBG.MV');
+for(i = 0; i<mvData.length; i++)
+{
+	mhLBGmvMap.set(mvData[i][0], mvData[i][1]);
+}
+mvData = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_HBG.MV');
+for(i = 0; i<mvData.length; i++)
+{
+	mhHBGmvMap.set(mvData[i][0], mvData[i][1]);
+}
+mvData = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_BOW.MV');
+for(i = 0; i<mvData.length; i++)
+{
+	mhBOWmvMap.set(mvData[i][0], mvData[i][1]);
+}
+console.log(mhDSmvMap);
 
 function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, sWeapon)
 {
