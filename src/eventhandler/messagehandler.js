@@ -81,7 +81,7 @@ module.exports =
 					embed: {
 						color: 900000,
 						description: "Monster Hunter Calculation commands:",
-						fields: [oWeaponStrength, oWeaponCompare, oSharpness,oAttack, oAffinity, oElemental, oWeaponType],
+						fields: [oWeaponStrength, oWeaponCompare, oSharpness, oAttack, oAffinity, oElemental, oWeaponType],
 						footer: oFooter
 					}
 				};
@@ -101,7 +101,7 @@ module.exports =
 			}
 			const sWeaponStrength = oMhCalculator.mhCalculateWeaponStrength(aCommand[0], aCommand[1], aCommand[2], aCommand[3], aCommand[4]);
 
-			if(typeof sWeaponStrength === "string")
+			if (typeof sWeaponStrength === "string")
 			{
 				oMessage.reply("Weapon Strength: " + sWeaponStrength);
 				return;
@@ -116,6 +116,33 @@ module.exports =
 				return;
 			}
 			const oBetterWeapon = oMhCalculator.mhCompareWeapons(aCommand[0], aCommand[1], aCommand[2], aCommand[3], aCommand[4], aCommand[5], aCommand[6], aCommand[7], aCommand[8]);
-			oMessage.reply(oBetterWeapon.weapon + " is better by " + ((oBetterWeapon.value*100).toFixed(1)) + "%");
+			oMessage.reply(oBetterWeapon.weapon + " is better by " + ((oBetterWeapon.value * 100).toFixed(1)) + "%");
+		},
+		getWeaponMV: function (aCommand, oMessage)
+		{
+			if (aCommand.length !== 1)
+			{
+				oMessage.reply("Wrong Parameters!");
+				return;
+			}
+
+			var mWeaponMV = oMhCalculator.mhMvMapMap.get(aCommand[0].toUpperCase());
+
+			var aFields = [];
+
+			for (key of mWeaponMV)
+			{
+				aFields.push({name: key[0], value: key[1].toString(), inline: true});
+			}
+
+			const oEmbed =
+				{
+					embed: {
+						color: 900000,
+						title: aCommand[0].toUpperCase(),
+						fields: aFields
+					}
+				};
+			oMessage.reply(oEmbed);
 		}
 	};

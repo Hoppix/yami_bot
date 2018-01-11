@@ -103,6 +103,9 @@ oClient.on('message', message =>
 		case "mhwpncmp":
 			oMessageHandler.handleWeaponCompare(aCommand.slice(1, aCommand.length), message);
 			break;
+		case "motionvalues":
+			oMessageHandler.getWeaponMV(aCommand.slice(1, aCommand.length), message);
+			break;
 		default:
 			message.reply("No arguments provided!");
 	}

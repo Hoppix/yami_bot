@@ -11,6 +11,7 @@ var mhWeaponMvMap = new Map();
 var mhGeneralTestDummy = new Map();
 
 var mhMvMapMap = new Map();
+
 var mhGSmvMap = new Map();
 var mhLSmvMap = new Map();
 var mhSNSmvMap = new Map();
@@ -169,12 +170,14 @@ for(i = 0; i<mvData.length; i++)
 {
 	mhBOWmvMap.set(mvData[i][0], mvData[i][1]);
 }
-console.log(mhDSmvMap);
+console.log(mhGSmvMap);
+console.log(mhMvMapMap.get("GS").get("DrawAttack"));
 
 
 //read data files for MonsterDummies
 var data = utility.readMonsterListFile('../MH_Data/MonsterList.ML');
-console.log(data);
+//console.log(data);
+
 
 function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, sWeapon)
 {
@@ -224,3 +227,4 @@ function mhCompareWeapons(sSharpness, iAttack, iAffinity, iElemental, sSharpness
 
 module.exports.mhCompareWeapons = mhCompareWeapons;
 module.exports.mhCalculateWeaponStrength = mhCalculateWeaponStrength;
+module.exports.mhMvMapMap = mhMvMapMap;
