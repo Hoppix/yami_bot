@@ -20,7 +20,7 @@ const sDefaultGuildChannelName = "debugging";
 const sDefaultVoiceChannelName = "General";
 const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
-const sStartMessage = "v1.4 Yami: New Monster Hunter weapon calculation!";
+const sStartMessage = "v1.5 Yami: Weapon Motionvalues now available!";
 
 
 
