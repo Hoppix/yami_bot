@@ -65,13 +65,13 @@ mhWeaponMvMap.set("HBG", 0); //calculation way too different
 
 //Test dummy for weapon Calculation
 //Those numbers are an estimated average for general precision
-mhGeneralTestDummy.set("PW", 60);
+mhGeneralTestDummy.set("PW", 80);
 mhGeneralTestDummy.set("EW", 30);
 
 //read data files for motion values
-var dataGS = utility.readWeaponfile('../MH_Data/mhw_GS.MV');
+var dataGS = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_GS.MV');
 console.log(dataGS);
-var dataLS = utility.readWeaponfile('../MH_Data/mhw_LS.MV');
+var dataLS = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_LS.MV');
 console.log(dataLS);
 
 for(i = 0; i<dataGS.length; i++)

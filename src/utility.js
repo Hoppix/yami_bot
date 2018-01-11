@@ -17,13 +17,13 @@ module.exports =
 			return h + ":" + m + ":" + s;
 		},
 
-		readWeaponfile: function (readfile)
+		readWeaponMVfile: function (sPath)
 		{
-			var ret = [];
-			console.log("-------READING " + readfile + "--------");
-			var s = fs.readFileSync(readfile, "utf8");
 
-			ret = s.split('#');
+			console.log("-------READING MV FILE " + sPath + "--------");
+			const s = fs.readFileSync(sPath, "utf8");
+
+			var ret = s.split('#');
 
 			for (var i = 0; i < ret.length; i++)
 			{
@@ -39,6 +39,28 @@ module.exports =
 				}
 			}
 			ret.pop();
+			return ret;
+		},
+
+		readWeaponListFile: function (sPath)
+		{
+			console.log("-------READING WEAPON LIST" + sPath + "--------");
+			const s = fs.readFileSync(sPath, "utf8");
+
+			var ret = s.split("#");
+			ret.pop();
+
+			return ret;
+		},
+
+		readMonsterListFile: function (sPath)
+		{
+			console.log("-------READING MONSTER LIST" + sPath + "--------");
+			const s = fs.readFileSync(sPath, "utf8");
+
+			var ret = s.split('#');
+			ret.pop();
+
 			return ret;
 		},
 
