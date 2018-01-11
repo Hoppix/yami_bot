@@ -71,6 +71,16 @@ module.exports =
 			return ret;
 		},
 
+		readMonsterNameFile: function (sPath)
+		{
+			console.log("-------READING MONSTER NAMES" + sPath + "--------");
+			const s = fs.readFileSync(sPath, "utf8");
+
+			var ret = s.split('#');
+			ret.pop();
+			return ret;
+		},
+
 		writeLogFile: function (str)
 		{
 			if (!str) return;

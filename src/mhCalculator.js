@@ -8,7 +8,6 @@ var mhBloatMap = new Map();
 var mhSharpPhysicalMap = new Map();
 var mhSharpElementalMap = new Map();
 var mhWeaponMvMap = new Map();
-var mhGeneralTestDummy = new Map();
 
 var mhMvMapMap = new Map();
 
@@ -26,6 +25,8 @@ var mhIGmvMap = new Map();
 var mhLBGmvMap = new Map();
 var mhHBGmvMap = new Map();
 var mhBOWmvMap = new Map();
+
+var mhMonsterMap = new Map();
 
 //Values for weapon debloating
 mhBloatMap.set("SNS", 1.4);
@@ -77,10 +78,12 @@ mhWeaponMvMap.set("BOW", 0); //calculation way too different
 mhWeaponMvMap.set("LBG", 0); //calculation way too different
 mhWeaponMvMap.set("HBG", 0); //calculation way too different
 
-//Test dummy for weapon Calculation
-//Those numbers are an estimated average for general precision
-mhGeneralTestDummy.set("PW", 80);
-mhGeneralTestDummy.set("EW", 30);
+//load the hitzone file for each Monster in MonsterNames.MON
+var monNames = utility.readMonsterNameFile('../MH_Data/MonsterNames.MON');
+for(i = 0; i < monNames.lenght; i++)
+{
+	mhMonsterMap.set(monNames[i], utility.readMonsterListFile('../MH_Data/MonsterLists/' + monNames[i]));
+}
 
 mhMvMapMap.set("GS", mhGSmvMap);
 mhMvMapMap.set("LS", mhLSmvMap);
@@ -196,8 +199,8 @@ function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, s
 	}
 
 	var iMotionValue = mhWeaponMvMap.get(sWeapon.toUpperCase());
-	var iHitzonePhysical = mhGeneralTestDummy.get("PW");
-	var iHitzoneElemental = mhGeneralTestDummy.get("EW");
+	var iHitzonePhysical = mhMonsterMap.get("DummyI")[0][1];
+	var iHitzoneElemental = mhMonsterMap.get("DummyI")[0][4];
 
 	var fCritDamage = 1 + (iAffinity / 100) * 0.25;
 	var fWeaponPhysical = fSharpnessPhysical * (iAttack / fBloat) * (iMotionValue / 100) * (iHitzonePhysical / 100);
