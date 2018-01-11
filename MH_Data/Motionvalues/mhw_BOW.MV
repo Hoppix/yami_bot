@@ -1,0 +1,14 @@
+Shot;8;1#
+ShotChargeI;10,10;2#
+ShotChargeII;11,11,11;3#
+Quickshot;6,6,6;3#
+Sharp;9,9,9;3#
+Rigidradiationfromchargestep;13,13,13,13,13;5#
+DiveNearMeeleeAttack;35;1#
+JumpMeleeAttack;5;1#
+Bounce;1,1,1,1,1,1;6#
+ReservationInjectionI;1,1,1,1,1,1,1,1;8#
+ReservationInjectionII;3,3,3,3,3,3,3,3,3,3,3,3,3,3;14#
+Dragonpiercer;23,23,23,23,23;5#
+DragonpiercerChargeI;24,24,24,24,24;5#
+DragonpiercerChargeII;26,26,26,26,26;5#
