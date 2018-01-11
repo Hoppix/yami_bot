@@ -22,6 +22,8 @@ const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
 const sStartMessage = "v1.4 Yami: New Monster Hunter weapon calculation!";
 
+
+
 /**
  * Initiates default variables
  **/
