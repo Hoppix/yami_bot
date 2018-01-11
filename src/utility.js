@@ -60,7 +60,7 @@ module.exports =
 
 			var ret = s.split('#');
 
-			for(var i = 0; i < ret.length; i++)
+			for (var i = 0; i < ret.length; i++)
 			{
 				ret[i] = ret[i].split(";");
 				ret[i][0] = ret[i][0].replace("\n", "");
@@ -77,6 +77,13 @@ module.exports =
 			const s = fs.readFileSync(sPath, "utf8");
 
 			var ret = s.split('#');
+
+			for (i = 0; i < ret.length; i++)
+			{
+				ret[i] = ret[i].replace("\n", "");
+				ret[i] = ret[i].replace("\r", "");
+			}
+
 			ret.pop();
 			return ret;
 		},

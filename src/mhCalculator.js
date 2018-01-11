@@ -78,12 +78,6 @@ mhWeaponMvMap.set("BOW", 0); //calculation way too different
 mhWeaponMvMap.set("LBG", 0); //calculation way too different
 mhWeaponMvMap.set("HBG", 0); //calculation way too different
 
-//load the hitzone file for each Monster in MonsterNames.MON
-var monNames = utility.readMonsterNameFile('../MH_Data/MonsterNames.MON');
-for(i = 0; i < monNames.lenght; i++)
-{
-	mhMonsterMap.set(monNames[i], utility.readMonsterListFile('../MH_Data/MonsterLists/' + monNames[i]));
-}
 
 mhMvMapMap.set("GS", mhGSmvMap);
 mhMvMapMap.set("LS", mhLSmvMap);
@@ -106,8 +100,7 @@ for(i = 0; i<mvData.length; i++)
 {
 	mhGSmvMap.set(mvData[i][0], mvData[i][1]);
 }
-console.log(mvData);
-console.log(mhGSmvMap);
+
 mvData = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_LS.MV');
 for(i = 0; i<mvData.length; i++)
 {
@@ -173,13 +166,14 @@ for(i = 0; i<mvData.length; i++)
 {
 	mhBOWmvMap.set(mvData[i][0], mvData[i][1]);
 }
-console.log(mhGSmvMap);
-console.log(mhMvMapMap.get("GS").get("DrawAttack"));
 
 
-//read data files for MonsterDummies
-var data = utility.readMonsterListFile('../MH_Data/MonsterList.ML');
-//console.log(data);
+//load the hitzone file for each Monster in MonsterNames.MON
+var monNames = utility.readMonsterNameFile('../MH_Data/MonsterNames.MON');
+for(i = 0; i < monNames.length; i++)
+{
+	mhMonsterMap.set(monNames[i], utility.readMonsterListFile('../MH_Data/MonsterLists/' + monNames[i] + ".ML"));
+}
 
 
 function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, sWeapon)
