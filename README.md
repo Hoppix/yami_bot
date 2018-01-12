@@ -12,6 +12,7 @@ Since actual damage in Monster Hunter is very variable, we estimate certain valu
 ## In Developement
 - Calculating MV/s for generating DPS values.
 - Webscraping Kiranico for Monster Hunter World data once game is out.
+- Calculating best weapon average.
 - Using data for calculating best weapon for certain monsters.
 
 ### Authors
