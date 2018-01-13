@@ -16,6 +16,10 @@ Since actual damage in Monster Hunter is very variable, we estimate certain valu
 - Calculating best weapon average.
 - Using data for calculating best weapon for certain monsters.
 
+### Data Sources
+http://kiranico.com/ <br/>
+https://3000hunter.com/
+
 ### Authors
 @Rathalos93 Wolf#4328 <br />
 @Hoppix Hoppix#6723
