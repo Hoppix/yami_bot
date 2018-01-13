@@ -8,8 +8,9 @@ const mhDatacollection = require('./mhDatacollection.js');
 var mhBloatMap = mhDatacollection.mhBloatMap;
 var mhSharpPhysicalMap = mhDatacollection.mhSharpPhysicalMap;
 var mhSharpElementalMap = mhDatacollection.mhSharpElementalMap;
-var mhWeaponMvMap = mhDatacollection.mhWeaponMvMap;
+var mhMvEstimatedMap = mhDatacollection.mhMvEstimatedMap;
 var mhMvMapMap = mhDatacollection.mhMvMapMap;
+var mhMonsterMap = mhDatacollection.mhMonsterMap;
 
 function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, sWeapon)
 {
@@ -27,7 +28,7 @@ function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, s
 		return "Invalid Weapontype";
 	}
 
-	var iMotionValue = mhWeaponMvMap.get(sWeapon.toUpperCase());
+	var iMotionValue = mhMvEstimatedMap.get(sWeapon.toUpperCase());
 	var iHitzonePhysical = mhMonsterMap.get("DummyI")[0][1];
 	var iHitzoneElemental = mhMonsterMap.get("DummyI")[0][4];
 

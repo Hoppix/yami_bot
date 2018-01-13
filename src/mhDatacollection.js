@@ -7,7 +7,7 @@ const webscraper = require('./webscraper.js');
 var mhBloatMap = new Map();
 var mhSharpPhysicalMap = new Map();
 var mhSharpElementalMap = new Map();
-var mhWeaponMvMap = new Map();
+var mhMvEstimatedMap = new Map();
 
 var mhMvMapMap = new Map();
 
@@ -63,20 +63,20 @@ mhSharpElementalMap.set("WHITE", 1.12);
 mhSharpElementalMap.set("PURPLE", 1.2);
 
 //Values for estimated average motion values
-mhWeaponMvMap.set("SNS", 15); //~average
-mhWeaponMvMap.set("DS", 8);  //~average
-mhWeaponMvMap.set("GS", 110); //Lv3 Draw Charge
-mhWeaponMvMap.set("LS", 25); //~average
-mhWeaponMvMap.set("HM", 50); //average on std combo
-mhWeaponMvMap.set("HH", 30); //left-right swing
-mhWeaponMvMap.set("LC", 25); //triple thrust
-mhWeaponMvMap.set("GL", 30); //~average
-mhWeaponMvMap.set("SA", 30); // average Swordcombo, Phial missing
-mhWeaponMvMap.set("CB", 44); //axe-combo, no phals, no shield charge
-mhWeaponMvMap.set("IG", 20); //average std combo, red extract activated
-mhWeaponMvMap.set("BOW", 0); //calculation way too different
-mhWeaponMvMap.set("LBG", 0); //calculation way too different
-mhWeaponMvMap.set("HBG", 0); //calculation way too different
+mhMvEstimatedMap.set("SNS", 15); //~average
+mhMvEstimatedMap.set("DS", 8);  //~average
+mhMvEstimatedMap.set("GS", 110); //Lv3 Draw Charge
+mhMvEstimatedMap.set("LS", 25); //~average
+mhMvEstimatedMap.set("HM", 50); //average on std combo
+mhMvEstimatedMap.set("HH", 30); //left-right swing
+mhMvEstimatedMap.set("LC", 25); //triple thrust
+mhMvEstimatedMap.set("GL", 30); //~average
+mhMvEstimatedMap.set("SA", 30); // average Swordcombo, Phial missing
+mhMvEstimatedMap.set("CB", 44); //axe-combo, no phals, no shield charge
+mhMvEstimatedMap.set("IG", 20); //average std combo, red extract activated
+mhMvEstimatedMap.set("BOW", 0); //calculation way too different
+mhMvEstimatedMap.set("LBG", 0); //calculation way too different
+mhMvEstimatedMap.set("HBG", 0); //calculation way too different
 
 
 mhMvMapMap.set("GS", mhGSmvMap);
@@ -116,4 +116,5 @@ module.exports.mhMvMapMap = mhMvMapMap;
 module.exports.mhBloatMap = mhBloatMap;
 module.exports.mhSharpPhysicalMap = mhSharpPhysicalMap;
 module.exports.mhSharpElementalMap = mhSharpElementalMap;
-module.exports.mhWeaponMvMap = mhWeaponMvMap;
+module.exports.mhMvEstimatedMap = mhMvEstimatedMap;
+module.exports.mhMonsterMap = mhMonsterMap;
