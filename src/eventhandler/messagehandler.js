@@ -143,7 +143,7 @@ module.exports =
 				{
 					embed: {
 						color: 900000,
-						title: "Motionvalies for " + aCommand[0].toUpperCase() + ":",
+						title: "Motionvalues for " + aCommand[0].toUpperCase() + ":",
 						fields: aFields
 					}
 				};
