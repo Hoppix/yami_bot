@@ -2,7 +2,6 @@
  * Created by khopf on 29/12/2017.
  */
 const utility = require('./utility.js');
-const webscraper = require('./webscraper.js');
 
 var mhBloatMap = new Map();
 var mhSharpPhysicalMap = new Map();
@@ -78,7 +77,6 @@ mhMvEstimatedMap.set("BOW", 0); //calculation way too different
 mhMvEstimatedMap.set("LBG", 0); //calculation way too different
 mhMvEstimatedMap.set("HBG", 0); //calculation way too different
 
-
 mhMvMapMap.set("GS", mhGSmvMap);
 mhMvMapMap.set("LS", mhLSmvMap);
 mhMvMapMap.set("SNS", mhSNSmvMap);
@@ -96,21 +94,23 @@ mhMvMapMap.set("BOW", mhBOWmvMap);
 
 //read data files for motion values
 var wpnNames = ["GS", "LS", "SNS", "DS", "HM", "HH", "LC", "GL", "SA", "CB", "IG", "LBG", "HBG", "BOW"];
-for(i = 0; i < 14; i++)
+for (i = 0; i < 14; i++)
 {
 	var mvData = utility.readWeaponMVfile('./MH_Data/Motionvalues/mhw_' + wpnNames[i] + '.MV');
-  for(j = 0; j<mvData.length; j++)
-  {
-  	mhMvMapMap.get(wpnNames[i]).set(mvData[j][0], mvData[j][1]);
-  }
+	for (j = 0; j < mvData.length; j++)
+	{
+		mhMvMapMap.get(wpnNames[i]).set(mvData[j][0], mvData[j][1]);
+	}
 }
 
-//load the hitzone file for each Monster in MonsterNames.MON
+//load the hitzone files for each Monster in MonsterNames.MON
 var monNames = utility.readMonsterNameFile('./MH_Data/MonsterNames.MON');
-for(i = 0; i < monNames.length; i++)
+for (i = 0; i < monNames.length; i++)
 {
 	mhMonsterMap.set(monNames[i], utility.readMonsterListFile('./MH_Data/MonsterLists/' + monNames[i] + ".ML"));
 }
+
+//TODO read weapon files
 
 module.exports.mhMvMapMap = mhMvMapMap;
 module.exports.mhBloatMap = mhBloatMap;

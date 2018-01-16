@@ -3,8 +3,8 @@ const oClient = new oDiscord.Client();
 
 const oConfig = require("./src/config.json");
 const oUtility = require("./src/utility.js");
-const oVoiceHandler = require("./src/eventhandler/voicehandler");
 const oMessageHandler = require("./src/eventhandler/messagehandler");
+const oVoiceHandler = require("./src/eventhandler/voicehandler");
 const oPresenceHandler = require("./src/eventhandler/presencehandler");
 
 const oStartedDate = new Date();
@@ -97,10 +97,10 @@ oClient.on('message', message =>
 		case "uptime":
 			oMessageHandler.printUptimeMessage(oUtility, message, oStartedDate);
 			break;
-		case "mhwpnstr":
+		case "weaponstrength":
 			oMessageHandler.handleWeaponCalculation(aCommand.slice(1, aCommand.length), message);
 			break;
-		case "mhwpncmp":
+		case "weaponcompare":
 			oMessageHandler.handleWeaponCompare(aCommand.slice(1, aCommand.length), message);
 			break;
 		case "motionvalues":
@@ -117,7 +117,7 @@ oClient.on('message', message =>
  **/
 oClient.on("voiceStateUpdate", (oldMember, newMember) =>
 {
-	oVoiceHandler.handleEventLogging(oUtility, oldMember, newMember, oDefaultChannel);
+	//oVoiceHandler.handleEventLogging(oUtility, oldMember, newMember, oDefaultChannel);
 });
 
 /**
@@ -126,15 +126,15 @@ oClient.on("voiceStateUpdate", (oldMember, newMember) =>
 oClient.on("presenceUpdate", (oldMember, newMember) =>
 {
 	//user comes online or goes offline
-	if (oldMember.presence.status !== newMember.presence.status)
-	{
-		oPresenceHandler.handleStatusUpdate(oUtility, newMember, oldMember, oDefaultChannel);
-	}
-	//user starts playing a game
-	else if (oldMember.presence.game !== newMember.presence.game)
-	{
-		oPresenceHandler.handleGameUpdate(oUtility, newMember, oldMember, oDefaultChannel);
-	}
+	// if (oldMember.presence.status !== newMember.presence.status)
+	// {
+	// 	oPresenceHandler.handleStatusUpdate(oUtility, newMember, oldMember, oDefaultChannel);
+	// }
+	// //user starts playing a game
+	// else if (oldMember.presence.game !== newMember.presence.game)
+	// {
+	// 	oPresenceHandler.handleGameUpdate(oUtility, newMember, oldMember, oDefaultChannel);
+	// }
 });
 
 //login with private token from config.json

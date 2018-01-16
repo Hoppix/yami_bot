@@ -58,11 +58,11 @@ module.exports =
 		printMhHelpMessage: function (oMessage)
 		{
 			const oWeaponStrength = {
-				name: "!mhwpnstr [sharpness] [attack] [affinity] [elemental] [weapontype]",
+				name: "!weaponstrength [sharpness] [attack] [affinity] [elemental] [weapontype]",
 				value: "Calculates the true weapon strength for a certain weapon"
 			};
 			const oWeaponCompare = {
-				name: "!mhwpncmp [sharpness1] [attack1] [affinity1] [elemental1] [sharpness2] [attack2] [affinity2] [elemental2] [weapontype]",
+				name: "!weaponcompare [sharpness1] [attack1] [affinity1] [elemental1] [sharpness2] [attack2] [affinity2] [elemental2] [weapontype]",
 				value: "Calculates by how much percent a weapon outperforms the other"
 			};
 			const oMotionvalue = {
