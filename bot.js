@@ -78,6 +78,7 @@ oClient.on('message', message =>
 {
 	if (message.content.charAt(0) !== sCommandPrefix) return;
 
+	message = message.content.toLowerCase();
 	var aCommand = message.content.substring(1, message.content.length).split(" ");
 
 	switch (aCommand[0])
@@ -107,7 +108,7 @@ oClient.on('message', message =>
 			oMessageHandler.getWeaponMV(aCommand.slice(1, aCommand.length), message);
 			break;
 		default:
-			message.reply("No arguments provided!");
+			message.reply("Wrong arguments provided!");
 	}
 
 });
