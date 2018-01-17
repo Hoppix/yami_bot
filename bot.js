@@ -118,7 +118,7 @@ oClient.on('message', message =>
  **/
 oClient.on("voiceStateUpdate", (oldMember, newMember) =>
 {
-	//oVoiceHandler.handleEventLogging(oUtility, oldMember, newMember, oDefaultChannel);
+	oVoiceHandler.handleEventLogging(oUtility, oldMember, newMember, oDefaultChannel);
 });
 
 /**
@@ -127,15 +127,15 @@ oClient.on("voiceStateUpdate", (oldMember, newMember) =>
 oClient.on("presenceUpdate", (oldMember, newMember) =>
 {
 	//user comes online or goes offline
-	// if (oldMember.presence.status !== newMember.presence.status)
-	// {
-	// 	oPresenceHandler.handleStatusUpdate(oUtility, newMember, oldMember, oDefaultChannel);
-	// }
-	// //user starts playing a game
-	// else if (oldMember.presence.game !== newMember.presence.game)
-	// {
-	// 	oPresenceHandler.handleGameUpdate(oUtility, newMember, oldMember, oDefaultChannel);
-	// }
+	if (oldMember.presence.status !== newMember.presence.status)
+	{
+	 	oPresenceHandler.handleStatusUpdate(oUtility, newMember, oldMember, oDefaultChannel);
+	}
+	//user starts playing a game
+	else if (oldMember.presence.game !== newMember.presence.game)
+	{
+		oPresenceHandler.handleGameUpdate(oUtility, newMember, oldMember, oDefaultChannel);
+	}
 });
 
 //login with private token from config.json
