@@ -4,6 +4,10 @@
  */
 module.exports =
 	{
+		/**
+		*	called when a user enters/leaves/switches a channel
+		* handles logging and sends a message to te defaultGuildChannel
+		**/
 		handleEventLogging: function (oUtility, oldMember, newMember, oDefaultChannel)
 		{
 			var oldChannel = oldMember.voiceChannel;
@@ -22,7 +26,6 @@ module.exports =
 				//User joins a channel
 				sNewChannelName = newChannel.name;
 				sMessage = time + "User: " + sUsername + " joined channel: " + sNewChannelName;
-
 			}
 			else if (oldChannel && !newChannel)
 			{

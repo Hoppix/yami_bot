@@ -6,6 +6,10 @@ const oMhCalculator = require("../mhCalculator.js");
  */
 module.exports =
 	{
+		/**
+		*	bot joins the source voiceChannel
+		*	and plays the youtubelink using the ytdl-core library.
+		**/
 		playYoutubeLink: function (sLink, oMessage, oClient)
 		{
 			if (sLink !== undefined)
@@ -29,12 +33,20 @@ module.exports =
 					.catch(console.error);
 			}
 		},
+
+		/**
+		*	bot closes the voiceConnection and leaves the channel.
+		**/
 		stopYoutubeLink: function (oClient)
 		{
 			const oConnection = oClient.voiceConnections.array()[0];
 			oConnection.disconnect();
 			oConnection.channel.leave();
 		},
+
+		/**
+		*	Responds with an embed message containing all the existing general commands
+		**/
 		printHelpMessage: function (oMessage)
 		{
 			const oHelp = {name: "!help:", value: "Prints this message"};
@@ -55,6 +67,11 @@ module.exports =
 				};
 			oMessage.reply(oEmbed);
 		},
+
+		/**
+		*	Responds with an embed message containting
+		*	all the available monster hunter world commands
+		**/
 		printMhHelpMessage: function (oMessage)
 		{
 			const oWeaponStrength = {
@@ -91,11 +108,20 @@ module.exports =
 				};
 			oMessage.reply(oEmbed);
 		},
+
+		/**
+		* replies with a message containing the total uptime
+		**/
 		printUptimeMessage: function (oUtility, oMessage, oStartedDate)
 		{
 			const oUptime = oUtility.uptimeSince(oStartedDate);
 			oMessage.reply("Yami has been running for: " + oUptime.hours + " hours, " + oUptime.minutes + " minutes, and " + oUptime.seconds + " seconds.");
 		},
+
+		/**
+		*	receives the message and calculates the weapon Strength
+		*	using the mhCalculator
+		**/
 		handleWeaponCalculation: function (aCommand, oMessage)
 		{
 			if (aCommand.length !== 5)
@@ -112,6 +138,11 @@ module.exports =
 			}
 			oMessage.reply("Weapon Strength: " + sWeaponStrength.toFixed(1));
 		},
+
+		/**
+		*	receives the message and compares the weapon stength of
+		*	two weapons and compares them using the mhCalculator
+		**/
 		handleWeaponCompare: function (aCommand, oMessage)
 		{
 			if (aCommand.length !== 9)
@@ -122,6 +153,11 @@ module.exports =
 			const oBetterWeapon = oMhCalculator.mhCompareWeapons(aCommand[0], aCommand[1], aCommand[2], aCommand[3], aCommand[4], aCommand[5], aCommand[6], aCommand[7], aCommand[8]);
 			oMessage.reply(oBetterWeapon.weapon + " is better by " + ((oBetterWeapon.value * 100).toFixed(1)) + "%");
 		},
+
+		/**
+		*	receives the message and responds with an embed containing all
+		*	the motionvalues for a specified weapon using the mhCalculator
+		**/
 		getWeaponMV: function (aCommand, oMessage)
 		{
 			if (aCommand.length !== 1)
