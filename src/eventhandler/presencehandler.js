@@ -4,6 +4,10 @@
  */
 module.exports =
 	{
+		/**
+		*	called when the user changes its online status.
+		*	handles the logging and sends a message into the defaultGuildChannel
+		**/
 		handleStatusUpdate: function (oUtility, newMember, oldMember, oDefaultChannel)
 		{
 			const sTime = oUtility.parseDateString() + " | ";
@@ -14,6 +18,11 @@ module.exports =
 			oDefaultChannel.send(sMessage);
 			oUtility.writeLogFile(sMessage);
 		},
+
+		/**
+		*	called when the user changes its game
+		* handles the logging and sends a message into the defaultGuildChannel
+		**/
 		handleGameUpdate: function (oUtility, newMember, oldMember, oDefaultChannel)
 		{
 			if (newMember.presence.game === null || newMember.presence.game === undefined) return;

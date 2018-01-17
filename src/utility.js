@@ -4,6 +4,9 @@ const logfile = "./logs/log.txt";
 
 module.exports =
 	{
+    /**
+    * returns a date string (hh:mm:ss)
+    **/
 		parseDateString: function ()
 		{
 			var date = new Date();
@@ -17,6 +20,10 @@ module.exports =
 			return h + ":" + m + ":" + s;
 		},
 
+    /**
+    * reads a motionvalue file and parses the data
+    * into an array
+    **/
 		readWeaponMVfile: function (sPath)
 		{
 
@@ -42,6 +49,9 @@ module.exports =
 			return ret;
 		},
 
+    /**
+    * reads a file containing weapon data
+    **/
 		readWeaponListFile: function (sPath)
 		{
 			console.log("-------READING WEAPON LIST" + sPath + "--------");
@@ -53,6 +63,9 @@ module.exports =
 			return ret;
 		},
 
+    /**
+    * reads a file containing monster hitzones
+    **/
 		readMonsterListFile: function (sPath)
 		{
 			console.log("-------READING MONSTER LIST" + sPath + "--------");
@@ -71,6 +84,9 @@ module.exports =
 			return ret;
 		},
 
+    /**
+    * reads a file containing all monster names
+    **/
 		readMonsterNameFile: function (sPath)
 		{
 			console.log("-------READING MONSTER NAMES" + sPath + "--------");
@@ -88,6 +104,9 @@ module.exports =
 			return ret;
 		},
 
+    /**
+    * writes into a specified logfile for debugging purposes
+    **/
 		writeLogFile: function (str)
 		{
 			if (!str) return;
@@ -102,6 +121,10 @@ module.exports =
 			});
 		},
 
+    /**
+    * returns an objects which contains passed time since started
+    * in hours, minutes, seconds
+    **/
 		uptimeSince: function (oDate)
 		{
 			var rDate = new Date();

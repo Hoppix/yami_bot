@@ -1,13 +1,14 @@
 const oDiscord = require("discord.js");
 const oClient = new oDiscord.Client();
 
+//starting date for checking uptime
+const oStartedDate = new Date();
+
 const oConfig = require("./src/config.json");
 const oUtility = require("./src/utility.js");
 const oMessageHandler = require("./src/eventhandler/messagehandler");
 const oVoiceHandler = require("./src/eventhandler/voicehandler");
 const oPresenceHandler = require("./src/eventhandler/presencehandler");
-
-const oStartedDate = new Date();
 
 var oDefaultGuild;
 var oDefaultChannel;
@@ -64,8 +65,10 @@ oClient.on('ready', () =>
 		return;
 	}
 
+	const iStartupTime = new Date().getTime() - oStartedDate.getTime();
 	//log found data + set messages etc.
 	console.log(`Bot has started, with ${oClient.users.size} users, in ${oClient.channels.size} channels of ${oClient.guilds.size} guilds.`);
+	console.log("Startup time: " + iStartupTime + "ms");
 	oClient.user.setGame(sPlayMessage);
 	oDefaultChannel.send(sStartMessage);
 
@@ -78,7 +81,7 @@ oClient.on('message', message =>
 {
 	if (message.content.charAt(0) !== sCommandPrefix) return;
 
-	message = message.content.toLowerCase();
+	message.content = message.content.toLowerCase();
 	var aCommand = message.content.substring(1, message.content.length).split(" ");
 
 	switch (aCommand[0])
