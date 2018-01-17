@@ -4,7 +4,10 @@
 var request = require('request');
 var q = require('q');
 
-//Gibt den Seitenquelltext der angegebenen URL als String zurück
+/**
+*	returns: promise
+* request url and retrieves the html content as string
+**/
 function scrapeUrl(sUrl)
 {
 	const deferred = q.defer();

@@ -3,13 +3,22 @@
  */
 const utility = require('./utility.js');
 
-var mhBloatMap = new Map();				//contains the bloat value for each weapon type
-var mhSharpPhysicalMap = new Map();		//contains the physical sharpness value for each weapon type
-var mhSharpElementalMap = new Map();	//contains the elemental sharpness value for each weapon type
-var mhMvEstimatedMap = new Map();		//contains the estimated average motion value for each weapon type
+var mhBloatMap = new Map();
+//contains the bloat value for each weapon type
+
+var mhSharpPhysicalMap = new Map();
+//contains the physical sharpness value for each weapon type
+
+var mhSharpElementalMap = new Map();
+//contains the elemental sharpness value for each weapon type
+
+var mhMvEstimatedMap = new Map();
+	//contains the estimated average motion value for each weapon type
 
 //contains the Maps with the motionvalues per move for each weapon type
 var mhMvMapMap = new Map();
+
+
 //each map contains the motion values for each move of its weapontype
 var mhGSmvMap = new Map();
 var mhLSmvMap = new Map();
@@ -93,7 +102,7 @@ mhMvMapMap.set("CB", mhCBmvMap);
 mhMvMapMap.set("IG", mhIGmvMap);
 mhMvMapMap.set("LBG", mhLBGmvMap);
 mhMvMapMap.set("HBG", mhHBGmvMap);
-mhMvMapMap.set("BOW", mhBOWmvMap); 
+mhMvMapMap.set("BOW", mhBOWmvMap);
 
 //read data files for motion values
 var wpnNames = ["GS", "LS", "SNS", "DS", "HM", "HH", "LC", "GL", "SA", "CB", "IG", "LBG", "HBG", "BOW"];
