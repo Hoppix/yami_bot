@@ -113,30 +113,5 @@ oClient.on('message', message =>
 
 });
 
-/**
- * Event for logging voiceChannel updates
- **/
-oClient.on("voiceStateUpdate", (oldMember, newMember) =>
-{
-	oVoiceHandler.handleEventLogging(oUtility, oldMember, newMember, oDefaultChannel);
-});
-
-/**
- * Event for online status etc.
- **/
-oClient.on("presenceUpdate", (oldMember, newMember) =>
-{
-	//user comes online or goes offline
-	if (oldMember.presence.status !== newMember.presence.status)
-	{
-	 	oPresenceHandler.handleStatusUpdate(oUtility, newMember, oldMember, oDefaultChannel);
-	}
-	//user starts playing a game
-	else if (oldMember.presence.game !== newMember.presence.game)
-	{
-		oPresenceHandler.handleGameUpdate(oUtility, newMember, oldMember, oDefaultChannel);
-	}
-});
-
 //login with private token from config.json
 oClient.login(oConfig.token);
