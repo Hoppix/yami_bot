@@ -7,6 +7,7 @@ const oMessageHandler = require("./src/eventhandler/messagehandler");
 const oVoiceHandler = require("./src/eventhandler/voicehandler");
 const oPresenceHandler = require("./src/eventhandler/presencehandler");
 
+//starting date for checking uptime
 const oStartedDate = new Date();
 
 var oDefaultGuild;
