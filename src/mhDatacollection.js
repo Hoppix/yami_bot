@@ -3,13 +3,14 @@
  */
 const utility = require('./utility.js');
 
-var mhBloatMap = new Map();
-var mhSharpPhysicalMap = new Map();
-var mhSharpElementalMap = new Map();
-var mhMvEstimatedMap = new Map();
+var mhBloatMap = new Map();				//contains the bloat value for each weapon type
+var mhSharpPhysicalMap = new Map();		//contains the physical sharpness value for each weapon type
+var mhSharpElementalMap = new Map();	//contains the elemental sharpness value for each weapon type
+var mhMvEstimatedMap = new Map();		//contains the estimated average motion value for each weapon type
 
+//contains the Maps with the motionvalues per move for each weapon type
 var mhMvMapMap = new Map();
-
+//each map contains the motion values for each move of its weapontype
 var mhGSmvMap = new Map();
 var mhLSmvMap = new Map();
 var mhSNSmvMap = new Map();
@@ -25,6 +26,7 @@ var mhLBGmvMap = new Map();
 var mhHBGmvMap = new Map();
 var mhBOWmvMap = new Map();
 
+//contains all hitzones for each monster
 var mhMonsterMap = new Map();
 
 //Values for weapon debloating
@@ -62,21 +64,22 @@ mhSharpElementalMap.set("WHITE", 1.12);
 mhSharpElementalMap.set("PURPLE", 1.2);
 
 //Values for estimated average motion values
-mhMvEstimatedMap.set("SNS", 15); //~average
-mhMvEstimatedMap.set("DS", 8);  //~average
-mhMvEstimatedMap.set("GS", 110); //Lv3 Draw Charge
-mhMvEstimatedMap.set("LS", 25); //~average
-mhMvEstimatedMap.set("HM", 50); //average on std combo
-mhMvEstimatedMap.set("HH", 30); //left-right swing
+mhMvEstimatedMap.set("SNS", 16); //~average on dash and 2 hits
+mhMvEstimatedMap.set("DS", 11);  //~average Ranbu!
+mhMvEstimatedMap.set("GS", 90); //Lv3 Draw Charge
+mhMvEstimatedMap.set("LS", 19); //~average in std combo
+mhMvEstimatedMap.set("HM", 48); //average on std combo
+mhMvEstimatedMap.set("HH", 24); //left-right swing
 mhMvEstimatedMap.set("LC", 25); //triple thrust
-mhMvEstimatedMap.set("GL", 30); //~average
-mhMvEstimatedMap.set("SA", 30); // average Swordcombo, Phial missing
-mhMvEstimatedMap.set("CB", 44); //axe-combo, no phals, no shield charge
-mhMvEstimatedMap.set("IG", 20); //average std combo, red extract activated
-mhMvEstimatedMap.set("BOW", 0); //calculation way too different
+mhMvEstimatedMap.set("GL", 24); //~triple poke
+mhMvEstimatedMap.set("SA", 33); // doublestrike, heavensflurry swordcombo, Phial missing
+mhMvEstimatedMap.set("CB", 39); //axe-combo, no phals, no shield charge
+mhMvEstimatedMap.set("IG", 17); //average std combo, red extract activated
+mhMvEstimatedMap.set("BOW", 26); //a single hit of the lv2 charged Dragon Piercer
 mhMvEstimatedMap.set("LBG", 0); //calculation way too different
 mhMvEstimatedMap.set("HBG", 0); //calculation way too different
 
+//mapping MV maps to their weapon type
 mhMvMapMap.set("GS", mhGSmvMap);
 mhMvMapMap.set("LS", mhLSmvMap);
 mhMvMapMap.set("SNS", mhSNSmvMap);
@@ -90,7 +93,7 @@ mhMvMapMap.set("CB", mhCBmvMap);
 mhMvMapMap.set("IG", mhIGmvMap);
 mhMvMapMap.set("LBG", mhLBGmvMap);
 mhMvMapMap.set("HBG", mhHBGmvMap);
-mhMvMapMap.set("BOW", mhBOWmvMap);
+mhMvMapMap.set("BOW", mhBOWmvMap); 
 
 //read data files for motion values
 var wpnNames = ["GS", "LS", "SNS", "DS", "HM", "HH", "LC", "GL", "SA", "CB", "IG", "LBG", "HBG", "BOW"];
