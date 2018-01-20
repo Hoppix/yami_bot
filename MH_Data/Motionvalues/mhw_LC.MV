@@ -17,6 +17,6 @@ Dash Attack(charged);13,13,13;3#
 Finishing Thrust;52;1#
 Finishing Twin Thrust;26,53;2#
 Reverse Attack;51;1#
-Advancing Jump Thrust;25,25,25;3#
-AerialFinishingThrust;30;1#
-FastoAerialFinishingThrust;58;1#
+Dash Attack(aerial);25,25,25;3#
+Advancing Jump Thrust;30;1#
+Advancing Jump Thrust(charged or whatever?);58;1#
