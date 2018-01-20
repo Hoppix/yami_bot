@@ -1,28 +1,28 @@
-Drawswing;20;1#
-DrawswingII;16;1#
+Swing;20;1#
+Backswing;16;1#
 Sidesmash;15;1#
-PoundI;37;1#
-PoundII;22;1#
-Uppercut;86;1#
-Aerialpound;36;1#
-AerialchargeI;62;1#
-AerialchargeII;66;1#
-AerialchargeIII;79;1#
-BigbangI;28;1#
-BigbangII;32;1#
-BigbangIII;45;1#
-BigbangIV;65;1#
-BigbangV;28,28,100;3#
-SwingR;19;1#
-ChargeO;25;1#
-ChargeI;58;1#
-ChargeII;38;1#
-Superpound;15,76;2#
-Rotating;28,19,19,19,19,19;6#
-Rotateend;15;1#
-Roteteupswing;56;1#
+Overhead Smash I;37;1#
+Overhead Smash II;22;1#
+Upswing;86;1#
+Jumping Smash;36;1#
+Jumping Charged Attack I;62;1#
+Jumping Charged Attack II;66;1#
+Jumping Charged Attack III;79;1#
+Big Bang I;28;1#
+Big Bang II;32;1#
+Big Bang III;45;1#
+Big Bang IV;65;1#
+Big Bang Finisher;28,28,100;3#
+Charged Side Blow;19;1#
+Charged Follow-up;25;1#
+Charged Follow-up(Power Charge);58;1#
+Charged Upswing;38;1#
+Charged Big Bang;15,76;2#
+Spinning Bludgeon;28,19,19,19,19,19;6#
+Spinning Side Smash;15;1#
+Spinning Follow-up;56;1#
 RotateWhateverThisIs;32;1#
-RoteteStrongUp;86;1#
-StrongchargedUppercut;48;1#
-StronchargedSuperpound;16,16,100;3#
-Aerialspin;30,30,30,100;4#
+Spinning Strong Upswing;86;1#
+Charged Brutal Upswing;48;1#
+Charged Brutal Big Bang;16,16,100;3#
+Midair Spinning Bludgeon;30,30,30,100;4#
