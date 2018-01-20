@@ -1,19 +1,19 @@
-Frontslam;29;1#
-Leftswing;22;1#
-Rightswing;26;1#
-Doublerightswing;15,13;2#
-Backslam;35;1#
-Superpound;15,40;2#
-Aerialpound;19;1#
-AerialSong;15;1#
-SongIdle;31,28;2#
-SongFront;30,28;2#
-SongLeft;30,28;2#
-SongRight;30,28;2#
-SongBack;31,28;2#
-EncoreIdle;35,28,35,28;4#
-EncoreFront;35,28,29,31,28;5#
-EncoreLeft;35,28,35,28;4#
-EncoreRight;35,28,35,28;4#
-EncoreBack;35,28,35,28,31,28;6#
-SlidingPoind;56;1#
+Forward Smash;29;1#
+Left Swing;22;1#
+Right Swing;26;1#
+Double Right Swing;15,13;2#
+Backwards Strike;35;1#
+Overhead Smash;15,40;2#
+Jumping Smash;19;1#
+Performance(aerial);15;1#
+Performance;31,28;2#
+Performance(front);30,28;2#
+Performance(left);30,28;2#
+Performance(right);30,28;2#
+Performance(back);31,28;2#
+Encore;35,28,35,28;4#
+Encore(front);35,28,29,31,28;5#
+Encore(left);35,28,35,28;4#
+Encore(right);35,28,35,28;4#
+Encore(back);35,28,35,28,31,28;6#
+Jumping Strong Overhead Smash;56;1#
