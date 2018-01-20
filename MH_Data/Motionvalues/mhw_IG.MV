@@ -1,20 +1,18 @@
-Push;10;1#
-SlashCombo;15,14;2#
-KakeSlash;18;1#
-TwoStepSlash;18,24;2#
-DiveSlashing;26;1#
-Nagashima;23;1#
-Hitting;30;1#
-JumpAttack;15;1#
-JumpRushSlash;29;1#
-MushiSenshi;5;1#
-RedPush;11,10;2#
-RedSlashCombo;15,14,15;3#
-RedKakeSlash;15,19;2#
-RedTwoStepSlash;15,14,28;3#
-RedDiveSlashing;26;1#
-RedNagashima;18,21;2#
-RedHitting;25,43;2#
-RedJumpAttack;25,43;2#
-RedJumpRushSlash;9,9,9,9;4#
-RedMushiSenshi;3,3,3,3,31;5#
+Thrust;10;1#
+Rising Slash Combo;15,14;2#
+Reaping Slash;18;1#
+Double Slash ;18,24;2#
+Leaping Slash;26;1#
+Wide Sweep;23;1#
+Overhead Smash;30;1#
+Jumping Slash;15;1#
+Jumping Advancing Slash;29;1#
+Kinsect (Mark Target);5;1#
+Strong Thrust;11,10;2#
+Strong Rising Slash Combo;15,14,15;3#
+Strong Reaping Slash;15,19;2#
+Strong Double Slash;15,14,28;3#
+Strong Wide Sweep;18,21;2#
+Tornado Slash;25,43;2#
+Strong Jumping Slash;9,9,9,9;4#
+Strong Jumping Advancing Slash;3,3,3,3,31;5#
