@@ -1,19 +1,20 @@
-Dashattack;19;1#
-Downslash;15;1#
-Lateralslash;13;1#
-ShieldNSlash;11,20;2#
-Horizontalslash;23;1#
-Upwardslash;21;1#
-Rotateslash;25;1#
-Shieldattack;9;1#
-Shieldbash;16;1#
-Hardbash;31;1#
-Hopbackcharge;30,38;2#
-Hopbackuncharged;34;1#
-Aerialslash;20;1#
-Aerialshieldbash;44,39;2#
-Turnaroundslash;17;1#
-Stab;22;1#
-Guardslash;15;1#
-Cliffrush;16;1#
-Fallingthrust;15,15;2#
+Advancing Slash;19;1#
+Short Shield Bash;7;1#
+Chop;15;1#
+Side Slash;13;1#
+Sword/Shield Combo;11,20;2#
+Lateral Slash;23;1#
+Return Stroke;21;1#
+Roundslash;25;1#
+Shield Attack;9;1#
+Shield Bash;16;1#
+Hard Bash;31;1#
+Charged Slash;30,38;2#
+Running (automatische Aktivierung nach dem Schlagen);34;1#
+Jumping Slash;20;1#
+Falling Bash;44,39;2#
+Spiral Slash;17;1#
+Thrust;22;1#
+Rising Slash;15;1#
+Jumping Advancing Slash;16;1#
+Fallschub (Δ vom Dreiecksprung);15,15;2#
