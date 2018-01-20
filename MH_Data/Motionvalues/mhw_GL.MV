@@ -1,20 +1,18 @@
-PokeI;24;1#
-PokeII;24;1#
-PokeIII;24;1#
-GuardpokeI;18;1#
-GuardpokeII;18;1#
-GuardpokeIII;18;1#
-Upwardslash;30;1#
-PushpushUp;30;1#
-Downwardslam;48;1#
-Nagashi;68;1#
-Dragongun;28,4,8,10,10,10,10,10,10,10,10,54;12#
-JumpThrust;24;1#
-JumpingBeating;43;1#
-JumpReloadHitting;43;1#
-SlidingSlash;61;1#
-ShellNormal3Bombardment;18;1#
-ShellNormal3SquashGunfire;28;1#
-ShellNormal3FullBurst;20,20,20,20,20;5#
-ShellNormal3DragonGun;56,56,56;3#
-ShellNormal3AerialFullBurst;31,19,19,19,19,19;6#
+Lateral Thrust I;24;1#
+Lateral Thrust II;24;1#
+Guard Thrust I;18;1#
+Guard Thrust III;18;1#
+Rising Slash;30;1#
+Lunging Upthrust;30;1#
+Overhead Smash;48;1#
+Wide Sweep;68;1#
+Wyrmstake Cannon;28,4,8,10,10,10,10,10,10,10,10,54;12#
+Jumping Thrust;24;1#
+Jumping Smash;43;1#
+Jump Reload Smash;43;1#
+Jumping Rising Slash;61;1#
+Shelling;18;1#
+Charged Shelling;28;1#
+Burst Fire;20,20,20,20,20;5#
+Wyvern's Fire;56,56,56;3#
+Aerial Burst;31,19,19,19,19,19;6#
