@@ -1,24 +1,22 @@
-Drawattack;21;1#
-MidpokeI;21;1#
-MidpokeII;21;1#
-MidpokeIII;29;1#
-HighpokeI;23;1#
-HighpokeII;23;1#
-HighpokeIII;29;1#
-NagashimaI;21;1#
-NagashimaIII;21;1#
-Aerialpoke;32;1#
-Guardpoke;21;1#
-Countercancel;23;1#
-Counter;42;1#
-Shieldattack;14;1#
-Divestab;9,9,9;3#
-Rush;11,11,11;3#
-Fastorush;13,13,13;3#
-Finishthrust;52;1#
-FinishFastoThrust;26,53;2#
-Ripplerush;51;1#
-FastoTurnAttack;54;1#
-RushJumpThrust;25,25,25;3#
+Mid Thrust I;21;1#
+Mid Thrust II;21;1#
+Mid Thrust III;29;1#
+High Thrust I;23;1#
+High Thrust II;23;1#
+High Thrust III;29;1#
+Wide Sweep I;21;1#
+Wide Sweep III;21;1#
+Jumping Thrust;32;1#
+Guard Thrust;21;1#
+Cancel Thrust;23;1#
+Counter-Thrust;42;1#
+Shield Attack;14;1#
+Leaping Thrust;9,9,9;3#
+Dash Attack;11,11,11;3#
+Dash Attack(charged);13,13,13;3#
+Finishing Thrust;52;1#
+Finishing Twin Thrust;26,53;2#
+Reverse Attack;51;1#
+Advancing Jump Thrust;25,25,25;3#
 AerialFinishingThrust;30;1#
 FastoAerialFinishingThrust;58;1#
