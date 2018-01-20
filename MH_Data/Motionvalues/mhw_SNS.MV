@@ -10,11 +10,11 @@ Shield Attack;9;1#
 Shield Bash;16;1#
 Hard Bash;31;1#
 Charged Slash;30,38;2#
-Running (automatische Aktivierung nach dem Schlagen);34;1#
+Sliding Slash;34;1#
 Jumping Slash;20;1#
 Falling Bash;44,39;2#
 Spiral Slash;17;1#
 Thrust;22;1#
 Rising Slash;15;1#
 Jumping Advancing Slash;16;1#
-Fallschub (Δ vom Dreiecksprung);15,15;2#
+Helm Breaker;15,15;2#
