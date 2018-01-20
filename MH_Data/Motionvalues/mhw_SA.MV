@@ -1,24 +1,25 @@
-Axe:HorizontalSlash;25;1#
-Axe:UpwardSlash;27;1#
-Axe:DownwardSlash;43;1#
-Axe:FowardMoveSlash;10;1#
-Axe:FadeSlash;24;1#
-Axe:Swing;25,23;2#
-Axe:SwitchMidSlash;23,71,36;3#
-Axe:SwitchMidCombo;36;1#
-Axe:JumpAttack;40;1#
-Axe:JumpSwitchAttack;43;1#
-Axe:JumpSlideAttack;76;1#
-Sword:VerticalSlash;36;1#
-Sword:ElementCharge;13,13,8,8,8,8,8,8,8;9#
-Sword:ElementDischarge;95;1#
-Sword:BackwardSlash;66;1#
-Sword:DoubleStrike;26,31;2#
-Sword:Heavensflurry;39,39;2#
-Sword:RightSlash;26;1#
-Sword:LeftSlash;23;1#
-Sword:Switch;48;1#
-Sword:SlideAttack;41;1#
-Sword:JumpDischarge;6,6,6;3#
+Axe: Side Slash;25;1#
+Axe: Rising Slash;27;1#
+Axe: Overhead Slash;43;1#
+Axe: Foward Slash;10;1#
+Axe: Fade Slash;24;1#
+Axe: Wild Swing;25,23;2#
+Axe: Morph Sweep;23,71,36;3#
+Axe: Morph Slash;36;1#
+Axe: Jumping Slash;40;1#
+Axe: Jumping Morph Slash;43;1#
+Axe: Jumping Sweep;76;1#
+Sword: Overhead Slash;36;1#
+Sword: Right Rising Slash;26;1#
+Sword: Left Rising Slash;23;1#
+Sword: Downward Fade Slash;66;1#
+Sword: Double Slash;26,31;2#
+Sword: Heavenward Flurry;39,39;2#
+Sword: Morph Slash;48;1#
+Sword: Jumping Rising Slash;41;1#
+Sword: Jumping Element Discharge;6,6,6;3#
+Element Discharge;13,13,8,8,8,8,8,8,8;9#
+Finishing Discharge;66;1#
+Element Discharge Finisher;95;1#
 
 
