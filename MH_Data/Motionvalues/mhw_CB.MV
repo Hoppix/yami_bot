@@ -1,23 +1,24 @@
-Sword:Slash;12;1#
-Sword:BackSlash;15;1#
-Sword:RoundSlash;28;1#
-Sword:FowardSlash;20;1#
-Sword:UpwardSlash;13;1#
-Sword:Charge;28,19;1#
-Sword:Shield;13,9;1#
-Sword:ElementalSlash;75;1#
-Sword:TransformfromAxe;45;1#
-Sword:FadeSlash;25;1#
-Sword:JumpAttack;21;1#
-Sword:JumpTransform;45;1#
-Sword;SlideAttack;46;1#
-Axe:JumpAttack;46;1#
-Axe:TransformM;28;1#
-Axe:JumpTransform;21;1#
-Axe:UpwardSlash;36;1#
-Axe:HorizontalSLash;37;1#
-Axe:FowardSlash;45;1#
-Axe:AmpedDischargeI;21;1#
-Axe:AmpedDischargeII;11,68;2#
-Axe:AmpedDischargeIII;93;1#
-
+Sword: Weak Slash;12;1#
+Sword: Return Stroke;15;1#
+Sword: Spinning Slash;28;1#
+Sword: Foward Slash;20;1#
+Sword: Charged Rising Slash;13;1#
+Sword: Charged Double Slash;28,19;1#
+Sword: Shield Thrust;13,9;1#
+Sword: Condensed Elemental Slash;75;1#
+Sword: Morph Slash;45;1#
+Sword: Sliding Slash;25;1#
+Sword: Jumping Slash;21;1#
+Sword: Jumping Morph Slash;45;1#
+Sword: Jumping Raising Slash;46;1#
+Axe: Jumping Slash;46;1#
+Axe: Morph Slash;28;1#
+Axe: Jumping Morph Slash;21;1#
+Axe: Rising Slash;36;1#
+Axe: Overhead Slash;37;1#
+Axe: Dash Slam;45;1#
+Axe: Element Discharge I;21;1#
+Axe: Rushing Element Discharge I;21;1#
+Axe: Element Discharge II;21;1#
+Axe: Amped Element Discharge;93;1#
+Axe: Super Amped Element Discharge;18,100;2#
