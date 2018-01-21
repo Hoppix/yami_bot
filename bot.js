@@ -21,7 +21,7 @@ const sDefaultGuildChannelName = "debugging";
 const sDefaultVoiceChannelName = "General";
 const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
-const sStartMessage = "v1.5 Yami: Weapon Motionvalues now available!";
+const sStartMessage = "v1.6 Yami: Weapon Motionvalues now available!";
 
 
 
