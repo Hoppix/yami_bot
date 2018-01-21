@@ -1,20 +1,20 @@
-ExplosiveMine;27;1#
-NormalI;5;1#
-NormalII;13;1#
-NormalIII;16;1#
-PierceI;5,5,5;3#
-PierceII;5,5,5,5;4#
-PierceIII;5,5,5,5,5;5#
+Wyvernblast;27;1#
+Normal Ammo 1;5;1#
+Normal Ammo 2;13;1#
+Normal Ammo 3;16;1#
+Pierce Ammo 1;5,5,5;3#
+Pierce Ammo 2;5,5,5,5;4#
+Pierce Ammo 3;5,5,5,5,5;5#
 PelletI;6,6,6;3#
 PelletII;6,6,6,6,6;5#
 PelletIII;8,8,8,8,8,8;6#
 CragI;1,13;2#
 CragII;1,18;2#
 CragIII;1,21;2#
-SpreadI;1,21,21,21;4#
-SpreadII;1,24,24,24,24;5#
-SpreadIII;1,31,31,31,31,31;6#
-Torch;1,6,6,6,6,6,6;7#
+Spread Ammo 1;1,21,21,21;4#
+Spread Ammo 2;1,24,24,24,24;5#
+Spread Ammo 3;1,31,31,31,31,31;6#
+Flaming Ammo;1,6,6,6,6,6,6;7#
 DragonBomb;82,22;2#
 Elemental;11;1#
 Dragon?;7,7,7,7,7;5#
