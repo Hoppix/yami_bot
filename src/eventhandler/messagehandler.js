@@ -166,7 +166,8 @@ module.exports =
 				return;
 			}
 
-			var mWeaponMV = oMhCalculator.mhMvMapMap.get(aCommand[0].toUpperCase());
+			var sWeaponKey = aCommand[0].toUpperCase();
+			var mWeaponMV = oMhCalculator.mhMvMapMap.get(sWeaponKey);
 
 			var aFields = [];
 
@@ -179,7 +180,7 @@ module.exports =
 				{
 					embed: {
 						color: 900000,
-						title: "Motionvalues for " + aCommand[0].toUpperCase() + ":",
+						title: "Motionvalues for " + sWeaponKey + ":",
 						fields: aFields
 					}
 				};
