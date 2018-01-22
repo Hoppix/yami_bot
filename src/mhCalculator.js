@@ -77,20 +77,6 @@ function mhCompareWeapons(sSharpness, iAttack, iAffinity, iElemental, sSharpness
 
 }
 
-function _calcCritDamage(iAffinity)
-{
-	return 1 + (iAffinity / 100) * 0.25;
-}
-
-function _calcPhysicalDamage(fSharpnessPhysical, iAttack, fBloat, iMotionValue, iHitzonePhysical)
-{
-		return fSharpnessPhysical * (iAttack / fBloat) * (iMotionValue / 100) * (iHitzonePhysical / 100);
-}
-
-function _calcElementalDamage(fSharpnessElemental, iElemental, iHitzoneElemental)
-{
-	return fSharpnessElemental * (iElemental / 10) * (iHitzoneElemental / 100);
-}
 //export the functions which where predefined.
 module.exports.mhCompareWeapons = mhCompareWeapons;
 module.exports.mhCalculateWeaponStrength = mhCalculateWeaponStrength;
