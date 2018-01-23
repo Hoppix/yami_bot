@@ -21,7 +21,7 @@ const sDefaultGuildChannelName = "debugging";
 const sDefaultVoiceChannelName = "General";
 const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
-const sStartMessage = "v1.6 Yami: Weapon Motionvalues now available!";
+const sStartMessage = "v1.7.0 Yami: command logging for debug trace!";
 
 
 
@@ -114,6 +114,11 @@ oClient.on('message', message =>
 			message.reply("Wrong arguments provided!");
 	}
 
+	//command logging for error trace
+	const oDate = new Date(message.createdAt.valueOf() - message.createdAt.getTimezoneOffset() * 60000);
+	const sLog = "Event tigger command: <" + aCommand[0] + "> at " + oDate.toUTCString();
+	oUtility.writeLogFile(sLog);
+	console.log(sLog);
 });
 
 //login with private token from config.json
