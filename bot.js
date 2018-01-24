@@ -67,7 +67,7 @@ oClient.on('ready', () =>
 	//start twitch api polling
 	for(var streamer in oConfig.streamers)
 	{
-		oWebscraper.pollStream(oDefaultChannel, streamer, oConfig.twitchClient);
+		oWebscraper.pollStream(oDefaultChannel, oConfig.streamers[streamer], oConfig.twitchClient);
 	}
 
 	const iStartupTime = new Date().getTime() - oStartedDate.getTime();
