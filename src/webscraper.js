@@ -5,9 +5,9 @@ var request = require('request');
 var q = require('q');
 
 /**
-*	returns: promise
-* request url and retrieves the html content as string
-**/
+ *    returns: promise
+ * request url and retrieves the html content as string
+ **/
 function scrapeUrl(sUrl)
 {
 	const deferred = q.defer();
@@ -27,4 +27,43 @@ function scrapeUrl(sUrl)
 	return deferred.promise;
 }
 
+function pollStream(oChatChannel, sStreamer)
+{
+	var bCallFlag = true;
+
+	setInterval(function ()
+	{
+		const oCall = {
+			uri: "https://api.twitch.tv/kraken/streams/" + sStreamer,
+			port: 80,
+			method: 'GET',
+			headers: {"Client-ID": "2bm8jo50vhpxlnuyojyggq7z928m4u"}
+		};
+
+		request(oCall, function (err, response, source)
+		{
+			if (err && response !== 200)
+			{
+				console.log(err);
+			}
+			else
+			{
+				const streamChannel = JSON.parse(source);
+				if (streamChannel.stream === null)
+				{
+					oChatChannel.send(sStreamer + " is currently offline.");
+					bCallFlag = true;
+
+				} else if (bCallFlag)
+				{
+					oChatChannel.send(sStreamer + " is currently online!");
+					oChatChannel.send(streamChannel.stream.channel.url);
+					bCallFlag = false;
+				}
+			}
+		});
+	}, 1000*60*3);
+}
+
 module.exports.scrapeUrl = scrapeUrl;
+module.exports.pollStream = pollStream;

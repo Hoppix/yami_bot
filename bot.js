@@ -9,6 +9,7 @@ const oUtility = require("./src/utility.js");
 const oMessageHandler = require("./src/eventhandler/messagehandler");
 const oVoiceHandler = require("./src/eventhandler/voicehandler");
 const oPresenceHandler = require("./src/eventhandler/presencehandler");
+const oWebscraper = require("./src/webscraper.js");
 
 var oDefaultGuild;
 var oDefaultChannel;
@@ -17,13 +18,11 @@ var defaultGuildChannels;
 
 //set your custom names
 const sDefaultGuildName = "Zettai Ryouiki";
-const sDefaultGuildChannelName = "debugging";
+const sDefaultGuildChannelName = "general";
 const sDefaultVoiceChannelName = "General";
 const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
-const sStartMessage = "v1.7.0 Yami: command logging for debug trace!";
-
-
+const sStartMessage = "v1.8.0 Yami: Twitch api implemented!";
 
 /**
  * Initiates default variables
@@ -65,6 +64,12 @@ oClient.on('ready', () =>
 		return;
 	}
 
+	//start twitch api polling
+	for(var streamer in oConfig.streamers)
+	{
+		oWebscraper.pollStream(oDefaultChannel, streamer);
+	}
+
 	const iStartupTime = new Date().getTime() - oStartedDate.getTime();
 	//log found data + set messages etc.
 	console.log(`Bot has started, with ${oClient.users.size} users, in ${oClient.channels.size} channels of ${oClient.guilds.size} guilds.`);
@@ -72,7 +77,8 @@ oClient.on('ready', () =>
 	oClient.user.setGame(sPlayMessage);
 	oDefaultChannel.send(sStartMessage);
 
-});
+})
+;
 
 /**
  * triggered on any message the oClient receives
