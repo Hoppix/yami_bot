@@ -27,7 +27,7 @@ function scrapeUrl(sUrl)
 	return deferred.promise;
 }
 
-function pollStream(oChatChannel, sStreamer)
+function pollStream(oChatChannel, sStreamer, apikey)
 {
 	var bCallFlag = true;
 
@@ -37,7 +37,7 @@ function pollStream(oChatChannel, sStreamer)
 			uri: "https://api.twitch.tv/kraken/streams/" + sStreamer,
 			port: 80,
 			method: 'GET',
-			headers: {"Client-ID": "2bm8jo50vhpxlnuyojyggq7z928m4u"}
+			headers: {"Client-ID": apikey}
 		};
 
 		request(oCall, function (err, response, source)
