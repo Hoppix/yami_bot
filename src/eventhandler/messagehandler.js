@@ -168,6 +168,12 @@ module.exports =
 
 			var sWeaponKey = aCommand[0].toUpperCase();
 			var mWeaponMV = oMhCalculator.mhMvMapMap.get(sWeaponKey);
+			
+			if (mWeaponMV === undefined)
+			{
+				oMessage.reply("Invalid Weapontype!");
+				return;
+			}
 
 			var aFields = [];
 
