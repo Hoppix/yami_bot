@@ -5,26 +5,27 @@ var request = require('request');
 var q = require('q');
 
 /**
- *    returns: promise
- * request url and retrieves the html content as string
+ * request url searches for specified Matches and saves them to File
  **/
-function scrapeUrl(sUrl)
+function scrapeUrl(sUrl, sFile, aStringMatches)
 {
-	const deferred = q.defer();
 	request(sUrl, function (err, response, html)
 	{
 		if (err && response !== 200)
 		{
 			console.log("Something happened when scraping " + sUrl);
 			console.log(err);
-			deferred.reject(err);
 		}
 		else
 		{
-			deferred.resolve(html);
+			console.log(html);
+			aEntries = [];
+			for(i = 0; i < aStringMatches.length; i++)
+			{
+				aEntries.push(html); //TODO: parse Values from html
+			}
 		}
 	});
-	return deferred.promise;
 }
 
 function pollStream(oChatChannel, sStreamer, apikey)
