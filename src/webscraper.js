@@ -2,7 +2,6 @@
  * Created by khopf on 10/01/2018.
  */
 var request = require('request');
-var q = require('q');
 
 /**
  * request url searches for specified Matches and saves them to File
@@ -31,6 +30,7 @@ function scrapeUrl(sUrl, sFile, aStringMatches)
 function pollStream(oChatChannel, sStreamer, apikey)
 {
 	var bCallFlag = true;
+	console.log("Interval set for " + sStreamer);
 
 	setInterval(function ()
 	{
@@ -45,6 +45,7 @@ function pollStream(oChatChannel, sStreamer, apikey)
 		{
 			if (err && response !== 200)
 			{
+				console.log("error logged")
 				console.log(err);
 			}
 			else
@@ -52,10 +53,9 @@ function pollStream(oChatChannel, sStreamer, apikey)
 				const streamChannel = JSON.parse(source);
 				if (streamChannel.stream === null)
 				{
-					oChatChannel.send(sStreamer + " is currently offline.");
 					bCallFlag = true;
-
-				} else if (bCallFlag)
+				}
+				else if (bCallFlag)
 				{
 					oChatChannel.send(sStreamer + " is currently online!");
 					oChatChannel.send(streamChannel.stream.channel.url);
@@ -63,7 +63,8 @@ function pollStream(oChatChannel, sStreamer, apikey)
 				}
 			}
 		});
-	}, 1000*60*3);
+	}, 10000);
+	//1000*60*3
 }
 
 module.exports.scrapeUrl = scrapeUrl;

@@ -18,7 +18,7 @@ var defaultGuildChannels;
 
 //set your custom names
 const sDefaultGuildName = "Zettai Ryouiki";
-const sDefaultGuildChannelName = "general";
+const sDefaultGuildChannelName = "debugging";
 const sDefaultVoiceChannelName = "General";
 const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
@@ -65,9 +65,9 @@ oClient.on('ready', () =>
 	}
 
 	//start twitch api polling
-	for(var streamer in oConfig.streamers)
+	for(var i = 0; i < oConfig.streamers.length; i++)
 	{
-		oWebscraper.pollStream(oDefaultChannel, oConfig.streamers[streamer], oConfig.twitchClient);
+		oWebscraper.pollStream(oDefaultChannel, oConfig.streamers[i], oConfig.twitchClient);
 	}
 
 	const iStartupTime = new Date().getTime() - oStartedDate.getTime();
@@ -76,7 +76,6 @@ oClient.on('ready', () =>
 	console.log("Startup time: " + iStartupTime + "ms");
 	oClient.user.setGame(sPlayMessage);
 	oDefaultChannel.send(sStartMessage);
-
 })
 ;
 
@@ -128,4 +127,6 @@ oClient.on('message', message =>
 });
 
 //login with private token from config.json
+console.log("PreLogin");
 oClient.login(oConfig.token);
+console.log("PostLogin");
