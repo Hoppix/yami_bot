@@ -50,7 +50,7 @@ function pollStream(oChatChannel, sStreamer, apikey)
 			else
 			{
 				const streamChannel = JSON.parse(source);
-				if (streamChannel.stream === null)
+				if (streamChannel.stream === null || streamChannel.stream === undefined)
 				{
 					bCallFlag = true;
 				}
