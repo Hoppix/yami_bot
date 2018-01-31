@@ -120,6 +120,20 @@ module.exports =
 				console.log("saved logfile");
 			});
 		},
+		
+	/**
+	*
+	**/
+		genericWriteToFile: function (sFile, sLine)
+		{
+			fs.appendFile(sFile, sLine + "\n", function (err)
+			{
+				if (err)
+				{
+				return console.log(err);
+				}
+			});
+		}
 
     /**
     * returns an objects which contains passed time since started
