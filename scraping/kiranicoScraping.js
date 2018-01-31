@@ -42,7 +42,7 @@ function scrapeUrl(sUrl, sFile, aStringMatches)
 			for(i = 0; i < aStringMatches.length; i++)
 			{
 				aEntries.push(html.match(new RegExp(aStringMatches[i]))); //TODO: parse Values from html
-				aControlSequeces = aStringMatches.split(".*");
+				aControlSequeces = aStringMatches[i].split(".*");
 				for(j = 0; j < aEntries[i].length; j++)
 				{
 					for(t = 0; t < aControlSequeces.length; t++)
