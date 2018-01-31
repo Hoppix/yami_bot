@@ -58,8 +58,9 @@ function scrapeUrl(sUrl, sFile, aStringMatches)
 				sLine = "";
 				for(t = 0; t < aEntries.length; t++)
 				{
-					sLine = sLine + aEntries[t][i] + "#\n";
+					sLine = sLine + aEntries[t][i].substr(1);
 				}
+				sLine = sLine.substr(0, sLine.length-1);
 				monNames[i] = sLine;
 				genericWriteToFile(sFile, sLine);
 			}
@@ -75,7 +76,7 @@ function scrapeUrl(sUrl, sFile, aStringMatches)
 **/
 function genericWriteToFile(sFile, sLine)
 		{
-			fs.appendFile(sFile, sLine + "\n", function (err)
+			fs.appendFile(sFile, sLine + "#\n", function (err)
 			{
 				if (err)
 				{
