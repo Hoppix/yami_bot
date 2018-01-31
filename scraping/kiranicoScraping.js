@@ -19,7 +19,7 @@ var wpnNames = ["Greatsword",
 var monNames = [];
 
 //1) scrape monNames, save to file
-scrapeUrl("https://mhworld.kiranico.com/monster", "./MH_Data/MonsterNames.MON", "<p><a href=\"https://mhworld.kiranico.com/monster/.*\"");
+scrapeUrl("https://mhworld.kiranico.com/monster", "./MH_Data/MonsterNames.MON", ["<p><a href=\"https://mhworld.kiranico.com/monster/.*\""]);
 //2) scrape monHitZones based on monNames, save to file
 //3) scrape weapons based on wpnNames, save to file
 
