@@ -41,7 +41,7 @@ function scrapeUrl(sUrl, sFile, aStringMatches)
 			aEntries = [];
 			for(i = 0; i < aStringMatches.length; i++)
 			{
-				aEntries.push(html.match(new RegExp(aStringMatches[i]))); //TODO: parse Values from html
+				aEntries.push(html.match(new RegExp(aStringMatches[i], "g"))); //TODO: parse Values from html
 				aControlSequeces = aStringMatches[i].split(".*");
 				for(j = 0; j < aEntries[i].length; j++)
 				{
@@ -61,7 +61,7 @@ function scrapeUrl(sUrl, sFile, aStringMatches)
 				monNames[i] = sLine;
 				genericWriteToFile(sFile, sLine);
 			}
-			console.log(aControlSequeces);
+			console.log(aEntries);
 			console.log(monNames);
 		}
 	});
