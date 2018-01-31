@@ -56,8 +56,9 @@ function scrapeUrl(sUrl, sFile, aStringMatches)
 				sLine = "";
 				for(t = 0; t < aEntries.length; t++)
 				{
-					sLine = sLine + aEntries[t][i];
+					sLine = sLine + aEntries[t][i] + "\n";
 				}
+				monNames[i] = sLine;
 				genercWriteToFile(sFile, sLine);
 			}
 		}
