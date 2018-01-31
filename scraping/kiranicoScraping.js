@@ -47,9 +47,9 @@ function scrapeUrl(sUrl, sFile, aStringMatches)
 				{
 					for(t = 0; t < aControlSequeces.length; t++)
 					{
-						console.log(aEntries[i][j]);
-						aEntries[i][j].replace(aControlSequeces[t], ",");
-						console.log(aEntries[i][j]);
+						//console.log(aEntries[i][j]);
+						aEntries[i][j] = aEntries[i][j].replace(aControlSequeces[t], ",");
+						//console.log(aEntries[i][j]);
 					}
 				}
 			}
