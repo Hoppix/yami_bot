@@ -42,12 +42,14 @@ function scrapeUrl(sUrl, sFile, aStringMatches)
 			for(i = 0; i < aStringMatches.length; i++)
 			{
 				aEntries.push(html.match(new RegExp(aStringMatches[i], "g"))); //TODO: parse Values from html
-				aControlSequeces = aStringMatches[i].split(".*");
+				var aControlSequeces = aStringMatches[i].split(".*");
 				for(j = 0; j < aEntries[i].length; j++)
 				{
 					for(t = 0; t < aControlSequeces.length; t++)
 					{
+						console.log(aEntries[i][j]);
 						aEntries[i][j].replace(aControlSequeces[t], ",");
+						console.log(aEntries[i][j]);
 					}
 				}
 			}
@@ -56,14 +58,14 @@ function scrapeUrl(sUrl, sFile, aStringMatches)
 				sLine = "";
 				for(t = 0; t < aEntries.length; t++)
 				{
-					sLine = sLine + aEntries[t][i];
+					sLine = sLine + aEntries[t][i] + "#\n";
 				}
 				monNames[i] = sLine;
 				genericWriteToFile(sFile, sLine);
 			}
-			console.log(aControlSequeces);
+			//console.log(aControlSequeces);
 			//console.log(aEntries);
-			console.log(monNames);
+			//console.log(monNames);
 		}
 	});
 }
