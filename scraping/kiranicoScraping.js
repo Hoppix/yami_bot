@@ -58,7 +58,7 @@ function scrapeUrl(sUrl, sFile, aStringMatches)
 				{
 					sLine = sLine + aEntries[t][i];
 				}
-				genercWriteToFile(sFile, sLine);
+				genericWriteToFile(sFile, sLine);
 			}
 		}
 	});
