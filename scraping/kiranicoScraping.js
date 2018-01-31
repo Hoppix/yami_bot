@@ -61,6 +61,7 @@ function scrapeUrl(sUrl, sFile, aStringMatches)
 				monNames[i] = sLine;
 				genericWriteToFile(sFile, sLine);
 			}
+			console.log(aControlSequeces);
 			console.log(monNames);
 		}
 	});
