@@ -1,20 +1,20 @@
 var request = require('request');
 var fs = require('fs');
 
-var wpnNames = ["Greatsword", 
-				"Long Sword", 
-				"Sword and Shield", 
-				"Dualswords", 
-				"Hammer", 
-				"Hunting Horn", 
-				"Lance", 
-				"Gunlance", 
-				"Switchaxe", 
-				"Chargeblade", 
-				"Insect Glaive", 
-				"Light Bowgun", 
-				"Heay Bowgun", 
-				"Bow"];
+var wpnNames = ["great-sword", 
+				"long-sword", 
+				"sword", 
+				"dual-blades", 
+				"hammer", 
+				"hunting-horn", 
+				"lance", 
+				"gunlance", 
+				"switch-axe", 
+				"charge-blade", 
+				"insect-glaive", 
+				"light-bowgun", 
+				"heay-bowgun", 
+				"bow"];
 				
 var monNames = [];
 
@@ -37,6 +37,7 @@ function scrapeUrl(sUrl, sFile, aStringMatches)
 		}
 		else
 		{
+			clearFile(sFile);
 			//console.log(html);
 			aEntries = [];
 			for(i = 0; i < aStringMatches.length; i++)
@@ -83,4 +84,10 @@ function genericWriteToFile(sFile, sLine)
 				return console.log(err);
 				}
 			});
+		}
+		
+
+function clearFile(sFile)
+		{
+			fs.writeFileSync(sFile,"");
 		}
