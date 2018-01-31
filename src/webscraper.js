@@ -50,7 +50,7 @@ function pollStream(oChatChannel, sStreamer, apikey)
 			else
 			{
 				const streamChannel = JSON.parse(source);
-				if (streamChannel.stream === null)
+				if (streamChannel.stream === null || streamChannel.stream === undefined)
 				{
 					bCallFlag = true;
 				}
@@ -63,7 +63,6 @@ function pollStream(oChatChannel, sStreamer, apikey)
 			}
 		});
 	}, 10000);
-	//1000*60*3
 }
 
 module.exports.scrapeUrl = scrapeUrl;

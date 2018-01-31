@@ -70,6 +70,7 @@ oClient.on('ready', () =>
 		oWebscraper.pollStream(oDefaultChannel, oConfig.streamers[i], oConfig.twitchClient);
 	}
 
+
 	const iStartupTime = new Date().getTime() - oStartedDate.getTime();
 	//log found data + set messages etc.
 	console.log(`Bot has started, with ${oClient.users.size} users, in ${oClient.channels.size} channels of ${oClient.guilds.size} guilds.`);
