@@ -2,7 +2,6 @@
  * Created by khopf on 29/12/2017.
  */
 const utility = require('./utility.js');
-const webscraper = require('./webscraper.js');
 const mhDatacollection = require('./mhDatacollection.js');
 
 //retrieve all data from mhDatacollection.js

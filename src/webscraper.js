@@ -16,7 +16,11 @@ function pollStream(oChatChannel, sStreamer, apikey)
 			uri: "https://api.twitch.tv/kraken/streams/" + sStreamer,
 			port: 80,
 			method: 'GET',
-			headers: {"Client-ID": apikey}
+			headers:
+			{
+				"Client-ID": apikey,
+				"Content-Type": "application/json"
+			}
 		};
 
 		request(oCall, function (err, response, source)
@@ -28,8 +32,18 @@ function pollStream(oChatChannel, sStreamer, apikey)
 			}
 			else
 			{
-				const streamChannel = JSON.parse(source);
-				if (streamChannel.stream === null)
+				var streamChannel;
+				try
+				{
+					streamChannel = JSON.parse(source);
+				}
+				catch (e)
+				{
+					console.log("Request returned html content");
+					return;
+				}
+
+				if (streamChannel.stream === null || streamChannel.stream === undefined)
 				{
 					bCallFlag = true;
 				}
@@ -42,7 +56,6 @@ function pollStream(oChatChannel, sStreamer, apikey)
 			}
 		});
 	}, 10000);
-	//1000*60*3
 }
 
 module.exports.pollStream = pollStream;
