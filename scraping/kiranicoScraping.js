@@ -37,7 +37,7 @@ function scrapeUrl(sUrl, sFile, aStringMatches)
 		}
 		else
 		{
-			console.log(html);
+			//console.log(html);
 			aEntries = [];
 			for(i = 0; i < aStringMatches.length; i++)
 			{
@@ -61,6 +61,7 @@ function scrapeUrl(sUrl, sFile, aStringMatches)
 				monNames[i] = sLine;
 				genericWriteToFile(sFile, sLine);
 			}
+			console.log(monNames.toString);
 		}
 	});
 }
