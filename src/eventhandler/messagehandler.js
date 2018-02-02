@@ -1,5 +1,4 @@
 const oMhCalculator = require("../mhCalculator.js");
-const oUtility = require("../utility.js");
 
 /**
  * handler vor dispatching action triggered by discord.js message events

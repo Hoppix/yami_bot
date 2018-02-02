@@ -60,6 +60,13 @@ module.exports =
 			var ret = s.split("#");
 			ret.pop();
 
+			for (var i = 0; i < ret.length; i++)
+			{
+				ret[i] = ret[i].split(";");
+				ret[i][0] = ret[i][0].replace("\n", "");
+				ret[i][0] = ret[i][0].replace("\r", "");
+			}
+			
 			return ret;
 		},
 
