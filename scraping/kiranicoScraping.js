@@ -21,6 +21,10 @@ var monNames = [];
 //1) scrape monNames, save to file
 scrapeUrl("https://mhworld.kiranico.com/monster", "./MH_Data/MonsterNames.MON", ["https://mhworld.kiranico.com/monster/.*\""]);
 //2) scrape monHitZones based on monNames, save to file
+for(i = 0; i < monNames.length; i++)
+{
+	scrapeUrl("https://mhworld.kiranico.com/monster" + monNames[i], "./MH_Data/" + monNames[i] + ".HZ", ["<td>\w\w\w+</td>", "<td class=\"text-center\">.*</td>"]);
+}
 //3) scrape weapons based on wpnNames, save to file
 
 /**
@@ -40,10 +44,18 @@ function scrapeUrl(sUrl, sFile, aStringMatches)
 			clearFile(sFile);
 			//console.log(html);
 			aEntries = [];
+			var aControlSequeces = [];
 			for(i = 0; i < aStringMatches.length; i++)
 			{
 				aEntries.push(html.match(new RegExp(aStringMatches[i], "g"))); //TODO: parse Values from html
-				var aControlSequeces = aStringMatches[i].split(".*");
+				if(aStringMatches[i].includes(".*"))
+				{
+					aControlSequeces = aStringMatches[i].split(".*");
+				}
+				else
+				{
+					aControlSequeces = aStringMatches[i].split("\w\w\w+");
+				}
 				for(j = 0; j < aEntries[i].length; j++)
 				{
 					for(t = 0; t < aControlSequeces.length; t++)
