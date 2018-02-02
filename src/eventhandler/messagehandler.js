@@ -1,4 +1,5 @@
 const oMhCalculator = require("../mhCalculator.js");
+const oUtility = require("../utility.js");
 
 /**
  * handler vor dispatching action triggered by discord.js message events
@@ -168,7 +169,7 @@ module.exports =
 
 			var sWeaponKey = aCommand[0].toUpperCase();
 			var mWeaponMV = oMhCalculator.mhMvMapMap.get(sWeaponKey);
-			
+
 			if (mWeaponMV === undefined)
 			{
 				oMessage.reply("Invalid Weapontype!");
