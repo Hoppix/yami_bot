@@ -23,7 +23,8 @@ scrapeUrl("https://mhworld.kiranico.com/monster", "./MH_Data/MonsterNames.MON", 
 //2) scrape monHitZones based on monNames, save to file
 for(i = 0; i < monNames.length; i++)
 {
-	scrapeUrl("https://mhworld.kiranico.com/monster" + monNames[i], "./MH_Data/" + monNames[i] + ".HZ", ["<td>\w\w\w+</td>", "<td class=\"text-center\">.*</td>"]);
+	fs.appendFile("./MH_Data/MonsterLists/" + monNames[i] + ".HZ", ""); //creae File if non existent
+	scrapeUrl("https://mhworld.kiranico.com/monster" + monNames[i], "./MH_Data/MonsterLists/" + monNames[i] + ".HZ", ["<td>\w\w\w+</td>", "<td class=\"text-center\">.*</td>"]);
 }
 //3) scrape weapons based on wpnNames, save to file
 
