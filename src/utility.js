@@ -66,7 +66,7 @@ module.exports =
 				ret[i][0] = ret[i][0].replace("\n", "");
 				ret[i][0] = ret[i][0].replace("\r", "");
 			}
-			
+
 			return ret;
 		},
 

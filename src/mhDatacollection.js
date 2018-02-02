@@ -38,6 +38,39 @@ var mhBOWmvMap = new Map();
 //contains all hitzones for each monster
 var mhMonsterMap = new Map();
 
+//weapondata lists
+var mhWeaponMapMap = new Map();
+
+var mhWeaponSNSMap = new Map();
+var mhWeaponDSMap = new Map();
+var mhWeaponLSMap = new Map();
+var mhWeaponGSMap = new Map();
+var mhWeaponGLMap = new Map();
+var mhWeaponLCMap = new Map();
+var mhWeaponHMMap = new Map();
+var mhWeaponHHMap = new Map();
+var mhWeaonIGMap = new Map();
+var mhWeaponSAMap = new Map();
+var mhWeaponCBMap =  new Map();
+var mhWeaponLBGMap = new Map();
+var mhWeaponHBGMap = new Map();
+var mhWeaponBOWMap = new Map();
+
+mhWeaponMapMap.set("SNS", mhWeaponSNSMap);
+mhWeaponMapMap.set("DS", mhWeaponDSMap);
+mhWeaponMapMap.set("LS", mhWeaponLSMap);
+mhWeaponMapMap.set("GS", mhWeaponGSMap);
+mhWeaponMapMap.set("GL", mhWeaponGLMap);
+mhWeaponMapMap.set("LC", mhWeaponLCMap);
+mhWeaponMapMap.set("HM", mhWeaponHMMap);
+mhWeaponMapMap.set("HH", mhWeaponHHMap);
+mhWeaponMapMap.set("SA", mhWeaponSAMap);
+mhWeaponMapMap.set("CB", mhWeaponCBMap);
+mhWeaponMapMap.set("IG", mhWeaponIGMap);
+mhWeaponMapMap.set("LBG", mhWeaponLBGMap);
+mhWeaponMapMap.set("HBG", mhWeaponHBGMap);
+mhWeaponMapMap.set("BOW", mhWeaponBOWMap);
+
 //Values for weapon debloating
 mhBloatMap.set("SNS", 1.4);
 mhBloatMap.set("DS", 1.4);
@@ -122,31 +155,13 @@ for (i = 0; i < monNames.length; i++)
 	mhMonsterMap.set(monNames[i], utility.readMonsterListFile('./MH_Data/MonsterLists/' + monNames[i] + ".HZ"));
 }
 
-//TODO read weapon files
-//read data files for waeapons
-var mhWeaponMapMap = new Map();
-
-var mhWeaponSNSMap = new Map();
-var mhWeaponDSMap = new Map();
-var mhWeaponLSMap = new Map();
-var mhWeaponGSMap = new Map();
-var mhWeaponGLMap = new Map();
-var mhWeaponLCMap = new Map();
-var mhWeaponHMMap = new Map();
-var mhWeaponHHMap = new Map();
-var mhWeaponSAMap = new Map();
-var mhWeaponCBMap =  new Map();
-var mhWeaponLBGMap = new Map();
-var mhWeaponHBGMap = new Map();
-var mhWeaponBOWMap = new Map();
-
+//read data files for waepons
 var aSNS = utility.readWeaponListFile('./MH_Data/WeaponListSNS.WL');
 
 for (i = 0; i < aSNS.length; i++)
 {
 	mhWeaponSNSMap.set(aSNS[i][0], aSNS[i]);
 }
-console.log(mhWeaponSNSMap);
 
 module.exports.mhMvMapMap = mhMvMapMap;
 module.exports.mhBloatMap = mhBloatMap;
