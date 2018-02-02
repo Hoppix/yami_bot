@@ -120,7 +120,7 @@ module.exports =
 				console.log("saved logfile");
 			});
 		},
-		
+
 	/**
 	*
 	**/
@@ -133,7 +133,7 @@ module.exports =
 				return console.log(err);
 				}
 			});
-		}
+		},
 
     /**
     * returns an objects which contains passed time since started
