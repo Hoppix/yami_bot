@@ -9,7 +9,7 @@ const oUtility = require("./src/utility.js");
 const oMessageHandler = require("./src/eventhandler/messagehandler");
 const oVoiceHandler = require("./src/eventhandler/voicehandler");
 const oPresenceHandler = require("./src/eventhandler/presencehandler");
-const oWebscraper = require("./src/webscraper.js");
+const oRequestHandler = require("./src/requesthandler.js");
 
 var oDefaultGuild;
 var oDefaultChannel;
@@ -18,7 +18,7 @@ var defaultGuildChannels;
 
 //set your custom names
 const sDefaultGuildName = "Zettai Ryouiki";
-const sDefaultGuildChannelName = "debugging";
+const sDefaultGuildChannelName = "general";
 const sDefaultVoiceChannelName = "General";
 const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
@@ -67,7 +67,7 @@ oClient.on('ready', () =>
 	//start twitch api polling
 	for(var i = 0; i < oConfig.streamers.length; i++)
 	{
-		oWebscraper.pollStream(oDefaultChannel, oConfig.streamers[i], oConfig.twitchClient);
+		oRequestHandler.pollStream(oDefaultChannel, oConfig.streamers[i], oConfig.twitchClient);
 	}
 
 
