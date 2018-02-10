@@ -116,6 +116,12 @@ oClient.on('message', message =>
 		case "motionvalues":
 			oMessageHandler.getWeaponMV(aCommand.slice(1, aCommand.length), message);
 			break;
+		case "armorsets":
+			oMessageHandler.getArmorSpreadsheetUrl(message);
+			break;
+		case "kiranico":
+				oMessageHandler.getKiranicoUrl(aCommand.splice(1, aCommand.length), message);
+			break;
 		default:
 			message.reply("Wrong arguments provided!");
 	}
