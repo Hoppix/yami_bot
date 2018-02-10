@@ -4,31 +4,15 @@
 var request = require('request');
 
 /**
- *    returns: promise
- * request url and retrieves the html content as string
- **/
-function scrapeUrl(sUrl)
-{
-	const deferred = q.defer();
-	request(sUrl, function (err, response, html)
-	{
-		if (err && response !== 200)
-		{
-			console.log("Something happened when scraping " + sUrl);
-			console.log(err);
-			deferred.reject(err);
-		}
-		else
-		{
-			deferred.resolve(html);
-		}
-	});
-	return deferred.promise;
-}
-
+ * starts a asynchronous loop which polls
+ * @param oChatChannel
+ * @param sStreamer
+ * @param apikey
+ */
 function pollStream(oChatChannel, sStreamer, apikey)
 {
 	var bCallFlag = true;
+	var iPollInterval = 10000;
 	console.log("Interval set for " + sStreamer);
 
 	setInterval(function ()
@@ -48,7 +32,7 @@ function pollStream(oChatChannel, sStreamer, apikey)
 		{
 			if (err && response !== 200)
 			{
-				console.log("error logged")
+				console.log("error logged");
 				console.log(err);
 			}
 			else
@@ -76,8 +60,8 @@ function pollStream(oChatChannel, sStreamer, apikey)
 				}
 			}
 		});
-	}, 10000);
+	}, iPollInterval);
 }
 
-module.exports.scrapeUrl = scrapeUrl;
+//exports
 module.exports.pollStream = pollStream;
