@@ -7,9 +7,9 @@ const oMhCalculator = require("../mhCalculator.js");
 module.exports =
 	{
 		/**
-		*	bot joins the source voiceChannel
-		*	and plays the youtubelink using the ytdl-core library.
-		**/
+		 *    bot joins the source voiceChannel
+		 *    and plays the youtubelink using the ytdl-core library.
+		 **/
 		playYoutubeLink: function (sLink, oMessage, oClient)
 		{
 			if (sLink !== undefined)
@@ -35,8 +35,8 @@ module.exports =
 		},
 
 		/**
-		*	bot closes the voiceConnection and leaves the channel.
-		**/
+		 *    bot closes the voiceConnection and leaves the channel.
+		 **/
 		stopYoutubeLink: function (oClient)
 		{
 			const oConnection = oClient.voiceConnections.array()[0];
@@ -45,8 +45,8 @@ module.exports =
 		},
 
 		/**
-		*	Responds with an embed message containing all the existing general commands
-		**/
+		 *    Responds with an embed message containing all the existing general commands
+		 **/
 		printHelpMessage: function (oMessage)
 		{
 			const oHelp = {name: "!help:", value: "Prints this message"};
@@ -69,9 +69,9 @@ module.exports =
 		},
 
 		/**
-		*	Responds with an embed message containting
-		*	all the available monster hunter world commands
-		**/
+		 *    Responds with an embed message containting
+		 *    all the available monster hunter world commands
+		 **/
 		printMhHelpMessage: function (oMessage)
 		{
 			const oWeaponStrength = {
@@ -86,8 +86,19 @@ module.exports =
 				name: "!motionvalues [weapontype]",
 				value: "Lists all the Motionvalues for every specific attack"
 			};
+
+			const oKiranicoUrl = {
+				name: "!kiranico [category] [object]",
+				value: "Generates a kiranico link from the parameters. Example: !kiranico monster, !kiranico item potion"
+			};
+
+			const oArmorSets = {
+				name: "!armorsets",
+				value: "link to a google spreadsheet file"
+			};
+
 			const oSharpness = {name: "sharpness", value: "red, orange, yellow, green, blue, white, purple"};
-			const oAttack = {name: "attack", value: "attack value as shown in game"}
+			const oAttack = {name: "attack", value: "attack value as shown in game"};
 			const oElemental = {name: "elemental", value: "elemental damage as shown in game (0 when none)"};
 			const oAffinity = {name: "affinity", value: "a number between 0 and 100"};
 			const oWeaponType = {
@@ -102,7 +113,7 @@ module.exports =
 					embed: {
 						color: 900000,
 						description: "Monster Hunter Calculation commands:",
-						fields: [oWeaponStrength, oWeaponCompare, oMotionvalue, oSharpness, oAttack, oAffinity, oElemental, oWeaponType],
+						fields: [oWeaponStrength, oWeaponCompare, oMotionvalue, oKiranicoUrl, oArmorSets, oSharpness, oAttack, oAffinity, oElemental, oWeaponType],
 						footer: oFooter
 					}
 				};
@@ -110,8 +121,8 @@ module.exports =
 		},
 
 		/**
-		* replies with a message containing the total uptime
-		**/
+		 * replies with a message containing the total uptime
+		 **/
 		printUptimeMessage: function (oUtility, oMessage, oStartedDate)
 		{
 			const oUptime = oUtility.uptimeSince(oStartedDate);
@@ -119,9 +130,9 @@ module.exports =
 		},
 
 		/**
-		*	receives the message and calculates the weapon Strength
-		*	using the mhCalculator
-		**/
+		 *    receives the message and calculates the weapon Strength
+		 *    using the mhCalculator
+		 **/
 		handleWeaponCalculation: function (aCommand, oMessage)
 		{
 			if (aCommand.length !== 5)
@@ -140,9 +151,9 @@ module.exports =
 		},
 
 		/**
-		*	receives the message and compares the weapon stength of
-		*	two weapons and compares them using the mhCalculator
-		**/
+		 *    receives the message and compares the weapon stength of
+		 *    two weapons and compares them using the mhCalculator
+		 **/
 		handleWeaponCompare: function (aCommand, oMessage)
 		{
 			if (aCommand.length !== 9)
@@ -155,9 +166,9 @@ module.exports =
 		},
 
 		/**
-		*	receives the message and responds with an embed containing all
-		*	the motionvalues for a specified weapon using the mhCalculator
-		**/
+		 *    receives the message and responds with an embed containing all
+		 *    the motionvalues for a specified weapon using the mhCalculator
+		 **/
 		getWeaponMV: function (aCommand, oMessage)
 		{
 			if (aCommand.length !== 1)
@@ -168,7 +179,7 @@ module.exports =
 
 			var sWeaponKey = aCommand[0].toUpperCase();
 			var mWeaponMV = oMhCalculator.mhMvMapMap.get(sWeaponKey);
-			
+
 			if (mWeaponMV === undefined)
 			{
 				oMessage.reply("Invalid Weapontype!");
@@ -198,17 +209,17 @@ module.exports =
 		 * @param aCommand
 		 * @param oMessage
 		 */
-		getKiranicoUrl: function(aCommand, oMessage)
+		getKiranicoUrl: function (aCommand, oMessage)
 		{
 			var sUrl = "https://mhworld.kiranico.com";
 
-			if(aCommand.length === 0)
+			if (aCommand.length === 0)
 			{
 				oMessage.reply(sUrl);
 			}
-			else if(aCommand.length < 3)
+			else if (aCommand.length < 3)
 			{
-				for(var i = 0; i < aCommand.length; i++)
+				for (var i = 0; i < aCommand.length; i++)
 				{
 					sUrl = sUrl + "/" + aCommand[i];
 				}
@@ -224,7 +235,7 @@ module.exports =
 		 * returns armor google spreadsheet
 		 * @param oMessage
 		 */
-		getArmorSpreadsheetUrl: function(oMessage)
+		getArmorSpreadsheetUrl: function (oMessage)
 		{
 			oMessage.reply("https://docs.google.com/spreadsheets/d/1lgLke5tI8LXWylHZnsmF5QTA2vdJGK6lz0N-oHm_3Ls/edit#gid=1065233840");
 		}
