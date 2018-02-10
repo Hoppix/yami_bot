@@ -108,7 +108,7 @@ mhMvMapMap.set("BOW", mhBOWmvMap);
 var wpnNames = ["GS", "LS", "SNS", "DS", "HM", "HH", "LC", "GL", "SA", "CB", "IG", "LBG", "HBG", "BOW"];
 for (i = 0; i < 14; i++)
 {
-	var mvData = utility.readWeaponMVfile('../MH_Data/Motionvalues/mhw_' + wpnNames[i] + '.MV');
+	var mvData = utility.readWeaponMVfile('./MH_Data/Motionvalues/mhw_' + wpnNames[i] + '.MV');
 	for (j = 0; j < mvData.length; j++)
 	{
 		mhMvMapMap.get(wpnNames[i]).set(mvData[j][0], mvData[j][1]);
@@ -116,10 +116,10 @@ for (i = 0; i < 14; i++)
 }
 
 //load the hitzone files for each Monster in MonsterNames.MON
-var monNames = utility.readMonsterNameFile('../MH_Data/MonsterNames.MON');
+var monNames = utility.readMonsterNameFile('./MH_Data/MonsterNames.MON');
 for (i = 0; i < monNames.length; i++)
 {
-	mhMonsterMap.set(monNames[i], utility.readMonsterListFile('../MH_Data/MonsterLists/' + monNames[i] + ".ML"));
+	mhMonsterMap.set(monNames[i], utility.readMonsterListFile('./MH_Data/MonsterLists/' + monNames[i] + ".ML"));
 }
 
 //TODO read weapon files
