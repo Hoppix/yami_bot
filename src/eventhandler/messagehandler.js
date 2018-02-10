@@ -200,19 +200,23 @@ module.exports =
 		 */
 		getKiranicoUrl: function(aCommand, oMessage)
 		{
-			var sUrl = "https://mhworld.kiranico.com/";
+			var sUrl = "https://mhworld.kiranico.com";
 
 			if(aCommand.length === 0)
 			{
 				oMessage.reply(sUrl);
 			}
-			else if(aCommand.length === 1)
+			else if(aCommand.length < 3)
 			{
-				oMessage.reply(sUrl + aCommand[0]);
+				for(var i = 0; i < aCommand.length; i++)
+				{
+					sUrl = sUrl + "/" + aCommand[i];
+				}
+				oMessage.reply(sUrl);
 			}
 			else
 			{
-				oMessage.reply("0 or 1 parameters required.");
+				oMessage.reply("0-2 parameters required.");
 			}
 		},
 

@@ -18,7 +18,7 @@ var defaultGuildChannels;
 
 //set your custom names
 const sDefaultGuildName = "Zettai Ryouiki";
-const sDefaultGuildChannelName = "general";
+const sDefaultGuildChannelName = "debugging";
 const sDefaultVoiceChannelName = "General";
 const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
