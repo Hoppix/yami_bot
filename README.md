@@ -17,15 +17,15 @@ Since actual damage in Monster Hunter is very variable, we estimate certain valu
 
 ### Data Sources and APIs
 http://kiranico.com/ <br/>
-https://3000hunter.com/
-https://discord.js
+https://3000hunter.com/ <br/>
+https://discord.js <br/>
 https://scryfall.com
 
 ### Installation and Deployment
-- Clone this repository via ```console git clone https://github.com/Hoppix/yami_bot_js ```
-- Install all needed dependencies with ````console npm install ````
-- Create ``console src/config.json ``
-``javascript 
+- Clone this repository via ```git clone https://github.com/Hoppix/yami_bot_js ```
+- Install all needed dependencies with ````npm install ````
+- Create ``console src/config.json `` with
+``
 {
   "token": "your discord apikey",
   "twitchClient": "your twitch apikey",
