@@ -54,7 +54,7 @@ module.exports =
 			const oStop = {name: "!stop:", value: "Stops playback and leaves channel"};
 			const oUptime = {name: "!uptime:", value: "Prints uptime"};
 			const oMhHelp = {name: "!mhhelp", value: "Lists available commands for Monster Hunter Weapon calculation"};
-			const oFooter = {text: "Author: Hoppix#6723"};
+			const oFooter = {text: "Please send known bugs to Hoppix#6723/k.hopfmann@hotmail.de"};
 
 			const oEmbed =
 				{
