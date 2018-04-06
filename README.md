@@ -24,7 +24,7 @@ https://scryfall.com
 ### Installation and Deployment
 - Clone this repository via ```git clone https://github.com/Hoppix/yami_bot_js ```
 - Install all needed dependencies with ````npm install ````
-- Create ``console src/config.json `` with
+- Create ``src/config.json `` with
 ``
 {
   "token": "your discord apikey",
