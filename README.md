@@ -18,7 +18,7 @@ Since actual damage in Monster Hunter is very variable, we estimate certain valu
 ### Data Sources and APIs
 http://kiranico.com/ <br/>
 https://3000hunter.com/ <br/>
-https://discord.js <br/>
+https://discord.js.org <br/>
 https://scryfall.com
 
 ### Installation and Deployment
