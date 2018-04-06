@@ -31,7 +31,7 @@ https://scryfall.com
   "twitchClient": "your twitch apikey",
   "streamers": ["streamer1", "streamer2", "streamer3"]
 } ``
-- Start the Bot with nodejs bot.js
+- Start the Bot with ``nodejs bot.js``
 
 ### Authors
 @Rathalos93 Wolf#4328 <br />
