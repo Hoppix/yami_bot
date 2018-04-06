@@ -1,5 +1,8 @@
 /**
  * Created by khopf on 29/12/2017.
+ *
+ * This script sets all the needed data for the calculator.
+ * The task is separated for scaleability
  */
 const utility = require('./utility.js');
 
@@ -13,11 +16,10 @@ var mhSharpElementalMap = new Map();
 //contains the elemental sharpness value for each weapon type
 
 var mhMvEstimatedMap = new Map();
-	//contains the estimated average motion value for each weapon type
+//contains the estimated average motion value for each weapon type
 
 //contains the Maps with the motionvalues per move for each weapon type
 var mhMvMapMap = new Map();
-
 
 //each map contains the motion values for each move of its weapontype
 var mhGSmvMap = new Map();
@@ -35,41 +37,8 @@ var mhLBGmvMap = new Map();
 var mhHBGmvMap = new Map();
 var mhBOWmvMap = new Map();
 
-//contains all hitzones for each monster
-var mhMonsterMap = new Map();
-
-//weapondata lists
-var mhWeaponMapMap = new Map();
-
-var mhWeaponSNSMap = new Map();
-var mhWeaponDSMap = new Map();
-var mhWeaponLSMap = new Map();
-var mhWeaponGSMap = new Map();
-var mhWeaponGLMap = new Map();
-var mhWeaponLCMap = new Map();
-var mhWeaponHMMap = new Map();
-var mhWeaponHHMap = new Map();
-var mhWeaonIGMap = new Map();
-var mhWeaponSAMap = new Map();
-var mhWeaponCBMap =  new Map();
-var mhWeaponLBGMap = new Map();
-var mhWeaponHBGMap = new Map();
-var mhWeaponBOWMap = new Map();
-
-mhWeaponMapMap.set("SNS", mhWeaponSNSMap);
-mhWeaponMapMap.set("DS", mhWeaponDSMap);
-mhWeaponMapMap.set("LS", mhWeaponLSMap);
-mhWeaponMapMap.set("GS", mhWeaponGSMap);
-mhWeaponMapMap.set("GL", mhWeaponGLMap);
-mhWeaponMapMap.set("LC", mhWeaponLCMap);
-mhWeaponMapMap.set("HM", mhWeaponHMMap);
-mhWeaponMapMap.set("HH", mhWeaponHHMap);
-mhWeaponMapMap.set("SA", mhWeaponSAMap);
-mhWeaponMapMap.set("CB", mhWeaponCBMap);
-mhWeaponMapMap.set("IG", mhWeaponIGMap);
-mhWeaponMapMap.set("LBG", mhWeaponLBGMap);
-mhWeaponMapMap.set("HBG", mhWeaponHBGMap);
-mhWeaponMapMap.set("BOW", mhWeaponBOWMap);
+//contains all hitzones for each target dummy
+var mhDummyMap = new Map();
 
 //Values for weapon debloating
 mhBloatMap.set("SNS", 1.4);
@@ -115,7 +84,7 @@ mhMvEstimatedMap.set("HH", 24); //left-right swing
 mhMvEstimatedMap.set("LC", 25); //triple thrust
 mhMvEstimatedMap.set("GL", 24); //~triple poke
 mhMvEstimatedMap.set("SA", 33); // doublestrike, heavensflurry swordcombo, Phial missing
-mhMvEstimatedMap.set("CB", 39); //axe-combo, no phals, no shield charge
+mhMvEstimatedMap.set("CB", 39); //axe-combo, no phials, no shield charge
 mhMvEstimatedMap.set("IG", 17); //average std combo, red extract activated
 mhMvEstimatedMap.set("BOW", 26); //a single hit of the lv2 charged Dragon Piercer
 mhMvEstimatedMap.set("LBG", 0); //calculation way too different
@@ -141,31 +110,24 @@ mhMvMapMap.set("BOW", mhBOWmvMap);
 var wpnNames = ["GS", "LS", "SNS", "DS", "HM", "HH", "LC", "GL", "SA", "CB", "IG", "LBG", "HBG", "BOW"];
 for (i = 0; i < 14; i++)
 {
-	var mvData = utility.readWeaponMVfile('./MH_Data/Motionvalues/mhw_' + wpnNames[i] + '.MV');
+	var sPath = "../MH_Data/Motionvalues/mhw_" + wpnNames[i] + ".json";
+	var mvData = require(sPath);
+	console.log("############ READING " + sPath + " ############");
 	for (j = 0; j < mvData.length; j++)
 	{
-		mhMvMapMap.get(wpnNames[i]).set(mvData[j][0], mvData[j][1]);
+		mhMvMapMap.get(wpnNames[i]).set(mvData[j].name, mvData[j].hits.push(mvData[j].count));
 	}
 }
 
-//load the hitzone files for each Monster in MonsterNames.MON
-var monNames = utility.readMonsterNameFile('./MH_Data/MonsterNames.MON');
-for (i = 0; i < monNames.length; i++)
-{
-	mhMonsterMap.set(monNames[i], utility.readMonsterListFile('./MH_Data/MonsterLists/' + monNames[i] + ".HZ"));
-}
+//load the hitzone json files for each Dummy
+const oPhysicalDummy = require('../MH_Data/MonsterLists/physicalDummy.json');
+const oElementalDummy = require('../MH_Data/MonsterLists/elementalDummy.json');
 
-//read data files for waepons
-var aSNS = utility.readWeaponListFile('./MH_Data/WeaponListSNS.WL');
-
-for (i = 0; i < aSNS.length; i++)
-{
-	mhWeaponSNSMap.set(aSNS[i][0], aSNS[i]);
-}
 
 module.exports.mhMvMapMap = mhMvMapMap;
 module.exports.mhBloatMap = mhBloatMap;
 module.exports.mhSharpPhysicalMap = mhSharpPhysicalMap;
 module.exports.mhSharpElementalMap = mhSharpElementalMap;
 module.exports.mhMvEstimatedMap = mhMvEstimatedMap;
-module.exports.mhMonsterMap = mhMonsterMap;
+module.exports.mhPhysicalDummy = oPhysicalDummy;
+module.exports.mhElementalDummy = oElementalDummy;

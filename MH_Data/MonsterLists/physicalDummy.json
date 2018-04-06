@@ -1,0 +1,16 @@
+{
+  "torso":
+  {
+    "cutting": 80,
+    "blunt": 80,
+    "shot": 80,
+    "fire": 0,
+    "ice": 0,
+    "water": 0,
+    "thunder": 0,
+    "dragon": 0
+  },
+  "head":
+  {
+  }
+}

@@ -1,0 +1,117 @@
+[
+	{
+		"name": "Axe: Side Slash",
+		"hits": [25],
+		"count": 1
+	},
+	{
+		"name": "Axe: Rising Slash",
+		"hits": [27],
+		"count": 1
+	},
+	{
+		"name": "Axe: Overhead Slash",
+		"hits": [43],
+		"count": 1
+	},
+	{
+		"name": "Axe: Foward Slash",
+		"hits": [10],
+		"count": 1
+	},
+	{
+		"name": "Axe: Fade Slash",
+		"hits": [24],
+		"count": 1
+	},
+	{
+		"name": "Axe: Wild Swing",
+		"hits": [25,23],
+		"count": 2
+	},
+	{
+		"name": "Axe: Morph Sweep",
+		"hits": [23,71,36],
+		"count": 3
+	},
+	{
+		"name": "Axe: Morph Slash",
+		"hits": [36],
+		"count": 1
+	},
+	{
+		"name": "Axe: Jumping Slash",
+		"hits": [40],
+		"count": 1
+	},
+	{
+		"name": "Axe: Jumping Morph Slash",
+		"hits": [43],
+		"count": 1
+	},
+	{
+		"name": "Axe: Jumping Sweep",
+		"hits": [76],
+		"count": 1
+	},
+	{
+		"name": "Sword: Overhead Slash",
+		"hits": [36],
+		"count": 1
+	},
+	{
+		"name": "Sword: Right Rising Slash",
+		"hits": [26],
+		"count": 1
+	},
+	{
+		"name": "Sword: Left Rising Slash",
+		"hits": [23],
+		"count": 1
+	},
+	{
+		"name": "Sword: Downward Fade Slash",
+		"hits": [66],
+		"count": 1
+	},
+	{
+		"name": "Sword: Double Slash",
+		"hits": [26,31],
+		"count": 2
+	},
+	{
+		"name": "Sword: Heavenward Flurry",
+		"hits": [39,39],
+		"count": 2
+	},
+	{
+		"name": "Sword: Morph Slash",
+		"hits": [48],
+		"count": 1
+	},
+	{
+		"name": "Sword: Jumping Rising Slash",
+		"hits": [41],
+		"count": 1
+	},
+	{
+		"name": "Sword: Jumping Element Discharge",
+		"hits": [6,6,6],
+		"count": 3
+	},
+	{
+		"name": "Element Discharge",
+		"hits": [13,13,8,8,8,8,8,8,8],
+		"count": 9
+	},
+	{
+		"name": "Finishing Discharge",
+		"hits": [66],
+		"count": 1
+	},
+	{
+		"name": "Element Discharge Finisher",
+		"hits": [95],
+		"count": 1
+	}
+]

@@ -1,0 +1,107 @@
+[
+	{
+		"name": "Step Slash",
+		"hits": [25],
+		"count": 1
+	},
+	{
+		"name": "Overhead Slash",
+		"hits": [23],
+		"count": 1
+	},
+	{
+		"name": "Thrust",
+		"hits": [13],
+		"count": 1
+	},
+	{
+		"name": "Rising Slash",
+		"hits": [20],
+		"count": 1
+	},
+	{
+		"name": "Fade Slash",
+		"hits": [23],
+		"count": 1
+	},
+	{
+		"name": "Spirit Blade I(empty)",
+		"hits": [15],
+		"count": 1
+	},
+	{
+		"name": "Spirit Blade I",
+		"hits": [27],
+		"count": 1
+	},
+	{
+		"name": "Spirit Blade II",
+		"hits": [33],
+		"count": 1
+	},
+	{
+		"name": "Spirit Blade III",
+		"hits": [13,15,35],
+		"count": 3
+	},
+	{
+		"name": "Spririt Roundslash",
+		"hits": [42],
+		"count": 1
+	},
+	{
+		"name": "Spirit Jumping Slash",
+		"hits": [30],
+		"count": 1
+	},
+	{
+		"name": "Foresight Slash",
+		"hits": [27],
+		"count": 1
+	},
+	{
+		"name": "Spirit Thrust",
+		"hits": [27],
+		"count": 1
+	},
+	{
+		"name": "Spirit Helm Breaker(white)",
+		"hits": [11,11,11,11,11,10,10],
+		"count": 7
+	},
+	{
+		"name": "Spirit Helm Breaker(yellow)",
+		"hits": [18,18,18,16,16,16,16],
+		"count": 7
+	},
+	{
+		"name": "Spirit Helm Breaker(red)",
+		"hits": [30,30,30,30,28,28,28],
+		"count": 7
+	},
+	{
+		"name": "Jumping Slash",
+		"hits": [27],
+		"count": 1
+	},
+	{
+		"name": "Jumping Spirit Blade(empty)",
+		"hits": [18],
+		"count": 1
+	},
+	{
+		"name": "Jumping Spirit Blade",
+		"hits": [33],
+		"count": 1
+	},
+	{
+		"name": "Jumping Rising Slash",
+		"hits": [25],
+		"count": 1
+	},
+	{
+		"name": "Aerial Draw Spirit Blade",
+		"hits": [51],
+		"count": 1
+	}
+]

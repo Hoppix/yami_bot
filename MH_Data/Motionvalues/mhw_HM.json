@@ -1,0 +1,142 @@
+[
+	{
+		"name": "Swing",
+		"hits": [20],
+		"count": 1
+	},
+	{
+		"name": "Backswing",
+		"hits": [16],
+		"count": 1
+	},
+	{
+		"name": "Sidesmash",
+		"hits": [15],
+		"count": 1
+	},
+	{
+		"name": "Overhead Smash I",
+		"hits": [37],
+		"count": 1
+	},
+	{
+		"name": "Overhead Smash II",
+		"hits": [22],
+		"count": 1
+	},
+	{
+		"name": "Upswing",
+		"hits": [86],
+		"count": 1
+	},
+	{
+		"name": "Jumping Smash",
+		"hits": [36],
+		"count": 1
+	},
+	{
+		"name": "Jumping Charged Attack I",
+		"hits": [62],
+		"count": 1
+	},
+	{
+		"name": "Jumping Charged Attack II",
+		"hits": [66],
+		"count": 1
+	},
+	{
+		"name": "Jumping Charged Attack III",
+		"hits": [79],
+		"count": 1
+	},
+	{
+		"name": "Big Bang I",
+		"hits": [28],
+		"count": 1
+	},
+	{
+		"name": "Big Bang II",
+		"hits": [32],
+		"count": 1
+	},
+	{
+		"name": "Big Bang III",
+		"hits": [45],
+		"count": 1
+	},
+	{
+		"name": "Big Bang IV",
+		"hits": [65],
+		"count": 1
+	},
+	{
+		"name": "Big Bang Finisher",
+		"hits": [28,28,100],
+		"count": 3
+	},
+	{
+		"name": "Charged Side Blow",
+		"hits": [19],
+		"count": 1
+	},
+	{
+		"name": "Charged Follow-up",
+		"hits": [25],
+		"count": 1
+	},
+	{
+		"name": "Charged Follow-up(Power Charge)",
+		"hits": [58],
+		"count": 1
+	},
+	{
+		"name": "Charged Upswing",
+		"hits": [38],
+		"count": 1
+	},
+	{
+		"name": "Charged Big Bang",
+		"hits": [15,76],
+		"count": 2
+	},
+	{
+		"name": "Spinning Bludgeon",
+		"hits": [28,19,19,19,19,19],
+		"count": 6
+	},
+	{
+		"name": "Spinning Side Smash",
+		"hits": [15],
+		"count": 1
+	},
+	{
+		"name": "Spinning Follow-up",
+		"hits": [56],
+		"count": 1
+	},
+	{
+		"name": "Spinnning Swing",
+		"hits": [32],
+		"count": 1
+	},
+	{
+		"name": "Spinning Strong Upswing",
+		"hits": [86],
+		"count": 1
+	},
+	{
+		"name": "Charged Brutal Upswing",
+		"hits": [48],
+		"count": 1
+	},
+	{
+		"name": "Charged Brutal Big Bang",
+		"hits": [16,16,100],
+		"count": 3
+	},
+	{
+		"name": "Midair Spinning Bludgeon",
+		"hits": [30,30,30,100],
+		"count": 4
+	}
+]

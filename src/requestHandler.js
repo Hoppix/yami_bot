@@ -66,7 +66,7 @@ function pollStream(oChatChannel, sStreamer, apikey)
 				//when stream is online, send message and set disable flag
 				else if (bCallFlag)
 				{
-					oChatChannel.send(sStreamer + " is currently online:" + streamChannel.stream.channel.url);
+					oChatChannel.send(sStreamer + " is currently streaming: " + streamChannel.stream.channel.url);
 					bCallFlag = false;
 				}
 			}

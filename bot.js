@@ -9,7 +9,7 @@ const oUtility = require("./src/utility.js");
 const oMessageHandler = require("./src/eventhandler/messagehandler");
 const oVoiceHandler = require("./src/eventhandler/voicehandler");
 const oPresenceHandler = require("./src/eventhandler/presencehandler");
-const orequestHandler = require("./src/requestHandler.js");
+const oRequestHandler = require("./src/requestHandler.js");
 
 var oDefaultGuild;
 var oDefaultChannel;
@@ -18,11 +18,11 @@ var defaultGuildChannels;
 
 //set your custom names
 const sDefaultGuildName = "Zettai Ryouiki";
-const sDefaultGuildChannelName = "debugging";
+const sDefaultGuildChannelName = "bot-messages";
 const sDefaultVoiceChannelName = "General";
 const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
-const sStartMessage = "v1.8.0 Yami: Twitch api implemented!";
+const sStartMessage = "v1.8.1 Yami: Refactoring & Fixes!";
 
 /**
  * Initiates default variables
@@ -67,7 +67,7 @@ oClient.on('ready', () =>
 	//start twitch api polling
 	for(var i = 0; i < oConfig.streamers.length; i++)
 	{
-		orequestHandler.pollStream(oDefaultChannel, oConfig.streamers[i], oConfig.twitchClient);
+		oRequestHandler.pollStream(oDefaultChannel, oConfig.streamers[i], oConfig.twitchClient);
 	}
 
 
