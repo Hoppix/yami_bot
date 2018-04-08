@@ -117,7 +117,7 @@ for (i = 0; i < 14; i++)
 	console.log("############ READING " + sPath + " ############");
 	for (j = 0; j < mvData.length; j++)
 	{
-		mhMvMapMap.get(wpnNames[i]).set(mvData[j].name, mvData[j].hits.push(mvData[j].count));
+		mhMvMapMap.get(wpnNames[i]).set(mvData[j].name, mvData[j].hits);
 	}
 }
 
