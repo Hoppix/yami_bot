@@ -64,6 +64,7 @@ mhSharpPhysicalMap.set("GREEN", 1.05);
 mhSharpPhysicalMap.set("BLUE", 1.2);
 mhSharpPhysicalMap.set("WHITE", 1.32);
 mhSharpPhysicalMap.set("PURPLE", 1.45);
+mhSharpPhysicalMap.set("GUNNER", 1);
 
 //Values for elemental sharpness
 mhSharpElementalMap.set("RED", 0.25);
@@ -73,6 +74,7 @@ mhSharpElementalMap.set("GREEN", 1.0);
 mhSharpElementalMap.set("BLUE", 1.06);
 mhSharpElementalMap.set("WHITE", 1.12);
 mhSharpElementalMap.set("PURPLE", 1.2);
+mhSharpElementalMap.set("GUNNER", 1);
 
 //Values for estimated average motion values
 mhMvEstimatedMap.set("SNS", 16); //~average on dash and 2 hits
@@ -86,9 +88,9 @@ mhMvEstimatedMap.set("GL", 24); //~triple poke
 mhMvEstimatedMap.set("SA", 33); // doublestrike, heavensflurry swordcombo, Phial missing
 mhMvEstimatedMap.set("CB", 39); //axe-combo, no phials, no shield charge
 mhMvEstimatedMap.set("IG", 17); //average std combo, red extract activated
-mhMvEstimatedMap.set("BOW", 26); //a single hit of the lv2 charged Dragon Piercer
-mhMvEstimatedMap.set("LBG", 0); //calculation way too different
-mhMvEstimatedMap.set("HBG", 0); //calculation way too different
+mhMvEstimatedMap.set("BOW", 13); //charged powershot
+mhMvEstimatedMap.set("LBG", 30); //ignored, because shot elementless
+mhMvEstimatedMap.set("HBG", 30); //ignored, because shot elementless
 
 //mapping MV maps to their weapon type
 mhMvMapMap.set("GS", mhGSmvMap);

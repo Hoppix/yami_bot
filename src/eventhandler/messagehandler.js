@@ -86,7 +86,7 @@ module.exports =
 				name: "!motionvalues [weapontype]",
 				value: "Lists all the Motionvalues for every specific attack"
 			};
-			const oSharpness = {name: "sharpness", value: "red, orange, yellow, green, blue, white, purple"};
+			const oSharpness = {name: "sharpness", value: "red, orange, yellow, green, blue, white, purple, gunner"};
 			const oAttack = {name: "attack", value: "attack value as shown in game"}
 			const oElemental = {name: "elemental", value: "elemental damage as shown in game (0 when none)"};
 			const oAffinity = {name: "affinity", value: "a number between 0 and 100"};
