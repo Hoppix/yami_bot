@@ -1,0 +1,92 @@
+[
+	{
+		"name": "Thrust",
+		"hits": [10],
+		"count": 1
+	},
+	{
+		"name": "Rising Slash Combo",
+		"hits": [15,14],
+		"count": 2
+	},
+	{
+		"name": "Reaping Slash",
+		"hits": [18],
+		"count": 1
+	},
+	{
+		"name": "Double Slash ",
+		"hits": [18,24],
+		"count": 2
+	},
+	{
+		"name": "Leaping Slash",
+		"hits": [26],
+		"count": 1
+	},
+	{
+		"name": "Wide Sweep",
+		"hits": [23],
+		"count": 1
+	},
+	{
+		"name": "Overhead Smash",
+		"hits": [30],
+		"count": 1
+	},
+	{
+		"name": "Jumping Slash",
+		"hits": [15],
+		"count": 1
+	},
+	{
+		"name": "Jumping Advancing Slash",
+		"hits": [29],
+		"count": 1
+	},
+	{
+		"name": "Kinsect (Mark Target)",
+		"hits": [5],
+		"count": 1
+	},
+	{
+		"name": "Strong Thrust",
+		"hits": [11,10],
+		"count": 2
+	},
+	{
+		"name": "Strong Rising Slash Combo",
+		"hits": [15,14,15],
+		"count": 3
+	},
+	{
+		"name": "Strong Reaping Slash",
+		"hits": [15,19],
+		"count": 2
+	},
+	{
+		"name": "Strong Double Slash",
+		"hits": [15,14,28],
+		"count": 3
+	},
+	{
+		"name": "Strong Wide Sweep",
+		"hits": [18,21],
+		"count": 2
+	},
+	{
+		"name": "Tornado Slash",
+		"hits": [25,43],
+		"count": 2
+	},
+	{
+		"name": "Strong Jumping Slash",
+		"hits": [9,9,9,9],
+		"count": 4
+	},
+	{
+		"name": "Strong Jumping Advancing Slash",
+		"hits": [3,3,3,3,31],
+		"count": 5
+	}
+]

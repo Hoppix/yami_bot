@@ -1,0 +1,170 @@
+[
+	{
+		"name": "Sword: Weak Slash",
+		"hits": [
+			12
+		],
+		"count": 1
+	},
+	{
+		"name": "Sword: Return Stroke",
+		"hits": [
+			15
+		],
+		"count": 1
+	},
+	{
+		"name": "Sword: Spinning Slash",
+		"hits": [
+			28
+		],
+		"count": 1
+	},
+	{
+		"name": "Sword: Foward Slash",
+		"hits": [
+			20
+		],
+		"count": 1
+	},
+	{
+		"name": "Sword: Charged Rising Slash",
+		"hits": [
+			13
+		],
+		"count": 1
+	},
+	{
+		"name": "Sword: Charged Double Slash",
+		"hits": [
+			28, 19
+		],
+		"count": 2
+	},
+	{
+		"name": "Sword: Shield Thrust",
+		"hits": [
+			13, 9
+		],
+		"count": 2
+	},
+	{
+		"name": "Sword: Condensed Elemental Slash",
+		"hits": [
+			75
+		],
+		"count": 1
+	},
+	{
+		"name": "Sword: Morph Slash",
+		"hits": [
+			45
+		],
+		"count": 1
+	},
+	{
+		"name": "Sword: Sliding Slash",
+		"hits": [
+			25
+		],
+		"count": 1
+	},
+	{
+		"name": "Sword: Jumping Slash",
+		"hits": [
+			21
+		],
+		"count": 1
+	},
+	{
+		"name": "Sword: Jumping Morph Slash",
+		"hits": [
+			45
+		],
+		"count": 1
+	},
+	{
+		"name": "Sword: Jumping Raising Slash",
+		"hits": [
+			46
+		],
+		"count": 1
+	},
+	{
+		"name": "Axe: Jumping Slash",
+		"hits": [
+			46
+		],
+		"count": 1
+	},
+	{
+		"name": "Axe: Morph Slash",
+		"hits": [
+			28
+		],
+		"count": 1
+	},
+	{
+		"name": "Axe: Rising Slash",
+		"hits": [
+			36
+		],
+		"count": 1
+	},
+	{
+		"name": "Axe: Jumping Morph Slash",
+		"hits": [
+			21
+		],
+		"count": 1
+	},
+	{
+		"name": "Axe: Overhead Slash",
+		"hits": [
+			37
+		],
+		"count": 1
+	},
+	{
+		"name": "Axe: Dash Slam",
+		"hits": [
+			45
+		],
+		"count": 1
+	},
+	{
+		"name": "Axe: Element Discharge I",
+		"hits": [
+			21
+		],
+		"count": 1
+	},
+	{
+		"name": "Axe: Rushing Element Discharge I",
+		"hits": [
+			21
+		],
+		"count": 1
+	},
+	{
+		"name": "Axe: Element Discharge II",
+		"hits": [
+			21
+		],
+		"count": 1
+	},
+	{
+		"name": "Axe: Amped Element Discharge",
+		"hits": [
+			93
+		],
+		"count": 1
+	},
+	{
+		"name": "Axe: Super Element Discharge",
+		"hits": [
+			18, 100
+		],
+		"count": 2
+	}
+]

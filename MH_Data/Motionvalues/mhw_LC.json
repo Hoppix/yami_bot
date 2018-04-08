@@ -1,0 +1,112 @@
+[
+	{
+		"name": "Mid Thrust I",
+		"hits": [21],
+		"count": 1
+	},
+	{
+		"name": "Mid Thrust II",
+		"hits": [21],
+		"count": 1
+	},
+	{
+		"name": "Mid Thrust III",
+		"hits": [29],
+		"count": 1
+	},
+	{
+		"name": "High Thrust I",
+		"hits": [23],
+		"count": 1
+	},
+	{
+		"name": "High Thrust II",
+		"hits": [23],
+		"count": 1
+	},
+	{
+		"name": "High Thrust III",
+		"hits": [29],
+		"count": 1
+	},
+	{
+		"name": "Wide Sweep I",
+		"hits": [21],
+		"count": 1
+	},
+	{
+		"name": "Wide Sweep III",
+		"hits": [21],
+		"count": 1
+	},
+	{
+		"name": "Jumping Thrust",
+		"hits": [32],
+		"count": 1
+	},
+	{
+		"name": "Guard Thrust",
+		"hits": [21],
+		"count": 1
+	},
+	{
+		"name": "Cancel Thrust",
+		"hits": [23],
+		"count": 1
+	},
+	{
+		"name": "Counter-Thrust",
+		"hits": [42],
+		"count": 1
+	},
+	{
+		"name": "Shield Attack",
+		"hits": [14],
+		"count": 1
+	},
+	{
+		"name": "Leaping Thrust",
+		"hits": [9,9,9],
+		"count": 3
+	},
+	{
+		"name": "Dash Attack",
+		"hits": [11,11,11],
+		"count": 3
+	},
+	{
+		"name": "Dash Attack(charged)",
+		"hits": [13,13,13],
+		"count": 3
+	},
+	{
+		"name": "Finishing Thrust",
+		"hits": [52],
+		"count": 1
+	},
+	{
+		"name": "Finishing Twin Thrust",
+		"hits": [26,53],
+		"count": 2
+	},
+	{
+		"name": "Reverse Attack",
+		"hits": [51],
+		"count": 1
+	},
+	{
+		"name": "Dash Attack(aerial)",
+		"hits": [25,25,25],
+		"count": 3
+	},
+	{
+		"name": "Advancing Jump Thrust",
+		"hits": [30],
+		"count": 1
+	},
+	{
+		"name": "Accelerated Jump Thrust(not confirmed)",
+		"hits": [58],
+		"count": 1
+	}
+]

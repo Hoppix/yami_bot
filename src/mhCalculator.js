@@ -10,23 +10,23 @@ var mhSharpPhysicalMap = mhDatacollection.mhSharpPhysicalMap;
 var mhSharpElementalMap = mhDatacollection.mhSharpElementalMap;
 var mhMvEstimatedMap = mhDatacollection.mhMvEstimatedMap;
 var mhMvMapMap = mhDatacollection.mhMvMapMap;
-var mhMonsterMap = mhDatacollection.mhMonsterMap;
+var oElementalDummy = mhDatacollection.mhElementalDummy;
 
 /**
-*	Calculates the "true" damage for the defined weapon-values
-*	How Weapon Strength is calculated
-
-Since actual damage in Monster Hunter is very variable,
-we estimate certain values to generalize parts of the calculation
-so that the weapon itself is the deciding factor:
-The raw weapon damage is calculated as usual,
-then we define resistance values for a default target dummy that is an average
-of most monster resistances.
-Afterwards we calculate the average motion value per hit for the weapontype used.
-This is important for the fact that in the raw weapon calculation elemental damage is a very small percentage,
-but since we want to simulate the weapon performance as accurate as possible without setting special values for target and move,
-we use those dummy values.
-**/
+ * Calculates the "true" damage for the defined weapon-values
+ * How Weapon Strength is calculated:
+ *
+ * Since actual damage in Monster Hunter is very variable,
+ * we estimate certain values to generalize parts of the calculation
+ * so that the weapon itself is the deciding factor:
+ * The raw weapon damage is calculated as usual,
+ * then we define resistance values for a default target dummy that is an average
+ * of most monster resistances.
+ * Afterwards we calculate the average motion value per hit for the weapontype used.
+ * This is important for the fact that in the raw weapon calculation elemental damage is a very small percentage,
+ * but since we want to simulate the weapon performance as accurate as possible without setting special values for
+ * target and move, we use those dummy values.
+ **/
 function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, sWeapon)
 {
 
@@ -44,8 +44,10 @@ function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, s
 	}
 
 	var iMotionValue = mhMvEstimatedMap.get(sWeapon.toUpperCase());
-	var iHitzonePhysical = mhMonsterMap.get("DummyI")[0][1];
-	var iHitzoneElemental = mhMonsterMap.get("DummyI")[0][4];
+
+	//generic purpose dummy
+	var iHitzonePhysical = oElementalDummy.torso.cutting;
+	var iHitzoneElemental = oElementalDummy.torso.fire;
 
 	var fCritDamage = 1 + (iAffinity / 100) * 0.25;
 	var fWeaponPhysical = fSharpnessPhysical * (iAttack / fBloat) * (iMotionValue / 100) * (iHitzonePhysical / 100);
@@ -55,8 +57,8 @@ function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, s
 }
 
 /**
-* Compares two weapons and returns an object containting the better weapon and the percentual offset.
-**/
+ * Compares two weapons and returns an object containting the better weapon and the percentual offset.
+ **/
 function mhCompareWeapons(sSharpness, iAttack, iAffinity, iElemental, sSharpness2, iAttack2, iAffinity2, iElemental2, sWeapon)
 {
 	var fWeapon1 = mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, sWeapon);

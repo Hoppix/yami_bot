@@ -1,0 +1,97 @@
+[
+	{
+		"name": "Forward Smash",
+		"hits": [29],
+		"count": 1
+	},
+	{
+		"name": "Left Swing",
+		"hits": [22],
+		"count": 1
+	},
+	{
+		"name": "Right Swing",
+		"hits": [26],
+		"count": 1
+	},
+	{
+		"name": "Double Right Swing",
+		"hits": [15,13],
+		"count": 2
+	},
+	{
+		"name": "Backwards Strike",
+		"hits": [35],
+		"count": 1
+	},
+	{
+		"name": "Overhead Smash",
+		"hits": [15,40],
+		"count": 2
+	},
+	{
+		"name": "Jumping Smash",
+		"hits": [19],
+		"count": 1
+	},
+	{
+		"name": "Performance(aerial)",
+		"hits": [15],
+		"count": 1
+	},
+	{
+		"name": "Performance",
+		"hits": [31,28],
+		"count": 2
+	},
+	{
+		"name": "Performance(front)",
+		"hits": [30,28],
+		"count": 2
+	},
+	{
+		"name": "Performance(left)",
+		"hits": [30,28],
+		"count": 2
+	},
+	{
+		"name": "Performance(right)",
+		"hits": [30,28],
+		"count": 2
+	},
+	{
+		"name": "Performance(back)",
+		"hits": [31,28],
+		"count": 2
+	},
+	{
+		"name": "Encore",
+		"hits": [35,28,35,28],
+		"count": 4
+	},
+	{
+		"name": "Encore(front)",
+		"hits": [35,28,29,31,28],
+		"count": 5
+	},
+	{
+		"name": "Encore(left)",
+		"hits": [35,28,35,28],
+		"count": 4
+	},
+	{
+		"name": "Encore(right)",
+		"hits": [35,28,35,28],
+		"count": 4
+	},
+	{
+		"name": "Encore(back)",
+		"hits": [35,28,35,28,31,28],
+		"count": 6
+	},
+	{
+		"name": "Jumping Strong Overhead Smash",
+		"hits": [56],
+		"count": 1
+	}
+]

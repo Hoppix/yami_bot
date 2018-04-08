@@ -1,5 +1,8 @@
 /**
  * Created by khopf on 29/12/2017.
+ *
+ * This script sets all the needed data for the calculator.
+ * The task is separated for scaleability
  */
 const utility = require('./utility.js');
 
@@ -13,11 +16,10 @@ var mhSharpElementalMap = new Map();
 //contains the elemental sharpness value for each weapon type
 
 var mhMvEstimatedMap = new Map();
-	//contains the estimated average motion value for each weapon type
+//contains the estimated average motion value for each weapon type
 
 //contains the Maps with the motionvalues per move for each weapon type
 var mhMvMapMap = new Map();
-
 
 //each map contains the motion values for each move of its weapontype
 var mhGSmvMap = new Map();
@@ -35,8 +37,8 @@ var mhLBGmvMap = new Map();
 var mhHBGmvMap = new Map();
 var mhBOWmvMap = new Map();
 
-//contains all hitzones for each monster
-var mhMonsterMap = new Map();
+//contains all hitzones for each target dummy
+var mhDummyMap = new Map();
 
 //Values for weapon debloating
 mhBloatMap.set("SNS", 1.4);
@@ -62,6 +64,7 @@ mhSharpPhysicalMap.set("GREEN", 1.05);
 mhSharpPhysicalMap.set("BLUE", 1.2);
 mhSharpPhysicalMap.set("WHITE", 1.32);
 mhSharpPhysicalMap.set("PURPLE", 1.45);
+mhSharpPhysicalMap.set("GUNNER", 1);
 
 //Values for elemental sharpness
 mhSharpElementalMap.set("RED", 0.25);
@@ -71,6 +74,7 @@ mhSharpElementalMap.set("GREEN", 1.0);
 mhSharpElementalMap.set("BLUE", 1.06);
 mhSharpElementalMap.set("WHITE", 1.12);
 mhSharpElementalMap.set("PURPLE", 1.2);
+mhSharpElementalMap.set("GUNNER", 1);
 
 //Values for estimated average motion values
 mhMvEstimatedMap.set("SNS", 16); //~average on dash and 2 hits
@@ -82,11 +86,11 @@ mhMvEstimatedMap.set("HH", 24); //left-right swing
 mhMvEstimatedMap.set("LC", 25); //triple thrust
 mhMvEstimatedMap.set("GL", 24); //~triple poke
 mhMvEstimatedMap.set("SA", 33); // doublestrike, heavensflurry swordcombo, Phial missing
-mhMvEstimatedMap.set("CB", 39); //axe-combo, no phals, no shield charge
+mhMvEstimatedMap.set("CB", 39); //axe-combo, no phials, no shield charge
 mhMvEstimatedMap.set("IG", 17); //average std combo, red extract activated
-mhMvEstimatedMap.set("BOW", 26); //a single hit of the lv2 charged Dragon Piercer
-mhMvEstimatedMap.set("LBG", 0); //calculation way too different
-mhMvEstimatedMap.set("HBG", 0); //calculation way too different
+mhMvEstimatedMap.set("BOW", 13); //charged powershot
+mhMvEstimatedMap.set("LBG", 30); //ignored, because shot elementless
+mhMvEstimatedMap.set("HBG", 30); //ignored, because shot elementless
 
 //mapping MV maps to their weapon type
 mhMvMapMap.set("GS", mhGSmvMap);
@@ -108,25 +112,24 @@ mhMvMapMap.set("BOW", mhBOWmvMap);
 var wpnNames = ["GS", "LS", "SNS", "DS", "HM", "HH", "LC", "GL", "SA", "CB", "IG", "LBG", "HBG", "BOW"];
 for (i = 0; i < 14; i++)
 {
-	var mvData = utility.readWeaponMVfile('./MH_Data/Motionvalues/mhw_' + wpnNames[i] + '.MV');
+	var sPath = "../MH_Data/Motionvalues/mhw_" + wpnNames[i] + ".json";
+	var mvData = require(sPath);
+	console.log("############ READING " + sPath + " ############");
 	for (j = 0; j < mvData.length; j++)
 	{
-		mhMvMapMap.get(wpnNames[i]).set(mvData[j][0], mvData[j][1]);
+		mhMvMapMap.get(wpnNames[i]).set(mvData[j].name, mvData[j].hits);
 	}
 }
 
-//load the hitzone files for each Monster in MonsterNames.MON
-var monNames = utility.readMonsterNameFile('./MH_Data/MonsterNames.MON');
-for (i = 0; i < monNames.length; i++)
-{
-	mhMonsterMap.set(monNames[i], utility.readMonsterListFile('./MH_Data/MonsterLists/' + monNames[i] + ".ML"));
-}
+//load the hitzone json files for each Dummy
+const oPhysicalDummy = require('../MH_Data/MonsterLists/physicalDummy.json');
+const oElementalDummy = require('../MH_Data/MonsterLists/elementalDummy.json');
 
-//TODO read weapon files
 
 module.exports.mhMvMapMap = mhMvMapMap;
 module.exports.mhBloatMap = mhBloatMap;
 module.exports.mhSharpPhysicalMap = mhSharpPhysicalMap;
 module.exports.mhSharpElementalMap = mhSharpElementalMap;
 module.exports.mhMvEstimatedMap = mhMvEstimatedMap;
-module.exports.mhMonsterMap = mhMonsterMap;
+module.exports.mhPhysicalDummy = oPhysicalDummy;
+module.exports.mhElementalDummy = oElementalDummy;

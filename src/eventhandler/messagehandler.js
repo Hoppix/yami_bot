@@ -54,7 +54,7 @@ module.exports =
 			const oStop = {name: "!stop:", value: "Stops playback and leaves channel"};
 			const oUptime = {name: "!uptime:", value: "Prints uptime"};
 			const oMhHelp = {name: "!mhhelp", value: "Lists available commands for Monster Hunter Weapon calculation"};
-			const oFooter = {text: "Author: Hoppix#6723"};
+			const oFooter = {text: "Please send known bugs to Hoppix#6723/k.hopfmann@hotmail.de"};
 
 			const oEmbed =
 				{
@@ -97,7 +97,7 @@ module.exports =
 				value: "link to a google spreadsheet file"
 			};
 
-			const oSharpness = {name: "sharpness", value: "red, orange, yellow, green, blue, white, purple"};
+			const oSharpness = {name: "sharpness", value: "red, orange, yellow, green, blue, white, purple, gunner"};
 			const oAttack = {name: "attack", value: "attack value as shown in game"};
 			const oElemental = {name: "elemental", value: "elemental damage as shown in game (0 when none)"};
 			const oAffinity = {name: "affinity", value: "a number between 0 and 100"};

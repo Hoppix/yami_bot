@@ -1,0 +1,102 @@
+[
+	{
+		"name": "Advancing Slash",
+		"hits": [19],
+		"count": 1
+	},
+	{
+		"name": "Short Shield Bash",
+		"hits": [7],
+		"count": 1
+	},
+	{
+		"name": "Chop",
+		"hits": [15],
+		"count": 1
+	},
+	{
+		"name": "Side Slash",
+		"hits": [13],
+		"count": 1
+	},
+	{
+		"name": "Sword/Shield Combo",
+		"hits": [11,20],
+		"count": 2
+	},
+	{
+		"name": "Lateral Slash",
+		"hits": [23],
+		"count": 1
+	},
+	{
+		"name": "Return Stroke",
+		"hits": [21],
+		"count": 1
+	},
+	{
+		"name": "Roundslash",
+		"hits": [25],
+		"count": 1
+	},
+	{
+		"name": "Shield Attack",
+		"hits": [9],
+		"count": 1
+	},
+	{
+		"name": "Shield Bash",
+		"hits": [16],
+		"count": 1
+	},
+	{
+		"name": "Hard Bash",
+		"hits": [31],
+		"count": 1
+	},
+	{
+		"name": "Charged Slash",
+		"hits": [30,38],
+		"count": 2
+	},
+	{
+		"name": "Sliding Slash",
+		"hits": [34],
+		"count": 1
+	},
+	{
+		"name": "Jumping Slash",
+		"hits": [20],
+		"count": 1
+	},
+	{
+		"name": "Falling Bash",
+		"hits": [44,39],
+		"count": 2
+	},
+	{
+		"name": "Spiral Slash",
+		"hits": [17],
+		"count": 1
+	},
+	{
+		"name": "Thrust",
+		"hits": [22],
+		"count": 1
+	},
+	{
+		"name": "Rising Slash",
+		"hits": [15],
+		"count": 1
+	},
+	{
+		"name": "Jumping Advancing Slash",
+		"hits": [16],
+		"count": 1
+	},
+	{
+		"name": "Helm Breaker",
+		"hits": [15,15],
+		"count": 2
+	}
+]

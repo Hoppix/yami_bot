@@ -1,0 +1,162 @@
+[
+	{
+		"name": "Overhead Slash",
+		"hits": [48],
+		"count": 1
+	},
+	{
+		"name": "Rising Slash",
+		"hits": [38],
+		"count": 1
+	},
+	{
+		"name": "Wide Slash",
+		"hits": [26],
+		"count": 1
+	},
+	{
+		"name": "Side Blow",
+		"hits": [15],
+		"count": 1
+	},
+	{
+		"name": "TackleI",
+		"hits": [26],
+		"count": 1
+	},
+	{
+		"name": "TackleII",
+		"hits": [35],
+		"count": 1
+	},
+	{
+		"name": "TackleIII",
+		"hits": [48],
+		"count": 1
+	},
+	{
+		"name": "Jumping Wide Slash I",
+		"hits": [71],
+		"count": 1
+	},
+	{
+		"name": "Jumping Wide Slash II",
+		"hits": [85],
+		"count": 1
+	},
+	{
+		"name": "Jumping Wide Slash III",
+		"hits": [110],
+		"count": 1
+	},
+	{
+		"name": "Charged Slash I",
+		"hits": [48],
+		"count": 1
+	},
+	{
+		"name": "Charged Slash II",
+		"hits": [70],
+		"count": 1
+	},
+	{
+		"name": "Charged Slash III",
+		"hits": [90],
+		"count": 1
+	},
+	{
+		"name": "Strong Charged Slash I",
+		"hits": [65],
+		"count": 1
+	},
+	{
+		"name": "Strong Charged Slash II",
+		"hits": [82],
+		"count": 1
+	},
+	{
+		"name": "Strong Charged Slash III",
+		"hits": [96],
+		"count": 1
+	},
+	{
+		"name": "Strong Wide Slash I",
+		"hits": [60],
+		"count": 1
+	},
+	{
+		"name": "Strong Wide Slash II",
+		"hits": [65],
+		"count": 1
+	},
+	{
+		"name": "Strong Wide Slash III",
+		"hits": [79],
+		"count": 1
+	},
+	{
+		"name": "True Charged Slash I",
+		"hits": [20, 182],
+		"count": 2
+	},
+	{
+		"name": "True Charged Slash II",
+		"hits": [20, 182],
+		"count": 2
+	},
+	{
+		"name": "True Charged Slash III",
+		"hits": [20, 210],
+		"count": 2
+	},
+	{
+		"name": "Kick",
+		"hits": [4],
+		"count": 1
+	},
+	{
+		"name": "Jumping Slash I",
+		"hits": [69],
+		"count": 1
+	},
+	{
+		"name": "Jumping Slash II",
+		"hits": [85],
+		"count": 1
+	},
+	{
+		"name": "Jumping Slash III",
+		"hits": [104],
+		"count": 1
+	},
+	{
+		"name": "Charged Rising Slash I",
+		"hits": [48],
+		"count": 1
+	},
+	{
+		"name": "Charged Rising Slash II",
+		"hits": [73],
+		"count": 1
+	},
+	{
+		"name": "Charged Rising Slash III",
+		"hits": [100],
+		"count": 1
+	},
+	{
+		"name": "Plunging Thrust I",
+		"hits": [14, 14, 14],
+		"count": 3
+	},
+	{
+		"name": "Plunging Thrust II",
+		"hits": [21, 21, 21],
+		"count": 3
+	},
+	{
+		"name": "Plunging Thrust III",
+		"hits": [26, 26, 26],
+		"count": 3
+	}
+]

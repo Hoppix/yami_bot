@@ -1,0 +1,92 @@
+[
+	{
+		"name": "Lateral Thrust I",
+		"hits": [24],
+		"count": 1
+	},
+	{
+		"name": "Lateral Thrust II",
+		"hits": [24],
+		"count": 1
+	},
+	{
+		"name": "Guard Thrust I",
+		"hits": [18],
+		"count": 1
+	},
+	{
+		"name": "Guard Thrust III",
+		"hits": [18],
+		"count": 1
+	},
+	{
+		"name": "Rising Slash",
+		"hits": [30],
+		"count": 1
+	},
+	{
+		"name": "Lunging Upthrust",
+		"hits": [30],
+		"count": 1
+	},
+	{
+		"name": "Overhead Smash",
+		"hits": [48],
+		"count": 1
+	},
+	{
+		"name": "Wide Sweep",
+		"hits": [68],
+		"count": 1
+	},
+	{
+		"name": "Wyrmstake Cannon",
+		"hits": [28,4,8,10,10,10,10,10,10,10,10,54],
+		"count": 12
+	},
+	{
+		"name": "Jumping Thrust",
+		"hits": [24],
+		"count": 1
+	},
+	{
+		"name": "Jumping Smash",
+		"hits": [43],
+		"count": 1
+	},
+	{
+		"name": "Jump Reload Smash",
+		"hits": [43],
+		"count": 1
+	},
+	{
+		"name": "Jumping Rising Slash",
+		"hits": [61],
+		"count": 1
+	},
+	{
+		"name": "Shelling",
+		"hits": [18],
+		"count": 1
+	},
+	{
+		"name": "Charged Shelling",
+		"hits": [28],
+		"count": 1
+	},
+	{
+		"name": "Burst Fire",
+		"hits": [20,20,20,20,20],
+		"count": 5
+	},
+	{
+		"name": "Wyvern's Fire",
+		"hits": [56,56,56],
+		"count": 3
+	},
+	{
+		"name": "Aerial Burst",
+		"hits": [31,19,19,19,19,19],
+		"count": 6
+	}
+]

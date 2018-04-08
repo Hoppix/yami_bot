@@ -1,0 +1,148 @@
+[
+	{
+		"name": "Shoot",
+		"hits": [
+			8
+		],
+		"count": 1
+	},
+	{
+		"name": "Shoot II",
+		"hits": [
+			10,
+			10
+		],
+		"count": 2
+	},
+	{
+		"name": "Charged Shot",
+		"hits": [
+			11,
+			11,
+			11
+		],
+		"count": 3
+	},
+	{
+		"name": "Quick Shot",
+		"hits": [
+			6,
+			6,
+			6
+		],
+		"count": 3
+	},
+	{
+		"name": "Power Shot",
+		"hits": [
+			9,
+			9,
+			9
+		],
+		"count": 3
+	},
+	{
+		"name": "Power Shot(Charged)",
+		"hits": [
+			13,
+			13,
+			13,
+			13,
+			13
+		],
+		"count": 5
+	},
+	{
+		"name": "Lunging Meele Attack",
+		"hits": [
+			35
+		],
+		"count": 1
+	},
+	{
+		"name": "Jumping Meele Attack",
+		"hits": [
+			5
+		],
+		"count": 1
+	},
+	{
+		"name": "Arc Shot",
+		"hits": [
+			1,
+			1,
+			1,
+			1,
+			1,
+			1
+		],
+		"count": 6
+	},
+	{
+		"name": "Arc Shot II",
+		"hits": [
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			1
+		],
+		"count": 8
+	},
+	{
+		"name": "Arc Shot III",
+		"hits": [
+			3,
+			3,
+			3,
+			3,
+			3,
+			3,
+			3,
+			3,
+			3,
+			3,
+			3,
+			3,
+			3,
+			3
+		],
+		"count": 14
+	},
+	{
+		"name": "Dragon Piercer",
+		"hits": [
+			23,
+			23,
+			23,
+			23,
+			23
+		],
+		"count": 5
+	},
+	{
+		"name": "Dragon Piercer II",
+		"hits": [
+			24,
+			24,
+			24,
+			24,
+			24
+		],
+		"count": 5
+	},
+	{
+		"name": "Dragon Piercer III",
+		"hits": [
+			26,
+			26,
+			26,
+			26,
+			26
+		],
+		"count": 5
+	}
+]
