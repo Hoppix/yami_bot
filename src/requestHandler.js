@@ -4,7 +4,10 @@
 var request = require('request');
 
 /**
- * starts a asynchronous loop which polls
+ * Starts a scheduled Twitch-API poll for the @param sStreamer.
+ *
+ * When @param sStreamer is online a message is send to the @param oChatChannel
+ *
  * @param oChatChannel
  * @param sStreamer
  * @param apikey
@@ -17,6 +20,7 @@ function pollStream(oChatChannel, sStreamer, apikey)
 
 	setInterval(function ()
 	{
+		//options for the REST-call
 		const oCall = {
 			uri: "https://api.twitch.tv/kraken/streams/" + sStreamer,
 			port: 80,
@@ -28,11 +32,12 @@ function pollStream(oChatChannel, sStreamer, apikey)
 			}
 		};
 
+		//fire request
 		request(oCall, function (err, response, source)
 		{
 			if (err && response !== 200)
 			{
-				console.log("error logged");
+				console.log("Returned wront response code, this is what was logged: ");
 				console.log(err);
 			}
 			else
@@ -48,10 +53,12 @@ function pollStream(oChatChannel, sStreamer, apikey)
 					return;
 				}
 
+				//if stream is offline, continue polling normally and set the flag for sending the message
 				if (streamChannel.stream === null || streamChannel.stream === undefined)
 				{
 					bCallFlag = true;
 				}
+				//when stream is online, send message and set disable flag
 				else if (bCallFlag)
 				{
 					oChatChannel.send(sStreamer + " is currently online!");
