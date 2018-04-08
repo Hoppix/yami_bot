@@ -86,8 +86,9 @@ oClient.on('message', message =>
 {
 	if (message.content.charAt(0) !== sCommandPrefix) return;
 
-	message.content = message.content.toLowerCase();
+
 	var aCommand = message.content.substring(1, message.content.length).split(" ");
+	aCommand[0].toLowerCase();
 
 	switch (aCommand[0])
 	{

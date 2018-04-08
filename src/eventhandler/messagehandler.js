@@ -20,15 +20,16 @@ module.exports =
 				var oTargetChannel = oMessage.member.voiceChannel;
 
 				// Play streams using ytdl-core
-				const ytdl = require('ytdl-core');
-				const broadcast = oClient.createVoiceBroadcast();
+				var ytdl = require('ytdl-core');
+				var broadcast = oClient.createVoiceBroadcast();
+				var streamOptions = { seek: 0, volume: 1 };
 
 				oTargetChannel.join()
 					.then(connection =>
 					{
-						const stream = ytdl(sLink, {filter: 'audioonly'});
-						broadcast.playStream(stream);
-						const dispatcher = connection.playBroadcast(broadcast);
+						var stream = ytdl(sLink, {filter: 'audioonly'});
+						broadcast.playStream(stream, streamOptions);
+						var dispatcher = connection.playBroadcast(broadcast);
 					})
 					.catch(console.error);
 			}

@@ -1,29 +1,22 @@
 /**
  * Created by khopf on 10/01/2018.
  */
-const request = require('request');
-const utility = require('./utility.js');
-
+var request = require('request');
 
 /**
- * Starts a scheduled Twitch-API poll for the @param sStreamer.
- *
- * When @param sStreamer is online a message is send to the @param oChatChannel
- *
+ * starts a asynchronous loop which polls
  * @param oChatChannel
  * @param sStreamer
  * @param apikey
  */
 function pollStream(oChatChannel, sStreamer, apikey)
 {
-	//request every 10 seconds
-	const iPollInterval = 10000;
 	var bCallFlag = true;
+	var iPollInterval = 10000;
 	console.log("Interval set for " + sStreamer);
 
 	setInterval(function ()
 	{
-		//options for the REST-call
 		const oCall = {
 			uri: "https://api.twitch.tv/kraken/streams/" + sStreamer,
 			port: 80,
@@ -35,13 +28,11 @@ function pollStream(oChatChannel, sStreamer, apikey)
 			}
 		};
 
-		//fire request
 		request(oCall, function (err, response, source)
 		{
 			if (err && response !== 200)
 			{
-				console.log("Logged HTTP error with response code: " + response);
-				console.log("Following error was logged: ");
+				console.log("error logged");
 				console.log(err);
 			}
 			else
@@ -53,20 +44,18 @@ function pollStream(oChatChannel, sStreamer, apikey)
 				}
 				catch (e)
 				{
-					console.log("Error was logged during JSON-parse: ");
-					e.message;
+					console.log("Request returned html content");
 					return;
 				}
 
-				//if stream is offline, continue polling normally and set the flag for sending the message
 				if (streamChannel.stream === null || streamChannel.stream === undefined)
 				{
 					bCallFlag = true;
 				}
-				//when stream is online, send message and set disable flag
 				else if (bCallFlag)
 				{
-					oChatChannel.send(sStreamer + " is currently streaming: " + streamChannel.stream.channel.url);
+					oChatChannel.send(sStreamer + " is currently online!");
+					oChatChannel.send(streamChannel.stream.channel.url);
 					bCallFlag = false;
 				}
 			}
@@ -74,4 +63,5 @@ function pollStream(oChatChannel, sStreamer, apikey)
 	}, iPollInterval);
 }
 
+//exports
 module.exports.pollStream = pollStream;
