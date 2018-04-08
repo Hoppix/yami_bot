@@ -31,6 +31,7 @@ https://scryfall.com
   "twitchClient": "your twitch apikey",
   "streamers": ["streamer1", "streamer2", "streamer3"]
 } ``
+- Go to ``bot.js`` and change the values for sDefaultGuildName, sDefaultGuildChannelName, sDefaultVoiceChannelName, sPlayMessage, sCommandPrefix, sStartMessage
 - Start the Bot with ``nodejs bot.js``
 
 ### Authors
