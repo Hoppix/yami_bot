@@ -15,11 +15,13 @@ var oDefaultGuild;
 var oDefaultChannel;
 var oDefaultVoiceChannel;
 var defaultGuildChannels;
+var oDefaultImageChannel;
 
 //set your custom names
 const sDefaultGuildName = "Zettai Ryouiki";
 const sDefaultGuildChannelName = "bot-messages";
 const sDefaultVoiceChannelName = "General";
+const sDefaultImageChannelName = "pomf";
 const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
 const sStartMessage = "v1.8.1 Yami: Refactoring & Fixes!";
@@ -56,6 +58,15 @@ oClient.on('ready', () =>
 	}
 	console.log("oDefaultChannel: " + oDefaultChannel.name);
 
+	//search for imageChannel in defaultGuild
+	oDefaultImageChannel = defaultGuildChannels.find("name", sDefaultImageChannelName);
+	if (!sDefaultImageChannelName)
+	{
+		console.log("No channel named " + sDefaultImageChannelName + " found!");
+		return;
+	}
+	console.log("oDefaultImageChannel: " + oDefaultImageChannel.name);
+
 	//search for defaultVoiceChannel in defaultGuild
 	oDefaultVoiceChannel = defaultGuildChannels.find("name", sDefaultVoiceChannelName);
 	if (!oDefaultVoiceChannel)
@@ -84,6 +95,10 @@ oClient.on('ready', () =>
  **/
 oClient.on('message', message =>
 {
+
+	//check for valid Image
+	oMessageHandler.checkForValidImageMessage(message,sDefaultImageChannelName, oClient.user);
+
 	if (message.content.charAt(0) !== sCommandPrefix) return;
 
 

@@ -37,7 +37,7 @@ function pollStream(oChatChannel, sStreamer, apikey)
 		{
 			if (err && response !== 200)
 			{
-				console.log("Returned wront response code, this is what was logged: ");
+				console.log("Returned wrong response code, this is what was logged: ");
 				console.log(err);
 			}
 			else

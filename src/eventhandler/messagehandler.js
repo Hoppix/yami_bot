@@ -239,5 +239,26 @@ module.exports =
 		getArmorSpreadsheetUrl: function (oMessage)
 		{
 			oMessage.reply("https://docs.google.com/spreadsheets/d/1lgLke5tI8LXWylHZnsmF5QTA2vdJGK6lz0N-oHm_3Ls/edit#gid=1065233840");
+		},
+
+		checkForValidImageMessage: function (oMessage, sDefaultImageChannelName, oClientUser)
+		{
+			const bInImageChannel = oMessage.channel.name === sDefaultImageChannelName;
+			const bNotClientUser = oMessage.author.id !== oClientUser.id;
+
+			const bHasAttachment = oMessage.attachments.size > 0;
+
+			const bEndsWithJpg = oMessage.content.toLowerCase().endsWith("jpg");
+			const bEndsWithPng = oMessage.content.toLowerCase().endsWith("png");
+			const bEndsWithJpgLarge = oMessage.content.toLowerCase().endsWith("jpg:large");
+
+			if( bInImageChannel && bNotClientUser)
+			{
+				if(!bHasAttachment && !(bEndsWithJpg || bEndsWithJpgLarge || bEndsWithPng))
+				{
+					oMessage.reply("Only messages with attachments or embeds are allowed in this channel.");
+					oMessage.delete();
+				}
+			}
 		}
 	};
