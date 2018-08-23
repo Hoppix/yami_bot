@@ -95,12 +95,7 @@ oClient.on('ready', () =>
  **/
 oClient.on('message', message =>
 {
-
-	//check for valid Image
-	oMessageHandler.checkForValidImageMessage(message,sDefaultImageChannelName, oClient.user);
-
 	if (message.content.charAt(0) !== sCommandPrefix) return;
-
 
 	var aCommand = message.content.substring(1, message.content.length).split(" ");
 	aCommand[0].toLowerCase();
