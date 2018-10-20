@@ -22,7 +22,7 @@ module.exports =
 				},
 				function (oError)
 				{
-					oMessage.reply(oError.errorCode + ": " + oError.message);
+					oMessage.reply("Error with" + ": " + oError.message);
 				});
 		},
 
