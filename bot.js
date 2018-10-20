@@ -85,7 +85,7 @@ oClient.on('ready', () =>
 	//log found data + set messages etc.
 	console.log(`Bot has started, with ${oClient.users.size} users, in ${oClient.channels.size} channels of ${oClient.guilds.size} guilds.`);
 	console.log("Startup time: " + iStartupTime + "ms");
-	oClient.user.setGame(sPlayMessage);
+	oClient.user.setActivity(sPlayMessage);
 	oDefaultChannel.send(sStartMessage);
 })
 ;
@@ -133,7 +133,8 @@ oClient.on('message', oMessage =>
 				oMessageHandler.getKiranicoUrl(aCommand.splice(1, aCommand.length), oMessage);
 			break;
 		case "youtubesearch":
-				oMessageHandler.getYoutubeSearch(aCommand.splice(1, aCommand.length), oMessage);
+				oMessageHandler.getYoutubeSearch(aCommand.splice(1, aCommand.length), oMessage, oConfig.youtubeClient);
+			break;
 		default:
 			oMessage.reply("Wrong arguments provided!");
 	}

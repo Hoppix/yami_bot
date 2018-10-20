@@ -13,16 +13,16 @@ module.exports =
 		 *   @param aCommand
 		 *   @param oMessage
 		 */
-		getYoutubeSearch: function (aCommand, oMessage)
+		getYoutubeSearch: function (aCommand, oMessage, sApiKey)
 		{
 			oYoutubeHandler.youtubeSearchRequest(aCommand, sApiKey).then(
-				function (oError)
-				{
-					oMessage.reply(oError.errorCode + ": " + oError.message);
-				},
 				function (oData)
 				{
 					oMessage.reply("https://www.youtube.com/watch?v=" + oData.id.videoId);
+				},
+				function (oError)
+				{
+					oMessage.reply(oError.errorCode + ": " + oError.message);
 				});
 		},
 
