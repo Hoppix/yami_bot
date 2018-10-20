@@ -3,6 +3,7 @@ Discord bot made with nodejs and discordjs
 
 ## Functions
 - Plays Youtube videos in voice channel
+- Youtube search with query
 - Weapon calculation for Monster Hunter World
 - Motionvalue printtables
 - Event Message when Streamer goes online
@@ -29,11 +30,14 @@ https://scryfall.com
 {
   "token": "your discord apikey",
   "twitchClient": "your twitch apikey",
+  "youtubeClient": "your google apikey",
   "streamers": ["streamer1", "streamer2", "streamer3"]
-} ``
+} 
+``
 - Go to ``bot.js`` and change the values for sDefaultGuildName, sDefaultGuildChannelName, sDefaultVoiceChannelName, sPlayMessage, sCommandPrefix, sStartMessage
 - Start the Bot with ``nodejs bot.js``
 
 ### Authors
+@IrateGod Irate#0002 <br />
 @Rathalos93 Wolf#4328 <br />
 @Hoppix Hoppix#6723
