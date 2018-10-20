@@ -73,6 +73,7 @@ module.exports =
 			const oHelp = {name: "!help:", value: "Prints this message"};
 			const oPlay = {name: "!play [youtubelink]", value: "Plays youtube video in current voice channel"};
 			const oStop = {name: "!stop:", value: "Stops playback and leaves channel"};
+			const oSearch = {name: "!youtubesearch [query ...]", value: "replies with the first matching youtube-video"};
 			const oUptime = {name: "!uptime:", value: "Prints uptime"};
 			const oMhHelp = {name: "!mhhelp", value: "Lists available commands for Monster Hunter Weapon calculation"};
 			const oFooter = {text: "Please send known bugs to Hoppix#6723/k.hopfmann@hotmail.de"};
@@ -82,7 +83,7 @@ module.exports =
 					embed: {
 						color: 900000,
 						description: "@Github: https://github.com/Hoppix/yami_bot_js",
-						fields: [oHelp, oPlay, oStop, oUptime, oMhHelp],
+						fields: [oHelp, oPlay, oStop, oSearch, oUptime, oMhHelp],
 						footer: oFooter
 					}
 				};
