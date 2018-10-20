@@ -20,7 +20,8 @@ Since actual damage in Monster Hunter is very variable, we estimate certain valu
 http://kiranico.com/ <br/>
 https://3000hunter.com/ <br/>
 https://discord.js.org <br/>
-https://scryfall.com
+https://scryfall.com <br/>
+https://developers.google.com/youtube/
 
 ### Installation and Deployment
 - Clone this repository via ```git clone https://github.com/Hoppix/yami_bot_js ```
