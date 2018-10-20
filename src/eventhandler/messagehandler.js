@@ -1,4 +1,5 @@
 const oMhCalculator = require("../mhCalculator.js");
+const oYoutubeHandler = require("../youtubeHandler.js");
 
 /**
  * handler vor dispatching action triggered by discord.js message events
@@ -6,6 +7,25 @@ const oMhCalculator = require("../mhCalculator.js");
  */
 module.exports =
 	{
+		/**
+		 * 	 callse the requesthandler to search with the given query for the first matching youtube-video
+		 * 	 and replies to the commanding user
+		 *   @param aCommand
+		 *   @param oMessage
+		 */
+		getYoutubeSearch: function (aCommand, oMessage)
+		{
+			oYoutubeHandler.youtubeSearchRequest(aCommand, sApiKey).then(
+				function (oError)
+				{
+					oMessage.reply(oError.errorCode + ": " + oError.message);
+				},
+				function (oData)
+				{
+					oMessage.reply("https://www.youtube.com/watch?v=" + oData.id.videoId);
+				});
+		},
+
 		/**
 		 *    bot joins the source voiceChannel
 		 *    and plays the youtubelink using the ytdl-core library.
@@ -22,7 +42,7 @@ module.exports =
 				// Play streams using ytdl-core
 				var ytdl = require('ytdl-core');
 				var broadcast = oClient.createVoiceBroadcast();
-				var streamOptions = { seek: 0, volume: 1 };
+				var streamOptions = {seek: 0, volume: 1};
 
 				oTargetChannel.join()
 					.then(connection =>

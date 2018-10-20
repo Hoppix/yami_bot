@@ -93,51 +93,53 @@ oClient.on('ready', () =>
 /**
  * triggered on any message the oClient receives
  **/
-oClient.on('message', message =>
+oClient.on('message', oMessage =>
 {
-	if (message.content.charAt(0) !== sCommandPrefix) return;
+	if (oMessage.content.charAt(0) !== sCommandPrefix) return;
 
-	var aCommand = message.content.substring(1, message.content.length).split(" ");
+	var aCommand = oMessage.content.substring(1, oMessage.content.length).split(" ");
 	aCommand[0].toLowerCase();
 
 	switch (aCommand[0])
 	{
 		case "play":
-			oMessageHandler.playYoutubeLink(aCommand[1], message, oClient);
+			oMessageHandler.playYoutubeLink(aCommand[1], oMessage, oClient);
 			break;
 		case "stop":
 			oMessageHandler.stopYoutubeLink(oClient);
 			break;
 		case "help":
-			oMessageHandler.printHelpMessage(message);
+			oMessageHandler.printHelpMessage(oMessage);
 			break;
 		case "mhhelp":
-			oMessageHandler.printMhHelpMessage(message);
+			oMessageHandler.printMhHelpMessage(oMessage);
 			break;
 		case "uptime":
-			oMessageHandler.printUptimeMessage(oUtility, message, oStartedDate);
+			oMessageHandler.printUptimeMessage(oUtility, oMessage, oStartedDate);
 			break;
 		case "weaponstrength":
-			oMessageHandler.handleWeaponCalculation(aCommand.slice(1, aCommand.length), message);
+			oMessageHandler.handleWeaponCalculation(aCommand.slice(1, aCommand.length), oMessage);
 			break;
 		case "weaponcompare":
-			oMessageHandler.handleWeaponCompare(aCommand.slice(1, aCommand.length), message);
+			oMessageHandler.handleWeaponCompare(aCommand.slice(1, aCommand.length), oMessage);
 			break;
 		case "motionvalues":
-			oMessageHandler.getWeaponMV(aCommand.slice(1, aCommand.length), message);
+			oMessageHandler.getWeaponMV(aCommand.slice(1, aCommand.length), oMessage);
 			break;
 		case "armorsets":
-			oMessageHandler.getArmorSpreadsheetUrl(message);
+			oMessageHandler.getArmorSpreadsheetUrl(oMessage);
 			break;
 		case "kiranico":
-				oMessageHandler.getKiranicoUrl(aCommand.splice(1, aCommand.length), message);
+				oMessageHandler.getKiranicoUrl(aCommand.splice(1, aCommand.length), oMessage);
 			break;
+		case "youtubesearch":
+				oMessageHandler.getYoutubeSearch(aCommand.splice(1, aCommand.length), oMessage);
 		default:
-			message.reply("Wrong arguments provided!");
+			oMessage.reply("Wrong arguments provided!");
 	}
 
 	//command logging for error trace
-	const oDate = new Date(message.createdAt.valueOf() - message.createdAt.getTimezoneOffset() * 60000);
+	const oDate = new Date(oMessage.createdAt.valueOf() - oMessage.createdAt.getTimezoneOffset() * 60000);
 	const sLog = "Event tigger command: <" + aCommand[0] + "> at " + oDate.toUTCString();
 	oUtility.writeLogFile(sLog);
 	console.log(sLog);
