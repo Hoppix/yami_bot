@@ -40,7 +40,20 @@ function youtubeSearchRequest(aSearchQuery, apiKey)
 		}
 		else
 		{
-			defer.resolve(JSON.parse(source).items[0]);
+			const youtubeApiResponse = JSON.parse(source);
+			if (!youtubeApiResponse.items || youtubeApiResponse.items.length === 0)
+			{
+				defer.reject(
+					{
+						errorCode: 204,
+						message: "No videos found."
+					}
+				);
+			}
+			else
+			{
+				defer.resolve(youtubeApiResponse.items[0]);
+			}
 		}
 	});
 	return defer.promise;
