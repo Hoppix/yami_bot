@@ -171,6 +171,11 @@ oClient.on("presenceUpdate", (oldMember, newMember) =>
 	}
 });
 
+oClient.on("error", oError =>
+{
+		console.log("An generic error haz okuued: ", oError.message);
+});
+
 //login with private token from config.json
 console.log("PreLogin");
 oClient.login(oConfig.token);
