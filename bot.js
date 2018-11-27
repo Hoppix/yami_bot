@@ -173,7 +173,9 @@ oClient.on("presenceUpdate", (oldMember, newMember) =>
 
 oClient.on("error", oError =>
 {
-		console.log("An generic error haz okuued: ", oError.message);
+		const sMessage = "An generic error haz okuued: " + oError.message;
+		console.log(sMessage);
+		oUtility.writeLogFile(sMessage);
 });
 
 //login with private token from config.json
