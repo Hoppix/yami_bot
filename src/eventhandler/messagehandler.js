@@ -7,6 +7,30 @@ const oYoutubeHandler = require("../youtubeHandler.js");
  */
 module.exports =
 	{
+
+		mCustomCommands: new Map(); // Map for saving dynamic generated commands
+
+		executeCustomCommand: function (sCommand, oMessage)
+		{
+			oMessage.reply(mCustomCommands.get(sCommand));
+		},
+
+		addCustomCommand: function (aCommand, oMessage)
+		{
+			mCustomCommands.set(aCommand[0], aCommand[1]);
+			oMessage.reply("Command: " + aCommand[0] + " added, type: !" + aCommand[0]);
+		},
+
+		isCustomCommand: function (sCommand)
+		{
+			return this.mCustomCommands.contains(sCommand);
+		},
+
+		clearCustomCommands: function ()
+		{
+			this.mCustomCommands = new Map();
+		},
+
 		/**
 		 * 	 callse the requesthandler to search with the given query for the first matching youtube-video
 		 * 	 and replies to the commanding user
