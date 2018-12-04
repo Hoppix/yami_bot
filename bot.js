@@ -134,9 +134,20 @@ oClient.on('message', oMessage =>
 			break;
 		case "youtubesearch":
 				oMessageHandler.getYoutubeSearch(aCommand.splice(1, aCommand.length), oMessage, oConfig.youtubeClient);
+		case "addcustom":
+				oMessageHandler.addCustomCommand(aCommand.splice(1, aCommand.length), oMessage);
+		case "clearcustom":
+				oMessageHandler.clearCustomCommands(oMessage);
 			break;
 		default:
-			oMessage.reply("Wrong arguments provided!");
+			if(oMessageHandler.isCustomCommand())
+			{
+				oMessageHandler.executeCustomCommand(aCommand[0], oMessage);
+			}
+			else
+			{
+				oMessage.reply("Wrong arguments provided!");
+			}
 	}
 
 	//command logging for error trace
