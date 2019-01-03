@@ -8,22 +8,29 @@ const oYoutubeHandler = require("../youtubeHandler.js");
 module.exports =
 	{
 
-		mCustomCommands: new Map(); // Map for saving dynamic generated commands
+		mCustomCommands: new Map(), // Map for saving dynamic generated commands
 
 		executeCustomCommand: function (sCommand, oMessage)
 		{
-			oMessage.reply(mCustomCommands.get(sCommand));
+			oMessage.reply(this.mCustomCommands.get(sCommand));
 		},
 
 		addCustomCommand: function (aCommand, oMessage)
 		{
-			mCustomCommands.set(aCommand[0], aCommand[1]);
+			let s = "";
+
+			for(let i = 1; i < aCommand.length; i++)
+			{
+				s+=aCommand[i] + " ";
+			}
+
+			this.mCustomCommands.set(aCommand[0], s);
 			oMessage.reply("Command: " + aCommand[0] + " added, type: !" + aCommand[0]);
 		},
 
 		isCustomCommand: function (sCommand)
 		{
-			return this.mCustomCommands.contains(sCommand);
+			return this.mCustomCommands.has(sCommand);
 		},
 
 		clearCustomCommands: function ()
@@ -32,7 +39,7 @@ module.exports =
 		},
 
 		/**
-		 * 	 callse the requesthandler to search with the given query for the first matching youtube-video
+		 * 	 calls the requesthandler to search with the given query for the first matching youtube-video
 		 * 	 and replies to the commanding user
 		 *   @param aCommand
 		 *   @param oMessage
@@ -98,6 +105,7 @@ module.exports =
 			const oPlay = {name: "!play [youtubelink]", value: "Plays youtube video in current voice channel"};
 			const oStop = {name: "!stop:", value: "Stops playback and leaves channel"};
 			const oSearch = {name: "!youtubesearch [query ...]", value: "replies with the first matching youtube-video"};
+			const oCustom = {name: "!addcustom [text ...]", value: "creates a custom command which replies with the given text"};
 			const oUptime = {name: "!uptime:", value: "Prints uptime"};
 			const oMhHelp = {name: "!mhhelp", value: "Lists available commands for Monster Hunter Weapon calculation"};
 			const oFooter = {text: "Please send known bugs to Hoppix#6723/k.hopfmann@hotmail.de"};
@@ -107,7 +115,7 @@ module.exports =
 					embed: {
 						color: 900000,
 						description: "@Github: https://github.com/Hoppix/yami_bot_js",
-						fields: [oHelp, oPlay, oStop, oSearch, oUptime, oMhHelp],
+						fields: [oHelp, oPlay, oStop, oSearch, oCustom, oUptime, oMhHelp],
 						footer: oFooter
 					}
 				};

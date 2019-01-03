@@ -24,7 +24,7 @@ const sDefaultVoiceChannelName = "General";
 const sDefaultImageChannelName = "pomf";
 const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
-const sStartMessage = "v1.8.1 Yami: Refactoring & Fixes!";
+const sStartMessage = "v1.9 Yami: added custom commands and minor bugfixes!";
 
 /**
  * Initiates default variables
@@ -96,6 +96,7 @@ oClient.on('ready', () =>
 oClient.on('message', oMessage =>
 {
 	if (oMessage.content.charAt(0) !== sCommandPrefix) return;
+	if (oMessage.content.length < 2) return;
 
 	var aCommand = oMessage.content.substring(1, oMessage.content.length).split(" ");
 	aCommand[0].toLowerCase();
@@ -130,23 +131,21 @@ oClient.on('message', oMessage =>
 			oMessageHandler.getArmorSpreadsheetUrl(oMessage);
 			break;
 		case "kiranico":
-				oMessageHandler.getKiranicoUrl(aCommand.splice(1, aCommand.length), oMessage);
+			oMessageHandler.getKiranicoUrl(aCommand.splice(1, aCommand.length), oMessage);
 			break;
 		case "youtubesearch":
-				oMessageHandler.getYoutubeSearch(aCommand.splice(1, aCommand.length), oMessage, oConfig.youtubeClient);
+			oMessageHandler.getYoutubeSearch(aCommand.splice(1, aCommand.length), oMessage, oConfig.youtubeClient);
+			break;
 		case "addcustom":
-				oMessageHandler.addCustomCommand(aCommand.splice(1, aCommand.length), oMessage);
+			oMessageHandler.addCustomCommand(aCommand.splice(1, aCommand.length), oMessage);
+			break;
 		case "clearcustom":
-				oMessageHandler.clearCustomCommands(oMessage);
+			oMessageHandler.clearCustomCommands(oMessage);
 			break;
 		default:
-			if(oMessageHandler.isCustomCommand())
+			if (oMessageHandler.isCustomCommand(aCommand[0]))
 			{
 				oMessageHandler.executeCustomCommand(aCommand[0], oMessage);
-			}
-			else
-			{
-				oMessage.reply("Wrong arguments provided!");
 			}
 	}
 
@@ -184,7 +183,7 @@ oClient.on("presenceUpdate", (oldMember, newMember) =>
 
 oClient.on("error", oError =>
 {
-		console.log("An generic error haz okuued: ", oError.message);
+	console.log("An generic error haz okuued: ", oError.message);
 });
 
 //login with private token from config.json
