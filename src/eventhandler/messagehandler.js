@@ -1,5 +1,8 @@
 const oMhCalculator = require("../mhCalculator.js");
 const oYoutubeHandler = require("../youtubeHandler.js");
+const oUtility = require("../utility.js");
+
+const sCommands = "./commands/custom.json";
 
 /**
  * handler vor dispatching action triggered by discord.js message events
@@ -10,37 +13,102 @@ module.exports =
 
 		mCustomCommands: new Map(), // Map for saving dynamic generated commands
 
+		/**
+		 *	runs a command saved in the command map
+		 *
+		 * @param sCommand
+		 * @param oMessage
+		 */
 		executeCustomCommand: function (sCommand, oMessage)
 		{
+			this.updateCommandMap();
 			oMessage.reply(this.mCustomCommands.get(sCommand));
 		},
 
+		/**
+		 * adds a command to the command map
+		 *
+		 * @param aCommand
+		 * @param oMessage
+		 */
 		addCustomCommand: function (aCommand, oMessage)
 		{
 			let s = "";
 
-			for(let i = 1; i < aCommand.length; i++)
+			for (let i = 1; i < aCommand.length; i++)
 			{
-				s+=aCommand[i] + " ";
+				s += aCommand[i] + " ";
+			}
+
+			if(!aCommand[0] || !s)
+			{
+				oMessage.reply("Must contain valid message!");
+				return;
 			}
 
 			this.mCustomCommands.set(aCommand[0], s);
+			this.saveCommands();
 			oMessage.reply("Command: " + aCommand[0] + " added, type: !" + aCommand[0]);
 		},
 
-		isCustomCommand: function (sCommand)
+		printCustomCommands: function (oMessage)
 		{
-			return this.mCustomCommands.has(sCommand);
-		},
+			const oEmbed =
+				{
+					embed: {
+						color: 900000,
+						description: "Saved custom commands:",
+						fields: [],
+					}
+				};
 
-		clearCustomCommands: function ()
-		{
-			this.mCustomCommands = new Map();
+			this.mCustomCommands.forEach(function (value, key, map) {
+				oEmbed.embed.fields.push({name: key});
+			});
+
+			oMessage.reply(oEmbed)
 		},
 
 		/**
-		 * 	 calls the requesthandler to search with the given query for the first matching youtube-video
-		 * 	 and replies to the commanding user
+		 * checks if sCommand is a custom command
+		 *
+		 * @param sCommand
+		 * @returns {boolean}
+		 */
+		isCustomCommand: function (sCommand)
+		{
+			this.updateCommandMap();
+			return this.mCustomCommands.has(sCommand);
+		},
+
+		/**
+		 * deletes all saved commands
+		 */
+		clearCustomCommands: function ()
+		{
+			this.mCustomCommands = new Map();
+			this.saveCommands();
+		},
+
+		/**
+		 * saves the @mCustomCommands map to the persistence file
+		 */
+		saveCommands: function ()
+		{
+			oUtility.writeJSONFile(sCommands, this.mCustomCommands);
+		},
+
+		/**
+		 * updates the command map from the persistence file
+		 */
+		updateCommandMap: function ()
+		{
+			this.mCustomCommands = oUtility.readJSONFile(sCommands);
+		},
+
+		/**
+		 *     calls the requesthandler to search with the given query for the first matching youtube-video
+		 *     and replies to the commanding user
 		 *   @param aCommand
 		 *   @param oMessage
 		 */
@@ -49,7 +117,10 @@ module.exports =
 			oYoutubeHandler.youtubeSearchRequest(aCommand, sApiKey).then(
 				function (oData)
 				{
-					oMessage.reply("https://www.youtube.com/watch?v=" + oData.id.videoId);
+					if (oData.id && oData.id.videoId)
+					{
+						oMessage.reply("https://www.youtube.com/watch?v=" + oData.id.videoId);
+					}
 				},
 				function (oError)
 				{
@@ -104,8 +175,19 @@ module.exports =
 			const oHelp = {name: "!help:", value: "Prints this message"};
 			const oPlay = {name: "!play [youtubelink]", value: "Plays youtube video in current voice channel"};
 			const oStop = {name: "!stop:", value: "Stops playback and leaves channel"};
-			const oSearch = {name: "!youtubesearch [query ...]", value: "replies with the first matching youtube-video"};
-			const oCustom = {name: "!addcustom [text ...]", value: "creates a custom command which replies with the given text"};
+			const oSearch = {
+				name: "!youtubesearch [query ...]",
+				value: "replies with the first matching youtube-video"
+			};
+			const oAddCustom = {
+				name: "!addcustom [commandname] [text ...]",
+				value: "creates a custom command which replies with the given text"
+			};
+
+			const oShowCustom = {
+				name: "showcustom",
+				value: "prints all saved custom commands"
+			};
 			const oUptime = {name: "!uptime:", value: "Prints uptime"};
 			const oMhHelp = {name: "!mhhelp", value: "Lists available commands for Monster Hunter Weapon calculation"};
 			const oFooter = {text: "Please send known bugs to Hoppix#6723/k.hopfmann@hotmail.de"};
@@ -115,7 +197,7 @@ module.exports =
 					embed: {
 						color: 900000,
 						description: "@Github: https://github.com/Hoppix/yami_bot_js",
-						fields: [oHelp, oPlay, oStop, oSearch, oCustom, oUptime, oMhHelp],
+						fields: [oHelp, oPlay, oStop, oSearch, oAddCustom, oShowCustom, oUptime, oMhHelp],
 						footer: oFooter
 					}
 				};

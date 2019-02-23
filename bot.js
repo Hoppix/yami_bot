@@ -21,10 +21,10 @@ var oDefaultImageChannel;
 const sDefaultGuildName = "Zettai Ryouiki";
 const sDefaultGuildChannelName = "bot-messages";
 const sDefaultVoiceChannelName = "General";
-const sDefaultImageChannelName = "pomf";
+const sDefaultImageChannelName = "umu";
 const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
-const sStartMessage = "v1.9 Yami: added custom commands and minor bugfixes!";
+const sStartMessage = "v1.9.2 Yami: minor bugfixes and persistence for custom commands!";
 
 /**
  * Initiates default variables
@@ -80,6 +80,9 @@ oClient.on('ready', () =>
 	{
 		oRequestHandler.pollStream(oDefaultChannel, oConfig.streamers[i], oConfig.twitchClient);
 	}
+
+	//initialize persitence for custom commands
+	oMessageHandler.updateCommandMap();
 
 	const iStartupTime = new Date().getTime() - oStartedDate.getTime();
 	//log found data + set messages etc.
@@ -139,8 +142,8 @@ oClient.on('message', oMessage =>
 		case "addcustom":
 			oMessageHandler.addCustomCommand(aCommand.splice(1, aCommand.length), oMessage);
 			break;
-		case "clearcustom":
-			oMessageHandler.clearCustomCommands(oMessage);
+		case "showcustom":
+			oMessageHandler.printCustomCommands(oMessage);
 			break;
 		default:
 			if (oMessageHandler.isCustomCommand(aCommand[0]))

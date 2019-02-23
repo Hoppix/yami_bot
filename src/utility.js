@@ -1,5 +1,4 @@
 const fs = require('fs');
-
 const logfile = "./logs/log.txt";
 
 module.exports =
@@ -35,6 +34,27 @@ module.exports =
 				}
 				console.log("saved logfile");
 			});
+		},
+
+		/**
+		 * Writes into a file with stringified JSON-input
+		 */
+		writeJSONFile: function (sFile, oData)
+		{
+			console.log(oData);
+			var sData = JSON.stringify([...oData]);
+			console.log("Writing to JSON: ", sFile, "with data: ", sData);
+			fs.writeFileSync(sFile, sData, "utf8")
+		},
+
+		/**
+		 * Reads a JSON-File and returns the parsed data
+		 */
+		readJSONFile: function (sFile)
+		{
+			var sJSON = fs.readFileSync(sFile);
+			console.log("Reading from JSON: ", sFile, "data: ", sJSON);
+			return new Map(JSON.parse(sJSON));
 		},
 
 		/**
