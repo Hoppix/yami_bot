@@ -62,8 +62,8 @@ module.exports =
 					}
 				};
 
-			this.mCustomCommands.forEach(function (value, key, map) {
-				oEmbed.embed.fields.push({name: key});
+			this.mCustomCommands.forEach(function (value, key) {
+				oEmbed.embed.fields.push({name: key, value: "##################"});
 			});
 
 			oMessage.reply(oEmbed)
