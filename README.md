@@ -27,7 +27,7 @@ https://developers.google.com/youtube/
 ### Installation and Deployment
 - Clone this repository via ```git clone https://github.com/Hoppix/yami_bot_js ```
 - Install all needed dependencies with ````npm install ````
-- Create ``/commands/custom.json`` for custom command peristence
+- Create ``/commands/custom.json`` for custom command persistence
 - Create ``src/config.json `` with
 ``
 {
