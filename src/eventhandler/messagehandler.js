@@ -185,7 +185,7 @@ module.exports =
 			};
 
 			const oShowCustom = {
-				name: "showcustom",
+				name: "!showcustom",
 				value: "prints all saved custom commands"
 			};
 			const oUptime = {name: "!uptime:", value: "Prints uptime"};
