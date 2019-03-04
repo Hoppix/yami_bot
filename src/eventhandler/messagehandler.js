@@ -2,7 +2,7 @@ const oMhCalculator = require("../mhCalculator.js");
 const oYoutubeHandler = require("../youtubeHandler.js");
 const oUtility = require("../utility.js");
 
-const sCommands = "./commands/custom.json";
+const sCommandsFile = "./commands/custom.json";
 
 /**
  * handler vor dispatching action triggered by discord.js message events
@@ -95,7 +95,7 @@ module.exports =
 		 */
 		saveCommands: function ()
 		{
-			oUtility.writeJSONFile(sCommands, this.mCustomCommands);
+			oUtility.writeJSONFile(sCommandsFile, this.mCustomCommands);
 		},
 
 		/**
@@ -103,7 +103,7 @@ module.exports =
 		 */
 		updateCommandMap: function ()
 		{
-			this.mCustomCommands = oUtility.readJSONFile(sCommands);
+			this.mCustomCommands = oUtility.readJSONFile(sCommandsFile);
 		},
 
 		/**
