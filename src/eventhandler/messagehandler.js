@@ -14,7 +14,7 @@ module.exports =
 		mCustomCommands: new Map(), // Map for saving dynamic generated commands
 
 		/**
-		 *	runs a command saved in the command map
+		 *    runs a command saved in the command map
 		 *
 		 * @param sCommand
 		 * @param oMessage
@@ -40,7 +40,7 @@ module.exports =
 				s += aCommand[i] + " ";
 			}
 
-			if(!aCommand[0] || !s)
+			if (!aCommand[0] || !s)
 			{
 				oMessage.reply("Must contain valid message!");
 				return;
@@ -49,6 +49,18 @@ module.exports =
 			this.mCustomCommands.set(aCommand[0], s);
 			this.saveCommands();
 			oMessage.reply("Command: " + aCommand[0] + " added, type: !" + aCommand[0]);
+		},
+
+		/**
+		 * delete a comnmand from the command map, identified by the command key
+		 * @param aCommand
+		 * @param oMessage
+		 */
+		deleteCustomCommand: function (aCommand, oMessage)
+		{
+			this.mCustomCommands.delete(aCommand[0]);
+			this.saveCommands();
+			oMessage.reply("Command: " + aCommand[0] + " deleted!");
 		},
 
 		printCustomCommands: function (oMessage)
@@ -62,7 +74,8 @@ module.exports =
 					}
 				};
 
-			this.mCustomCommands.forEach(function (value, key) {
+			this.mCustomCommands.forEach(function (value, key)
+			{
 				oEmbed.embed.fields.push({name: key, value: "##################"});
 			});
 
@@ -84,10 +97,16 @@ module.exports =
 		/**
 		 * deletes all saved commands
 		 */
-		clearCustomCommands: function ()
+		clearCustomCommands: function (oMessage)
 		{
+			if (!oMessage.member.hasPermission("ADMINISTRATOR"))
+			{
+				oMessage.reply("Must be Administrator!");
+				return;
+			}
 			this.mCustomCommands = new Map();
 			this.saveCommands();
+			oMessage.reply("All Commands have been cleared!");
 		},
 
 		/**
@@ -188,6 +207,17 @@ module.exports =
 				name: "!showcustom",
 				value: "prints all saved custom commands"
 			};
+
+			const oDeleteCustom = {
+				name: "!deletecustom [commandname]",
+				value: "Deletes a single command identified by the commandname"
+			};
+
+			const oClearCustom = {
+				name: "!clearcustom",
+				value: "Deletes all existing custom commands (Admin only)"
+			};
+
 			const oUptime = {name: "!uptime:", value: "Prints uptime"};
 			const oMhHelp = {name: "!mhhelp", value: "Lists available commands for Monster Hunter Weapon calculation"};
 			const oFooter = {text: "Please send known bugs to Hoppix#6723/k.hopfmann@hotmail.de"};
@@ -197,7 +227,7 @@ module.exports =
 					embed: {
 						color: 900000,
 						description: "@Github: https://github.com/Hoppix/yami_bot_js",
-						fields: [oHelp, oPlay, oStop, oSearch, oAddCustom, oShowCustom, oUptime, oMhHelp],
+						fields: [oHelp, oPlay, oStop, oSearch, oAddCustom, oDeleteCustom, oClearCustom, oShowCustom, oUptime, oMhHelp],
 						footer: oFooter
 					}
 				};

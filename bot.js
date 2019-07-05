@@ -142,6 +142,12 @@ oClient.on('message', oMessage =>
 		case "addcustom":
 			oMessageHandler.addCustomCommand(aCommand.splice(1, aCommand.length), oMessage);
 			break;
+		case "deletecustom":
+			oMessageHandler.deleteCustomCommand(aCommand.splice(1, aCommand.length), oMessage);
+			break;
+		case "clearcustom":
+			oMessageHandler.clearCustomCommands(oMessage);
+			break;
 		case "showcustom":
 			oMessageHandler.printCustomCommands(oMessage);
 			break;
