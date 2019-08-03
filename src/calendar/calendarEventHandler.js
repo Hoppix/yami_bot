@@ -112,6 +112,10 @@ module.exports =
 			oMessage.reply("Updated Event: " + oCalendarEvent.toString());
 		},
 
+		/**
+		 *
+		 * @param oMessage
+		 */
 		getAllEvents: function(oMessage)
 		{
 			if(this.mCalendarEvents.size === 0) {
@@ -157,6 +161,11 @@ module.exports =
 			return this.mCalendarEvents.get(sId);
 		},
 
+		/**
+		 *
+		 * @param oReaction
+		 * @param oUser
+		 */
 		handleEventReactionAdd: function(oReaction, oUser)
 		{
 			const oCalendarEvent = this.mCalendarEvents.get(oReaction.message.id);
@@ -175,6 +184,11 @@ module.exports =
 
 		},
 
+		/**
+		 *
+		 * @param oReaction
+		 * @param oUser
+		 */
 		handleEventReactionRemove: function(oReaction, oUser)
 		{
 			const oCalendarEvent = this.mCalendarEvents.get(oReaction.message.id);
@@ -194,6 +208,11 @@ module.exports =
 
 		},
 
+		/**
+		 *
+		 * @param oReaction
+		 * @param sEmoji
+		 */
 		handleEventReactionRestore: function(oReaction, sEmoji)
 		{
 			const oCalendarEvent = this.mCalendarEvents.get(oReaction.message.id);
@@ -203,6 +222,10 @@ module.exports =
 			}
 		},
 
+		/**
+		 *
+		 * @param oMessage
+		 */
 		printEventHelpMessage: function(oMessage)
 		{
 			const oNewEvent = {
