@@ -93,6 +93,12 @@ module.exports =
 		 */
 		removeEvent: function(aParams, oMessage)
 		{
+			if(!(oMessage.guild && oMessage.member.hasPermission("ADMINISTRATOR")))
+			{
+				oMessage.reply("Requires Admin rights!");
+				return;
+			}
+
 			const oCalendarEvent = this.mCalendarEvents.get(aParams[0]);
 			this.mCalendarEvents.delete(aParams[0]);
 			oMessage.reply("Deleted Event: " + oCalendarEvent.toString());
