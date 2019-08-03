@@ -6,10 +6,11 @@ const oStartedDate = new Date();
 
 const oConfig = require("./src/config.json");
 const oUtility = require("./src/utility.js");
-const oMessageHandler = require("./src/eventhandler/messagehandler");
-const oVoiceHandler = require("./src/eventhandler/voicehandler");
-const oPresenceHandler = require("./src/eventhandler/presencehandler");
-const oRequestHandler = require("./src/requestHandler.js");
+const oMessageHandler = require("./src/eventHandler/messagehandler");
+const oVoiceHandler = require("./src/eventHandler/voicehandler");
+const oPresenceHandler = require("./src/eventHandler/presencehandler");
+const oRequestHandler = require("./src/requestHandler/twitchRequestHandler.js");
+const oCalendarEventHandler = require("./src/calendar/calendarEventHandler");
 
 var oDefaultGuild;
 var oDefaultChannel;
@@ -18,13 +19,14 @@ var defaultGuildChannels;
 var oDefaultImageChannel;
 
 //set your custom names
+const sVersion = "v2.0.1";
 const sDefaultGuildName = "Zettai Ryouiki";
 const sDefaultGuildChannelName = "bot-messages";
 const sDefaultVoiceChannelName = "General";
 const sDefaultImageChannelName = "umu";
 const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
-const sStartMessage = "v1.9.2 Yami: minor bugfixes and persistence for custom commands!";
+const sStartMessage = sVersion + " Yami: CalendarEvents added!";
 
 /**
  * Initiates default variables
@@ -88,8 +90,14 @@ oClient.on('ready', () =>
 	//log found data + set messages etc.
 	console.log(`Bot has started, with ${oClient.users.size} users, in ${oClient.channels.size} channels of ${oClient.guilds.size} guilds.`);
 	console.log("Startup time: " + iStartupTime + "ms");
-	oClient.user.setActivity(sPlayMessage);
+	oClient.user.setPresence({
+		name: sPlayMessage,
+		type: sVersion
+	});
 	oDefaultChannel.send(sStartMessage);
+
+	//initializes the event queue job
+	oCalendarEventHandler.init();
 })
 ;
 
@@ -106,6 +114,9 @@ oClient.on('message', oMessage =>
 
 	switch (aCommand[0])
 	{
+		/**
+		 * general functions
+		 */
 		case "play":
 			oMessageHandler.playYoutubeLink(aCommand[1], oMessage, oClient);
 			break;
@@ -121,6 +132,9 @@ oClient.on('message', oMessage =>
 		case "uptime":
 			oMessageHandler.printUptimeMessage(oUtility, oMessage, oStartedDate);
 			break;
+		/**
+		 * Monster hunter functions
+		 */
 		case "weaponstrength":
 			oMessageHandler.handleWeaponCalculation(aCommand.slice(1, aCommand.length), oMessage);
 			break;
@@ -136,9 +150,15 @@ oClient.on('message', oMessage =>
 		case "kiranico":
 			oMessageHandler.getKiranicoUrl(aCommand.splice(1, aCommand.length), oMessage);
 			break;
+		/**
+		 * youtube functions
+		 */
 		case "youtubesearch":
 			oMessageHandler.getYoutubeSearch(aCommand.splice(1, aCommand.length), oMessage, oConfig.youtubeClient);
 			break;
+		/**
+		 * Custom command functions
+		 */
 		case "addcustom":
 			oMessageHandler.addCustomCommand(aCommand.splice(1, aCommand.length), oMessage);
 			break;
@@ -150,6 +170,24 @@ oClient.on('message', oMessage =>
 			break;
 		case "showcustom":
 			oMessageHandler.printCustomCommands(oMessage);
+			break;
+		/**
+		 * Event functions
+		 */
+		case "eventhelp":
+			oCalendarEventHandler.printEventHelpMessage(oMessage);
+			break;
+		case "newevent":
+			oCalendarEventHandler.createEventInvite(aCommand.splice(1, aCommand.length), oMessage);
+			break;
+		case "removeevent":
+			oCalendarEventHandler.removeEvent(aCommand.splice(1, aCommand.length), oMessage);
+			break;
+		case "updateevent:":
+			oCalendarEventHandler.updateEvent(aCommand.splice(1, aCommand.length), oMessage);
+			break;
+		case "showevents":
+			oCalendarEventHandler.getAllEvents(oMessage);
 			break;
 		default:
 			if (oMessageHandler.isCustomCommand(aCommand[0]))
@@ -163,6 +201,36 @@ oClient.on('message', oMessage =>
 	const sLog = "Event tigger command: <" + aCommand[0] + "> at " + oDate.toUTCString();
 	oUtility.writeLogFile(sLog);
 	console.log(sLog);
+});
+
+/**
+ * Event for a User reacting to a message
+ */
+oClient.on("messageReactionAdd", (oReaction, oUser) =>
+{
+	//escape Yami reactions
+	if(!oUtility.isSameUserClient(oClient.user, oUser))
+	{
+		if(oReaction.emoji.toString() === oCalendarEventHandler.sAcceptEmoji)
+	 		oCalendarEventHandler.handleEventReactionAdd(oReaction, oUser);
+		else if(oReaction.emoji.toString() === oCalendarEventHandler.sDeclineEmoji)
+			oCalendarEventHandler.handleEventReactionRemove(oReaction, oUser);
+	}
+});
+
+/**
+ * Event for a User reacting to a message
+ */
+oClient.on("messageReactionRemove", (oReaction, oUser) =>
+{
+	//escape Yami reactions
+	if(!oUtility.isSameUserClient(oClient.user, oUser))
+	{
+		if(oReaction.emoji.toString() === oCalendarEventHandler.sAcceptEmoji)
+			oCalendarEventHandler.handleEventReactionRestore(oReaction, oCalendarEventHandler.sAcceptEmoji);
+		else if(oReaction.emoji.toString() === oCalendarEventHandler.sDeclineEmoji)
+			oCalendarEventHandler.handleEventReactionRestore(oReaction, oCalendarEventHandler.sDeclineEmoji);
+	}
 });
 
 /**

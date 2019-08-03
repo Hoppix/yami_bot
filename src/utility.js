@@ -77,5 +77,67 @@ module.exports =
 					seconds: seconds
 				};
 			return oReturn;
+		},
+
+		/**
+		 * https://stackoverflow.com/questions/19700283/how-to-convert-time-milliseconds-to-hours-min-sec-format-in-javascript
+		 * @param duration
+		 * @returns {object}
+		 */
+		msToTime: function(duration)
+		{
+			var milliseconds = parseInt((duration % 1000) / 100),
+				seconds = Math.floor((duration / 1000) % 60),
+				minutes = Math.floor((duration / (1000 * 60)) % 60),
+				hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+			//hours = (hours < 10) ? "0" + hours : hours;
+			//minutes = (minutes < 10) ? "0" + minutes : minutes;
+			//seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+			return {
+				hours: hours,
+				minutes: minutes,
+				seconds: seconds
+			};
+		},
+
+		/**
+		 *
+		 * parses a date from a dd.mm.yyyy-hh:MM string
+		 * @param sDate
+		 * @returns {Date}
+		 * @private
+		 */
+		getDateFromDateString: function(sDate)
+		{
+			const sDateDay = sDate.split("-")[0];
+			const sTime = sDate.split("-")[1];
+
+			const day = sDateDay.split(".")[0];
+			const month = sDateDay.split(".")[1];
+			const year = sDateDay.split(".")[2];
+
+			const hour = sTime.split(":")[0];
+			const minutes = sTime.split(":")[1];
+
+			var oDate = new Date();
+			oDate.setDate(day);
+			oDate.setMonth(month);
+			oDate.setFullYear(year);
+			oDate.setHours(hour);
+			oDate.setMinutes(minutes);
+			return oDate;
+		},
+
+		/**
+		 *
+		 * @param oUserA
+		 * @param oUserB
+		 * @returns {boolean}
+		 */
+		isSameUserClient: function(oUserA, oUserB)
+		{
+			return oUserA.id === oUserB.id;
 		}
 	};

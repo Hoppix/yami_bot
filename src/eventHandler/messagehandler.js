@@ -1,5 +1,5 @@
-const oMhCalculator = require("../mhCalculator.js");
-const oYoutubeHandler = require("../youtubeHandler.js");
+const oMhCalculator = require("../mh/mhCalculator.js");
+const oYoutubeHandler = require("../requestHandler/youtubeHandler.js");
 const oUtility = require("../utility.js");
 
 const sCommandsFile = "./commands/custom.json";
@@ -191,9 +191,9 @@ module.exports =
 		 **/
 		printHelpMessage: function (oMessage)
 		{
-			const oHelp = {name: "!help:", value: "Prints this message"};
+			const oHelp = {name: "!help", value: "Prints this message"};
 			const oPlay = {name: "!play [youtubelink]", value: "Plays youtube video in current voice channel"};
-			const oStop = {name: "!stop:", value: "Stops playback and leaves channel"};
+			const oStop = {name: "!stop", value: "Stops playback and leaves channel"};
 			const oSearch = {
 				name: "!youtubesearch [query ...]",
 				value: "replies with the first matching youtube-video"
@@ -220,6 +220,7 @@ module.exports =
 
 			const oUptime = {name: "!uptime:", value: "Prints uptime"};
 			const oMhHelp = {name: "!mhhelp", value: "Lists available commands for Monster Hunter Weapon calculation"};
+			const oEventHelp = {name: "!eventhelp", value: "Lists commands for the event function"};
 			const oFooter = {text: "Please send known bugs to Hoppix#6723/k.hopfmann@hotmail.de"};
 
 			const oEmbed =
@@ -227,7 +228,7 @@ module.exports =
 					embed: {
 						color: 900000,
 						description: "@Github: https://github.com/Hoppix/yami_bot_js",
-						fields: [oHelp, oPlay, oStop, oSearch, oAddCustom, oDeleteCustom, oClearCustom, oShowCustom, oUptime, oMhHelp],
+						fields: [oHelp, oPlay, oStop, oSearch, oAddCustom, oDeleteCustom, oClearCustom, oShowCustom, oUptime, oMhHelp, oEventHelp],
 						footer: oFooter
 					}
 				};
