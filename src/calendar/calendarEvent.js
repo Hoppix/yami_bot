@@ -32,7 +32,31 @@ methods.getId = function()
  */
 methods.addMember = function(oUser)
 {
-	return this._aMembers.push(oUser);
+	for(let i = 0; i < this._aMembers.length; i++)
+	{
+		if(this._aMembers[i].id === oUser.id)
+		{
+			return -1;
+		}
+	}
+	this._aMembers.push(oUser);
+};
+
+/**
+ *
+ * @param oUser
+ * @returns {boolean}
+ */
+methods.isMember = function(oUser)
+{
+	for(let i = 0; i < this._aMembers.length; i++)
+	{
+		if(this._aMembers[i].id === oUser.id)
+		{
+			return true;
+		}
+	}
+	return false;
 };
 
 /**
@@ -46,7 +70,7 @@ methods.removeMember = function(oUser)
 	{
 		if(this._aMembers[i].id === oUser.id)
 		{
-			return this._aMembers.splice(i, 1);
+			this._aMembers.splice(i, 1);
 		}
 	}
 };

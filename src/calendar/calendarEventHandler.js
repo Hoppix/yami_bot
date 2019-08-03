@@ -171,8 +171,13 @@ module.exports =
 			const oCalendarEvent = this.mCalendarEvents.get(oReaction.message.id);
 			if(oCalendarEvent)
 			{
-				oCalendarEvent.addMember(oUser);
-				console.log("added member to event: " + oCalendarEvent.getName() + "-" + oCalendarEvent.getId() + " Member " + oUser.username);
+				if(!oCalendarEvent.isMember(oUser))
+				{
+
+					oCalendarEvent.addMember(oUser);
+					oUser.send("You have been added to the event: " + oCalendarEvent.toString());
+					console.log("added member to event: " + oCalendarEvent.getName() + "-" + oCalendarEvent.getId() + " Member " + oUser.username);
+				}
 
 				const oReactions = oReaction.message.reactions.get(this.sAcceptEmoji);
 
@@ -194,8 +199,12 @@ module.exports =
 			const oCalendarEvent = this.mCalendarEvents.get(oReaction.message.id);
 			if(oCalendarEvent)
 			{
-				oCalendarEvent.removeMember(oUser);
-				console.log("removed member from event: " + oCalendarEvent.getName() + "-" + oCalendarEvent.getId() + " Member " + oUser.username);
+				if(oCalendarEvent.isMember(oUser))
+				{
+					oUser.send("You have been removed from the event: " + oCalendarEvent.toString());
+					oCalendarEvent.removeMember(oUser);
+					console.log("removed member from event: " + oCalendarEvent.getName() + "-" + oCalendarEvent.getId() + " Member " + oUser.username);
+				}
 
 				const oReactions = oReaction.message.reactions.get(this.sDeclineEmoji);
 
