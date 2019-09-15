@@ -43,15 +43,23 @@ function mhCalculateWeaponStrength(sSharpness, iAttack, iAffinity, iElemental, s
 		return "Invalid Weapontype";
 	}
 
+	//since bow has extra elemental motion values we have to check this
+	let iElementalMotionValue = 100;
+	if(fSharpnessPhysical === "GUNNER")
+	{
+		iElementalMotionValue = mhDatacollection.bowElementalMv;
+	}
+
 	var iMotionValue = mhMvEstimatedMap.get(sWeapon.toUpperCase());
 
 	//generic purpose dummy
 	var iHitzonePhysical = oElementalDummy.torso.cutting;
 	var iHitzoneElemental = oElementalDummy.torso.fire;
 
+
 	var fCritDamage = 1 + (iAffinity / 100) * 0.25;
 	var fWeaponPhysical = fSharpnessPhysical * (iAttack / fBloat) * (iMotionValue / 100) * (iHitzonePhysical / 100);
-	var fWeaponElemental = fSharpnessElemental * (iElemental / 10) * (iHitzoneElemental / 100);
+	var fWeaponElemental = fSharpnessElemental * (iElemental / 10) * (iElementalMotionValue / 100) * (iHitzoneElemental / 100);
 
 	return (fCritDamage * fWeaponPhysical) + fWeaponElemental;
 }

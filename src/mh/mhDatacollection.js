@@ -133,3 +133,4 @@ module.exports.mhSharpElementalMap = mhSharpElementalMap;
 module.exports.mhMvEstimatedMap = mhMvEstimatedMap;
 module.exports.mhPhysicalDummy = oPhysicalDummy;
 module.exports.mhElementalDummy = oElementalDummy;
+module.exports.bowElementalMv = 62.625;
