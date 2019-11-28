@@ -34,7 +34,7 @@ function youtubeSearchRequest(aSearchQuery, apiKey)
 			defer.reject(
 				{
 					errorCode: response,
-					message: err.message
+					message: err.message || err.source
 				}
 			);
 		}
