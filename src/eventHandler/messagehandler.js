@@ -139,6 +139,13 @@ module.exports =
 					if (oData.id && oData.id.videoId)
 					{
 						oMessage.reply("https://www.youtube.com/watch?v=" + oData.id.videoId);
+						return;
+					}
+
+					if (oData.id && oData.id.channelId)
+					{
+						oMessage.reply("https://www.youtube.com/channel/" + oData.id.channelId);
+						return;
 					}
 				},
 				function (oError)
