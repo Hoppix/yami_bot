@@ -19,14 +19,14 @@ var defaultGuildChannels;
 var oDefaultImageChannel;
 
 //set your custom names
-const sVersion = "v2.0.1";
+const sVersion = "v2.0.2";
 const sDefaultGuildName = "Zettai Ryouiki";
 const sDefaultGuildChannelName = "bot-messages";
 const sDefaultVoiceChannelName = "General";
 const sDefaultImageChannelName = "umu";
 const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
-const sStartMessage = sVersion + " Yami: CalendarEvents added!";
+const sStartMessage = sVersion + " Yami: CI/CD!";
 
 /**
  * Initiates default variables
