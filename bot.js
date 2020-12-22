@@ -20,7 +20,7 @@ var oDefaultImageChannel;
 
 //set your custom names
 const sVersion = "v2.0.2";
-const sDefaultGuildName = "Zettai Ryouiki";
+const sDefaultGuildName = "Korone is Life";
 const sDefaultGuildChannelName = "bot-messages";
 const sDefaultVoiceChannelName = "General";
 const sDefaultImageChannelName = "umu";
@@ -267,5 +267,5 @@ oClient.on("error", oError =>
 
 //login with private token from config.json
 console.log("PreLogin");
-oClient.login(oConfig.token);
+oClient.login(oConfig.token).then(r => console.log("LOGIN EVENT " + r));
 console.log("PostLogin");
