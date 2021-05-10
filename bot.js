@@ -20,7 +20,8 @@ var oDefaultImageChannel;
 
 //set your custom names
 const sVersion = "v2.0.2";
-const sDefaultGuildName = "Korone is Life";
+const sDefaultGuildName = "Cult of Thighs";
+const sDefaultGuildId = "203989186397601792";
 const sDefaultGuildChannelName = "bot-messages";
 const sDefaultVoiceChannelName = "General";
 const sDefaultImageChannelName = "umu";
@@ -34,10 +35,10 @@ const sStartMessage = sVersion + " Yami: CI/CD!";
 oClient.on('ready', () =>
 {
 	//search for defaultGuild
-	oDefaultGuild = oClient.guilds.find("name", sDefaultGuildName);
+	oDefaultGuild = oClient.guilds.get(sDefaultGuildId);
 	if (!oDefaultGuild)
 	{
-		console.log("No guild named " + sDefaultGuildName + " found!");
+		console.log("No guild with id " + sDefaultGuildId + " found!");
 		return;
 	}
 	console.log("oDefaultGuild: " + oDefaultGuild.toString());
