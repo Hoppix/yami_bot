@@ -19,6 +19,7 @@ var defaultGuildChannels;
 var oDefaultImageChannel;
 
 //set your custom names
+//TODO retrieve channels per id
 const sVersion = "v2.0.2";
 const sDefaultGuildName = "Cult of Thighs";
 const sDefaultGuildId = "203989186397601792";
