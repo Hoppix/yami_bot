@@ -10,7 +10,6 @@ const oMessageHandler = require("./src/eventHandler/messagehandler");
 const oVoiceHandler = require("./src/eventHandler/voicehandler");
 const oPresenceHandler = require("./src/eventHandler/presencehandler");
 const oRequestHandler = require("./src/requestHandler/twitchRequestHandler.js");
-const oCalendarEventHandler = require("./src/calendar/calendarEventHandler");
 
 var oDefaultGuild;
 var oDefaultChannel;
@@ -98,9 +97,6 @@ oClient.on('ready', () =>
 		type: sVersion
 	});
 	oDefaultChannel.send(sStartMessage);
-
-	//initializes the event queue job
-	oCalendarEventHandler.init();
 })
 ;
 
@@ -174,24 +170,6 @@ oClient.on('message', oMessage =>
 		case "showcustom":
 			oMessageHandler.printCustomCommands(oMessage);
 			break;
-		/**
-		 * Event functions
-		 */
-		case "eventhelp":
-			oCalendarEventHandler.printEventHelpMessage(oMessage);
-			break;
-		case "newevent":
-			oCalendarEventHandler.createEventInvite(aCommand.splice(1, aCommand.length), oMessage);
-			break;
-		case "removeevent":
-			oCalendarEventHandler.removeEvent(aCommand.splice(1, aCommand.length), oMessage);
-			break;
-		case "updateevent:":
-			oCalendarEventHandler.updateEvent(aCommand.splice(1, aCommand.length), oMessage);
-			break;
-		case "showevents":
-			oCalendarEventHandler.getAllEvents(oMessage);
-			break;
 		default:
 			if (oMessageHandler.isCustomCommand(aCommand[0]))
 			{
@@ -204,36 +182,6 @@ oClient.on('message', oMessage =>
 	const sLog = "Event tigger command: <" + aCommand[0] + "> at " + oDate.toUTCString();
 	oUtility.writeLogFile(sLog);
 	console.log(sLog);
-});
-
-/**
- * Event for a User reacting to a message
- */
-oClient.on("messageReactionAdd", (oReaction, oUser) =>
-{
-	//escape Yami reactions
-	if(!oUtility.isSameUserClient(oClient.user, oUser))
-	{
-		if(oReaction.emoji.toString() === oCalendarEventHandler.sAcceptEmoji)
-	 		oCalendarEventHandler.handleEventReactionAdd(oReaction, oUser);
-		else if(oReaction.emoji.toString() === oCalendarEventHandler.sDeclineEmoji)
-			oCalendarEventHandler.handleEventReactionRemove(oReaction, oUser);
-	}
-});
-
-/**
- * Event for a User reacting to a message
- */
-oClient.on("messageReactionRemove", (oReaction, oUser) =>
-{
-	//escape Yami reactions
-	if(!oUtility.isSameUserClient(oClient.user, oUser))
-	{
-		if(oReaction.emoji.toString() === oCalendarEventHandler.sAcceptEmoji)
-			oCalendarEventHandler.handleEventReactionRestore(oReaction, oCalendarEventHandler.sAcceptEmoji);
-		else if(oReaction.emoji.toString() === oCalendarEventHandler.sDeclineEmoji)
-			oCalendarEventHandler.handleEventReactionRestore(oReaction, oCalendarEventHandler.sDeclineEmoji);
-	}
 });
 
 /**
