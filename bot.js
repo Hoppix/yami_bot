@@ -19,16 +19,18 @@ var defaultGuildChannels;
 var oDefaultImageChannel;
 
 //set your custom names
-//TODO retrieve channels per id
-const sVersion = "v2.0.2";
+const sVersion = "v2.1.0";
+
 const sDefaultGuildName = "Cult of Thighs";
 const sDefaultGuildId = "203989186397601792";
-const sDefaultGuildChannelName = "bot-messages";
-const sDefaultVoiceChannelName = "General";
-const sDefaultImageChannelName = "umu";
+
+const sDefaultGuildChannelId = "307629566938054656";
+const sDefaultVoiceChannelId = "203989186947186688";
+const sDefaultImageChannelId = "449693701250220056";
+
 const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
-const sStartMessage = sVersion + " Yami: CI/CD!";
+const sStartMessage = sVersion + " Yami: 200 years of js experience!";
 
 /**
  * Initiates default variables
@@ -51,31 +53,30 @@ oClient.on('ready', () =>
 		console.log("Guild " + sDefaultGuildName + " has no channels!");
 		return;
 	}
-	console.log("oDefaultGuildChannels: " + defaultGuildChannels.toString());
 
 	//search for defaultChannel in defaultGuild
-	oDefaultChannel = defaultGuildChannels.find("name", sDefaultGuildChannelName);
+	oDefaultChannel = defaultGuildChannels.get(sDefaultGuildChannelId);;
 	if (!oDefaultChannel)
 	{
-		console.log("No channel named " + sDefaultGuildChannelName + " found!");
+		console.log("No channel with id " + sDefaultGuildChannelId + " found!");
 		return;
 	}
 	console.log("oDefaultChannel: " + oDefaultChannel.name);
 
 	//search for imageChannel in defaultGuild
-	oDefaultImageChannel = defaultGuildChannels.find("name", sDefaultImageChannelName);
-	if (!sDefaultImageChannelName)
+	oDefaultImageChannel = defaultGuildChannels.get(sDefaultImageChannelId);
+	if (!oDefaultImageChannel)
 	{
-		console.log("No channel named " + sDefaultImageChannelName + " found!");
+		console.log("No channel with id " + sDefaultImageChannelId + " found!");
 		return;
 	}
 	console.log("oDefaultImageChannel: " + oDefaultImageChannel.name);
 
 	//search for defaultVoiceChannel in defaultGuild
-	oDefaultVoiceChannel = defaultGuildChannels.find("name", sDefaultVoiceChannelName);
+	oDefaultVoiceChannel = defaultGuildChannels.get(sDefaultVoiceChannelId);
 	if (!oDefaultVoiceChannel)
 	{
-		console.log("No VoiceChannel named " + sDefaultVoiceChannelName + " found!");
+		console.log("No VoiceChannel with id " + sDefaultVoiceChannelId + " found!");
 		return;
 	}
 
