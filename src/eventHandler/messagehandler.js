@@ -130,6 +130,9 @@ module.exports =
 		 */
 		addRoleToUser: function(sRoleName, oMessage)
 		{
+			//TODO check if user already has the role
+			//TODO extract to own module
+			//TODO bump discord js version and refactor
 			const oGuild = oMessage.guild;
 			const oUser = oMessage.author;
 			const sUserId = oUser.id;
