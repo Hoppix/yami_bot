@@ -19,19 +19,17 @@ module.exports =
 			var sOldChannelName;
 			var sMessage;
 
-			var time = oUtility.parseDateString() + " | ";
-
 			if (!oldChannel && newChannel)
 			{
 				//User joins a channel
 				sNewChannelName = newChannel.name;
-				sMessage = time + "User: " + sUsername + " joined channel: " + sNewChannelName;
+				sMessage = "User: " + sUsername + " joined channel: " + sNewChannelName;
 			}
 			else if (oldChannel && !newChannel)
 			{
 				//User leaves a channel
 				sOldChannelName = oldChannel.name;
-				sMessage = time + "User: " + sUsername + " left channel: " + sOldChannelName;
+				sMessage = "User: " + sUsername + " left channel: " + sOldChannelName;
 
 			}
 			else if (oldChannel && newChannel)
@@ -40,7 +38,7 @@ module.exports =
 				sOldChannelName = oldChannel.name;
 				sNewChannelName = newChannel.name;
 				if (sOldChannelName === sNewChannelName || !sOldChannelName || !sNewChannelName) return;
-				sMessage = time + "User: " + sUsername + " switched from: " + sOldChannelName + " to: " + sNewChannelName;
+				sMessage = "User: " + sUsername + " switched from: " + sOldChannelName + " to: " + sNewChannelName;
 			}
 			else
 			{

@@ -170,6 +170,13 @@ oClient.on('message', oMessage =>
 		case "showcustom":
 			oMessageHandler.printCustomCommands(oMessage);
 			break;
+
+		/**
+		 * Adding roles to user
+		 */
+		case "role":
+			oMessageHandler.addRoleToUser(aCommand[1], oMessage)
+		break;
 		default:
 			if (oMessageHandler.isCustomCommand(aCommand[0]))
 			{

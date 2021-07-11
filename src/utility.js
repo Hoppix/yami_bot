@@ -9,24 +9,20 @@ module.exports =
 		parseDateString: function ()
 		{
 			var date = new Date();
-			var h = date.getHours();
-			var m = date.getMinutes();
-			var s = date.getSeconds();
-
-			if (h < 10) h = "0" + h;
-			if (m < 10) m = "0" + m;
-			if (s < 10) s = "0" + s;
-			return h + ":" + m + ":" + s;
+			return date.toUTCString();
 		},
 
 		/**
 		 * writes into a specified logfile for debugging purposes
+		 * now adds a fucking datestring
 		 **/
 		writeLogFile: function (str)
 		{
 			if (!str) return;
 
-			fs.appendFile(logfile, str + "\n", function (err)
+			var sDate = this.parseDateString();
+
+			fs.appendFile(logfile, sDate + ": " + str + "\n", function (err)
 			{
 				if (err)
 				{

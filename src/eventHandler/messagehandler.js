@@ -126,6 +126,57 @@ module.exports =
 		},
 
 		/**
+		 * adds a role to the user, if the user has the rights for this role
+		 */
+		addRoleToUser: function(sRoleName, oMessage)
+		{
+			const oGuild = oMessage.guild;
+			const oUser = oMessage.author;
+			const sUserId = oUser.id;
+
+			if (!oMessage.guild)
+			{
+				oMessage.reply("Could not determine the server to add the role!");
+			}
+
+			const oGuildRolesManager = oGuild.roles;
+			const oGuildMember = oGuild.members.get(sUserId);
+			const oUserRoleManager = oGuildMember.roles;
+			const oRoleDesired = oGuildRolesManager.find(r => r.name === sRoleName);
+			let oHighestRole = oUserRoleManager.highest;
+
+			if(!oHighestRole)
+			{
+				oHighestRole = this._fetchHighestRole(oUserRoleManager, oRoleDesired);
+			}
+
+			if(!oRoleDesired)
+			{
+				oMessage.reply("Could not find the given role")
+				return;
+			}
+
+			// Desired role is higher than the users role
+			if(oRoleDesired.comparePositionTo(oHighestRole) > 0)
+			{
+				oMessage.reply("You do not have the permissions to get this role");
+			}
+
+			oGuildMember.addRole(oRoleDesired, "automated role").catch( (error) => {
+				oUtility.writeLogFile("Error ocurred when adding a role: ", error)
+			});
+			oMessage.reply(oGuildMember.displayName + " now has role " + oRoleDesired.name);
+		},
+
+		async _fetchHighestRole(oRoleManager, oRole)
+		{
+			console.log("trying to resolve cache of role-manager");
+			let role = oRoleManager.find(r => r.name === oRole);
+			// just operating on getting the cache
+			return oRoleManager.highest;
+		},
+
+		/**
 		 *     calls the requesthandler to search with the given query for the first matching youtube-video
 		 *     and replies to the commanding user
 		 *   @param aCommand
