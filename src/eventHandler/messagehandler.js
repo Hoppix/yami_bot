@@ -191,7 +191,6 @@ module.exports = {
      *    and plays the youtubelink using the ytdl-core library.
      **/
     playYoutubeLink: function(sLink, oMessage, oClient) {
-        //TODO fix this shit
         console.log("link ", sLink);
         console.log("member ", oMessage.member);
         console.log("channel ", oMessage.member.voice.channel);
@@ -199,22 +198,15 @@ module.exports = {
         if (!oMessage.member) return;
         if (!oMessage.member.voice.channel) return;
 
-
         var oTargetChannel = oMessage.member.voice.channel;
-        console.log("before");
+
         // Play streams using ytdl-core
-        console.log("at ytdl-core, play here!!!!!!1");
         var broadcast = oClient.voice.createBroadcast();
-        console.log("past voicecast!");
         var streamOptions = {
             seek: 0,
             volume: 1
         };
 
-        //connection.play(stream, {seek: 0, volume: 1})
-        //.on('finish', () =>{
-        //    voiceChannel.leave();
-        //});
         console.log("Playing youtube link: ", sLink, " in channel ");
         oTargetChannel.join()
             .then(connection => {
@@ -226,8 +218,6 @@ module.exports = {
                 var dispatcher = connection.play(broadcast);
             })
             .catch(console.error);
-
-
     },
 
     /**
