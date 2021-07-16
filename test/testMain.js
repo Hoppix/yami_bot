@@ -3,7 +3,7 @@
  */
 var assert = require('assert');
 describe('Default', function() {
-		it('Just running empty tests', function(){
-			assert.equal(true, true);
-		});
+    it('Just running empty tests', function() {
+        assert.equal(true, true);
+    });
 });

@@ -4,6 +4,7 @@
  * This script sets all the needed data for the calculator.
  * The task is separated for scaleability
  */
+
 const utility = require('../utility.js');
 
 var mhBloatMap = new Map();
@@ -78,7 +79,7 @@ mhSharpElementalMap.set("GUNNER", 1);
 
 //Values for estimated average motion values
 mhMvEstimatedMap.set("SNS", 16); //~average on dash and 2 hits
-mhMvEstimatedMap.set("DS", 11);  //~average Ranbu!
+mhMvEstimatedMap.set("DS", 11); //~average Ranbu!
 mhMvEstimatedMap.set("GS", 90); //Lv3 Draw Charge
 mhMvEstimatedMap.set("LS", 19); //~average in std combo
 mhMvEstimatedMap.set("HM", 48); //average on std combo
@@ -110,15 +111,13 @@ mhMvMapMap.set("BOW", mhBOWmvMap);
 
 //read data files for motion values
 var wpnNames = ["GS", "LS", "SNS", "DS", "HM", "HH", "LC", "GL", "SA", "CB", "IG", "LBG", "HBG", "BOW"];
-for (i = 0; i < 14; i++)
-{
-	var sPath = "../../MH_Data/Motionvalues/mhw_" + wpnNames[i] + ".json";
-	var mvData = require(sPath);
-	console.log("############ READING " + sPath + " ############");
-	for (j = 0; j < mvData.length; j++)
-	{
-		mhMvMapMap.get(wpnNames[i]).set(mvData[j].name, mvData[j].hits);
-	}
+for (i = 0; i < 14; i++) {
+    var sPath = "../../MH_Data/Motionvalues/mhw_" + wpnNames[i] + ".json";
+    var mvData = require(sPath);
+    console.log("############ READING " + sPath + " ############");
+    for (j = 0; j < mvData.length; j++) {
+        mhMvMapMap.get(wpnNames[i]).set(mvData[j].name, mvData[j].hits);
+    }
 }
 
 //load the hitzone json files for each Dummy

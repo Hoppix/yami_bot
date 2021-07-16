@@ -1,11 +1,15 @@
 const oDiscord = require("discord.js");
 const oClient = new oDiscord.Client();
 
+//help variable
+const self = this;
+
 //starting date for checking uptime
 const oStartedDate = new Date();
 
 const oConfig = require("./src/config.json");
 const oUtility = require("./src/utility.js");
+const oCacheManager = require("./src/cacheManager.js");
 const oMessageHandler = require("./src/eventHandler/messagehandler");
 const oVoiceHandler = require("./src/eventHandler/voicehandler");
 const oPresenceHandler = require("./src/eventHandler/presencehandler");
@@ -31,196 +35,188 @@ const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
 const sStartMessage = sVersion + " Yami: 200 years of js experience!";
 
+
 /**
  * Initiates default variables
  **/
-oClient.on('ready', () =>
-{
-	//search for defaultGuild
-	oDefaultGuild = oClient.guilds.get(sDefaultGuildId);
-	if (!oDefaultGuild)
-	{
-		console.log("No guild with id " + sDefaultGuildId + " found!");
-		return;
-	}
-	console.log("oDefaultGuild: " + oDefaultGuild.toString());
+oClient.on('ready', async () => {
+    //search for defaultGuild
+    oDefaultGuild = await oClient.guilds.fetch(sDefaultGuildId);
+    console.log("oDefaultGuild: " + oDefaultGuild.toString());
 
-	//search for channels in defaultGuild
-	defaultGuildChannels = oDefaultGuild.channels;
-	if (!defaultGuildChannels)
-	{
-		console.log("Guild " + sDefaultGuildName + " has no channels!");
-		return;
-	}
+    //search for channels in defaultGuild
+    defaultGuildChannels = oDefaultGuild.channels.cache;
+    if (!defaultGuildChannels) {
+        console.log("Guild " + sDefaultGuildName + " has no channels!");
+        return;
+    }
 
-	//search for defaultChannel in defaultGuild
-	oDefaultChannel = defaultGuildChannels.get(sDefaultGuildChannelId);;
-	if (!oDefaultChannel)
-	{
-		console.log("No channel with id " + sDefaultGuildChannelId + " found!");
-		return;
-	}
-	console.log("oDefaultChannel: " + oDefaultChannel.name);
+    //search for defaultChannel in defaultGuild
+    oDefaultChannel = defaultGuildChannels.get(sDefaultGuildChannelId);;
+    if (!oDefaultChannel) {
+        console.log("No channel with id " + sDefaultGuildChannelId + " found!");
+        return;
+    }
+    console.log("oDefaultChannel: " + oDefaultChannel.name);
 
-	//search for imageChannel in defaultGuild
-	oDefaultImageChannel = defaultGuildChannels.get(sDefaultImageChannelId);
-	if (!oDefaultImageChannel)
-	{
-		console.log("No channel with id " + sDefaultImageChannelId + " found!");
-		return;
-	}
-	console.log("oDefaultImageChannel: " + oDefaultImageChannel.name);
+    //search for imageChannel in defaultGuild
+    oDefaultImageChannel = defaultGuildChannels.get(sDefaultImageChannelId);
+    if (!oDefaultImageChannel) {
+        console.log("No channel with id " + sDefaultImageChannelId + " found!");
+        return;
+    }
+    console.log("oDefaultImageChannel: " + oDefaultImageChannel.name);
 
-	//search for defaultVoiceChannel in defaultGuild
-	oDefaultVoiceChannel = defaultGuildChannels.get(sDefaultVoiceChannelId);
-	if (!oDefaultVoiceChannel)
-	{
-		console.log("No VoiceChannel with id " + sDefaultVoiceChannelId + " found!");
-		return;
-	}
+    //search for defaultVoiceChannel in defaultGuild
+    oDefaultVoiceChannel = defaultGuildChannels.get(sDefaultVoiceChannelId);
+    if (!oDefaultVoiceChannel) {
+        console.log("No VoiceChannel with id " + sDefaultVoiceChannelId + " found!");
+        return;
+    }
 
-	//start twitch api polling
-	for (var i = 0; i < oConfig.streamers.length; i++)
-	{
-		oRequestHandler.pollStream(oDefaultChannel, oConfig.streamers[i], oConfig.twitchClient);
-	}
+    //start twitch api polling
+    for (var i = 0; i < oConfig.streamers.length; i++) {
+        oRequestHandler.pollStream(oDefaultChannel, oConfig.streamers[i], oConfig.twitchClient);
+    }
 
-	//initialize persitence for custom commands
-	oMessageHandler.updateCommandMap();
+    //initialize persitence for custom commands
+    oMessageHandler.updateCommandMap();
 
-	const iStartupTime = new Date().getTime() - oStartedDate.getTime();
-	//log found data + set messages etc.
-	console.log(`Bot has started, with ${oClient.users.size} users, in ${oClient.channels.size} channels of ${oClient.guilds.size} guilds.`);
-	console.log("Startup time: " + iStartupTime + "ms");
-	oClient.user.setPresence({
-		name: sPlayMessage,
-		type: sVersion
-	});
-	oDefaultChannel.send(sStartMessage);
-})
-;
+
+    // Set the client user's presence
+    oClient.user.setPresence({
+            activity: {
+                name: sPlayMessage
+            },
+            status: sVersion
+        })
+        .catch(console.error);
+
+
+    oDefaultChannel.send(sStartMessage);
+
+    const aUsers = oCacheManager.fetchCache(oClient.users);
+    const aChannels = oCacheManager.fetchCache(oClient.channels);
+    const aGuilds = oCacheManager.fetchCache(oClient.guilds);
+    console.log(`Bot has started, with ${aUsers.length} users, in ${aChannels.length} channels of ${aGuilds.length} guilds.`);
+
+    const iStartupTime = new Date().getTime() - oStartedDate.getTime();
+    console.log("Startup time: " + iStartupTime + "ms");
+});
 
 /**
  * triggered on any message the oClient receives
  **/
-oClient.on('message', oMessage =>
-{
-	if (oMessage.content.charAt(0) !== sCommandPrefix) return;
-	if (oMessage.content.length < 2) return;
+oClient.on('message', oMessage => {
+    if (oMessage.content.charAt(0) !== sCommandPrefix) return;
+    if (oMessage.content.length < 2) return;
 
-	var aCommand = oMessage.content.substring(1, oMessage.content.length).split(" ");
-	aCommand[0].toLowerCase();
+    var aCommand = oMessage.content.substring(1, oMessage.content.length).split(" ");
+    aCommand[0].toLowerCase();
 
-	switch (aCommand[0])
-	{
-		/**
-		 * general functions
-		 */
-		case "play":
-			oMessageHandler.playYoutubeLink(aCommand[1], oMessage, oClient);
-			break;
-		case "stop":
-			oMessageHandler.stopYoutubeLink(oClient);
-			break;
-		case "help":
-			oMessageHandler.printHelpMessage(oMessage);
-			break;
-		case "mhhelp":
-			oMessageHandler.printMhHelpMessage(oMessage);
-			break;
-		case "uptime":
-			oMessageHandler.printUptimeMessage(oUtility, oMessage, oStartedDate);
-			break;
-		/**
-		 * Monster hunter functions
-		 */
-		case "weaponstrength":
-			oMessageHandler.handleWeaponCalculation(aCommand.slice(1, aCommand.length), oMessage);
-			break;
-		case "weaponcompare":
-			oMessageHandler.handleWeaponCompare(aCommand.slice(1, aCommand.length), oMessage);
-			break;
-		case "motionvalues":
-			oMessageHandler.getWeaponMV(aCommand.slice(1, aCommand.length), oMessage);
-			break;
-		case "armorsets":
-			oMessageHandler.getArmorSpreadsheetUrl(oMessage);
-			break;
-		case "kiranico":
-			oMessageHandler.getKiranicoUrl(aCommand.splice(1, aCommand.length), oMessage);
-			break;
-		/**
-		 * youtube functions
-		 */
-		case "youtubesearch":
-			oMessageHandler.getYoutubeSearch(aCommand.splice(1, aCommand.length), oMessage, oConfig.youtubeClient);
-			break;
-		/**
-		 * Custom command functions
-		 */
-		case "addcustom":
-			oMessageHandler.addCustomCommand(aCommand.splice(1, aCommand.length), oMessage);
-			break;
-		case "deletecustom":
-			oMessageHandler.deleteCustomCommand(aCommand.splice(1, aCommand.length), oMessage);
-			break;
-		case "clearcustom":
-			oMessageHandler.clearCustomCommands(oMessage);
-			break;
-		case "showcustom":
-			oMessageHandler.printCustomCommands(oMessage);
-			break;
+    switch (aCommand[0]) {
+        /**
+         * general functions
+         */
+        case "play":
+            oMessageHandler.playYoutubeLink(aCommand[1], oMessage, oClient);
+            break;
+        case "stop":
+            oMessageHandler.stopYoutubeLink(oClient);
+            break;
+        case "help":
+            oMessageHandler.printHelpMessage(oMessage);
+            break;
+        case "mhhelp":
+            oMessageHandler.printMhHelpMessage(oMessage);
+            break;
+        case "uptime":
+            oMessageHandler.printUptimeMessage(oUtility, oMessage, oStartedDate);
+            break;
+            /**
+             * Monster hunter functions
+             */
+        case "weaponstrength":
+            oMessageHandler.handleWeaponCalculation(aCommand.slice(1, aCommand.length), oMessage);
+            break;
+        case "weaponcompare":
+            oMessageHandler.handleWeaponCompare(aCommand.slice(1, aCommand.length), oMessage);
+            break;
+        case "motionvalues":
+            oMessageHandler.getWeaponMV(aCommand.slice(1, aCommand.length), oMessage);
+            break;
+        case "armorsets":
+            oMessageHandler.getArmorSpreadsheetUrl(oMessage);
+            break;
+        case "kiranico":
+            oMessageHandler.getKiranicoUrl(aCommand.splice(1, aCommand.length), oMessage);
+            break;
+            /**
+             * youtube functions
+             */
+        case "youtubesearch":
+            oMessageHandler.getYoutubeSearch(aCommand.splice(1, aCommand.length), oMessage, oConfig.youtubeClient);
+            break;
+            /**
+             * Custom command functions
+             */
+        case "addcustom":
+            oMessageHandler.addCustomCommand(aCommand.splice(1, aCommand.length), oMessage);
+            break;
+        case "deletecustom":
+            oMessageHandler.deleteCustomCommand(aCommand.splice(1, aCommand.length), oMessage);
+            break;
+        case "clearcustom":
+            oMessageHandler.clearCustomCommands(oMessage);
+            break;
+        case "showcustom":
+            oMessageHandler.printCustomCommands(oMessage);
+            break;
 
-		/**
-		 * Adding roles to user
-		 */
-		case "role":
-			oMessageHandler.addRoleToUser(aCommand[1], oMessage)
-		break;
-		default:
-			if (oMessageHandler.isCustomCommand(aCommand[0]))
-			{
-				oMessageHandler.executeCustomCommand(aCommand[0], oMessage);
-			}
-	}
+            /**
+             * Adding roles to user
+             */
+        case "giverole":
+            oMessageHandler.addRoleToUser(aCommand[1], oMessage)
+            break;
+        default:
+            if (oMessageHandler.isCustomCommand(aCommand[0])) {
+                oMessageHandler.executeCustomCommand(aCommand[0], oMessage);
+            }
+    }
 
-	//command logging for error trace
-	const oDate = new Date(oMessage.createdAt.valueOf() - oMessage.createdAt.getTimezoneOffset() * 60000);
-	const sLog = "Event tigger command: <" + aCommand[0] + "> at " + oDate.toUTCString();
-	oUtility.writeLogFile(sLog);
-	console.log(sLog);
+    //command logging for error trace
+    const oDate = new Date(oMessage.createdAt.valueOf() - oMessage.createdAt.getTimezoneOffset() * 60000);
+    const sLog = "Event tigger command: <" + aCommand[0] + "> at " + oDate.toUTCString();
+    oUtility.writeLogFile(sLog);
+    console.log(sLog);
 });
 
 /**
  * Event for logging voiceChannel updates
  **/
-oClient.on("voiceStateUpdate", (oldMember, newMember) =>
-{
-	oVoiceHandler.handleEventLogging(oUtility, oldMember, newMember, oDefaultChannel);
+oClient.on("voiceStateUpdate", (oldVoiceState, newVoiceState) => {
+    oVoiceHandler.handleEventLogging(oUtility, oldVoiceState, newVoiceState, oDefaultChannel);
 });
 
 /**
  * Event for online status etc.
  **/
-oClient.on("presenceUpdate", (oldMember, newMember) =>
-{
-	//user comes online or goes offline
-	if (oldMember.presence.status !== newMember.presence.status)
-	{
-		oPresenceHandler.handleStatusUpdate(oUtility, newMember, oldMember, oDefaultChannel);
-	}
-	//user starts playing a game
-	else if (oldMember.presence.game !== newMember.presence.game)
-	{
-		oPresenceHandler.handleGameUpdate(oUtility, newMember, oldMember, oDefaultChannel);
-	}
+oClient.on("presenceUpdate", (oldMember, newMember) => {
+    //user comes online or goes offline
+    if (oldMember.presence.status !== newMember.presence.status) {
+        oPresenceHandler.handleStatusUpdate(oUtility, newMember, oldMember, oDefaultChannel);
+    }
+    //user starts playing a game
+    else if (oldMember.presence.game !== newMember.presence.game) {
+        oPresenceHandler.handleGameUpdate(oUtility, newMember, oldMember, oDefaultChannel);
+    }
 });
 
-oClient.on("error", oError =>
-{
-		const sMessage = "An generic error haz okuued: " + oError.message;
-		console.log(sMessage);
-		oUtility.writeLogFile(sMessage);
+oClient.on("error", oError => {
+    const sMessage = "An generic error haz okuued: " + oError.message;
+    console.log(sMessage);
+    oUtility.writeLogFile(sMessage);
 });
 
 //login with private token from config.json
