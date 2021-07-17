@@ -1,6 +1,7 @@
 const oMhCalculator = require("../mh/mhCalculator.js");
 const oYoutubeHandler = require("../requestHandler/youtubeHandler.js");
 const oUtility = require("../utility.js");
+const oCacheManager = require("../cacheManager.js")
 const ytdl = require('ytdl-core');
 
 const sCommandsFile = "./commands/custom.json";
@@ -89,19 +90,6 @@ module.exports = {
     },
 
     /**
-     * deletes all saved commands
-     */
-    clearCustomCommands: function(oMessage) {
-        if (!oMessage.member.hasPermission("ADMINISTRATOR")) {
-            oMessage.reply("Must be Administrator!");
-            return;
-        }
-        this.mCustomCommands = new Map();
-        this.saveCommands();
-        oMessage.reply("All Commands have been cleared!");
-    },
-
-    /**
      * saves the @mCustomCommands map to the persistence file
      */
     saveCommands: function() {
@@ -118,9 +106,7 @@ module.exports = {
     /**
      * adds a role to the user, if the user has the rights for this role
      */
-    addRoleToUser: function(sRoleName, oMessage) {
-        //TODO check if user already has the role
-        //TODO extract to own module
+    addRoleToUser: async function(sRoleName, oMessage) {
         const oGuild = oMessage.guild;
         const oUser = oMessage.author;
         const sUserId = oUser.id;
@@ -129,27 +115,40 @@ module.exports = {
             oMessage.reply("Could not determine the server to add the role!");
         }
 
-        const oGuildRolesManager = oGuild.roles;
-        const oGuildMember = oGuild.members.fetch(sUserId);
-        const oUserRoleManager = oGuildMember.roles;
-        const oRoleDesired = oGuildRolesManager.fetch(r => r.name === sRoleName);
-        let oHighestRole = oUserRoleManager.highest;
+        const oGuildMember = await oGuild.members.fetch(sUserId);
 
-        if (!oHighestRole) {
-            oHighestRole = this._fetchHighestRole(oUserRoleManager, oRoleDesired);
-        }
+        const oGuildRolesManager = oGuild.roles;
+        const oUserRoleManager = oGuildMember.roles;
+        const oHighestRole = oUserRoleManager.highest;
+
+        console.log("search ", sRoleName)
+
+        // Fetch all roles from the guild
+        const aRoles = await oGuildRolesManager.fetch()
+        const oRoleDesired = aRoles.cache.find(r => r.name.toLowerCase() === sRoleName.toLowerCase());
 
         if (!oRoleDesired) {
             oMessage.reply("Could not find the given role")
             return;
         }
 
+        if (!oHighestRole) {
+            oHighestRole = this._fetchHighestRole(oUserRoleManager, oRoleDesired);
+        }
+
         // Desired role is higher than the users role
         if (oRoleDesired.comparePositionTo(oHighestRole) > 0) {
             oMessage.reply("You do not have the permissions to get this role");
+            return;
         }
 
-        oGuildMember.addRole(oRoleDesired, "automated role").catch((error) => {
+        // When the user already has the role
+        if (oUserRoleManager.cache.get(oRoleDesired.id)) {
+            oMessage.reply("You already have the desired role");
+            return;
+        }
+
+        oGuildMember.roles.add(oRoleDesired, "automated role").catch((error) => {
             oUtility.writeLogFile("Error ocurred when adding a role: ", error)
         });
         oMessage.reply(oGuildMember.displayName + " now has role " + oRoleDesired.name);
@@ -263,11 +262,6 @@ module.exports = {
         const oDeleteCustom = {
             name: "!deletecustom [commandname]",
             value: "Deletes a single command identified by the commandname"
-        };
-
-        const oClearCustom = {
-            name: "!clearcustom",
-            value: "Deletes all existing custom commands (Admin only)"
         };
 
         const oUptime = {

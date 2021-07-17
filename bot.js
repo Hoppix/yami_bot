@@ -82,7 +82,6 @@ oClient.on('ready', async () => {
     //initialize persitence for custom commands
     oMessageHandler.updateCommandMap();
 
-
     // Set the client user's presence
     oClient.user.setPresence({
             activity: {
@@ -107,7 +106,7 @@ oClient.on('ready', async () => {
 /**
  * triggered on any message the oClient receives
  **/
-oClient.on('message', oMessage => {
+oClient.on('message', async oMessage => {
     if (oMessage.content.charAt(0) !== sCommandPrefix) return;
     if (oMessage.content.length < 2) return;
 
@@ -166,18 +165,14 @@ oClient.on('message', oMessage => {
         case "deletecustom":
             oMessageHandler.deleteCustomCommand(aCommand.splice(1, aCommand.length), oMessage);
             break;
-        case "clearcustom":
-            oMessageHandler.clearCustomCommands(oMessage);
-            break;
         case "showcustom":
             oMessageHandler.printCustomCommands(oMessage);
             break;
-
             /**
              * Adding roles to user
              */
         case "giverole":
-            oMessageHandler.addRoleToUser(aCommand[1], oMessage)
+            oMessageHandler.addRoleToUser(aCommand.splice(1, aCommand.length).join(" "), oMessage)
             break;
         default:
             if (oMessageHandler.isCustomCommand(aCommand[0])) {

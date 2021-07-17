@@ -7,6 +7,9 @@ module.exports = {
     fetchCache: function(oBaseManager, id) {
         console.log("Fetching cache ...");
         let aResult = [];
+
+        if(!oBaseManager) return;
+
         try {
 
             let aCache = oBaseManager.cache.array();
