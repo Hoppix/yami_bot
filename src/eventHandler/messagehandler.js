@@ -190,14 +190,13 @@ module.exports = {
      *    and plays the youtubelink using the ytdl-core library.
      **/
     playYoutubeLink: function(sLink, oMessage, oClient) {
-        console.log("link ", sLink);
-        console.log("member ", oMessage.member);
-        console.log("channel ", oMessage.member.voice.channel);
         if (!sLink) return;
         if (!oMessage.member) return;
         if (!oMessage.member.voice.channel) return;
 
         var oTargetChannel = oMessage.member.voice.channel;
+
+        if (!oTargetChannel) return;
 
         // Play streams using ytdl-core
         var broadcast = oClient.voice.createBroadcast();
@@ -224,8 +223,10 @@ module.exports = {
      **/
     stopYoutubeLink: function(oClient) {
         const mConnections = oClient.voice.connections;
-        for (const oConnection of mConnections) {
-            oConnection.channel.leave()
+        for (const oConnection of mConnections.values()) {
+            const oChannel = oConnection.channel;
+            if (!oChannel) continue;
+            oChannel.leave()
         };
     },
 
@@ -284,7 +285,7 @@ module.exports = {
             embed: {
                 color: 900000,
                 description: "@Github: https://github.com/Hoppix/yami_bot_js",
-                fields: [oHelp, oPlay, oStop, oSearch, oAddCustom, oDeleteCustom, oClearCustom, oShowCustom, oUptime, oMhHelp, oGiveRole],
+                fields: [oHelp, oPlay, oStop, oSearch, oAddCustom, oDeleteCustom, oShowCustom, oUptime, oMhHelp, oGiveRole],
                 footer: oFooter
             }
         };

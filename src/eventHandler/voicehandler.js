@@ -11,6 +11,8 @@ module.exports = {
     handleEventLogging: function(oUtility, oldVoiceState, newVoiceState, oDefaultChannel) {
 
         const member = newVoiceState.member;
+        if (!member) return;
+        
         var oldChannel = oldVoiceState.channel;
         var newChannel = newVoiceState.channel;
 
