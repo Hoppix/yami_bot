@@ -12,7 +12,6 @@ var q = require('q');
  */
 function youtubeSearchRequest(aSearchQuery, apiKey) {
     const defer = q.defer();
-    //TODO API DOES NOT WORK
     const YOUTUBE_API_URL_BASE = "https://www.googleapis.com/youtube/v3/search";
     const oCall = {
         uri: YOUTUBE_API_URL_BASE,
