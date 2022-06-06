@@ -1,10 +1,9 @@
 const oMhCalculator = require("../mh/mhCalculator.js");
 const oYoutubeHandler = require("../requestHandler/youtubeHandler.js");
-const oUtility = require("../utility.js");
-const oCacheManager = require("../cacheManager.js")
+const oUtility = require("../utility/utility.js");
 const ytdl = require('ytdl-core');
 
-const sCommandsFile = "./commands/custom.json";
+const sCommandsFile = "./resources/commands/custom.json";
 
 /**
  * handler vor dispatching action triggered by discord.js message events

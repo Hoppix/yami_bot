@@ -5,7 +5,6 @@
  * The task is separated for scaleability
  */
 
-const utility = require('../utility.js');
 
 var mhBloatMap = new Map();
 //contains the bloat value for each weapon type
@@ -112,7 +111,7 @@ mhMvMapMap.set("BOW", mhBOWmvMap);
 //read data files for motion values
 var wpnNames = ["GS", "LS", "SNS", "DS", "HM", "HH", "LC", "GL", "SA", "CB", "IG", "LBG", "HBG", "BOW"];
 for (i = 0; i < 14; i++) {
-    var sPath = "../../MH_Data/Motionvalues/mhw_" + wpnNames[i] + ".json";
+    var sPath = "../../MH_Data/WorldMotionvalues/mhw_" + wpnNames[i] + ".json";
     var mvData = require(sPath);
     console.log("############ READING " + sPath + " ############");
     for (j = 0; j < mvData.length; j++) {
@@ -121,8 +120,8 @@ for (i = 0; i < 14; i++) {
 }
 
 //load the hitzone json files for each Dummy
-const oPhysicalDummy = require('../../MH_Data/MonsterLists/physicalDummy.json');
-const oElementalDummy = require('../../MH_Data/MonsterLists/elementalDummy.json');
+const oPhysicalDummy = require('../../MH_Data/WorldMonsterLists/physicalDummy.json');
+const oElementalDummy = require('../../MH_Data/WorldMonsterLists/elementalDummy.json');
 
 
 module.exports.mhMvMapMap = mhMvMapMap;

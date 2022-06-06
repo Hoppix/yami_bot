@@ -7,13 +7,13 @@ const self = this;
 //starting date for checking uptime
 const oStartedDate = new Date();
 
-const oConfig = require("./src/config.json");
-const oUtility = require("./src/utility.js");
-const oCacheManager = require("./src/cacheManager.js");
-const oMessageHandler = require("./src/eventHandler/messagehandler");
-const oVoiceHandler = require("./src/eventHandler/voicehandler");
-const oPresenceHandler = require("./src/eventHandler/presencehandler");
-const oRequestHandler = require("./src/requestHandler/twitchRequestHandler.js");
+const oConfig = require("../resources/config.json");
+const oUtility = require("./utility/utility.js");
+const oCacheManager = require("./utility/cacheManager.js");
+const oMessageHandler = require("./eventHandler/messagehandler");
+const oVoiceHandler = require("./eventHandler/voicehandler");
+const oPresenceHandler = require("./eventHandler/presencehandler");
+const oRequestHandler = require("./requestHandler/twitchRequestHandler.js");
 
 var oDefaultGuild;
 var oDefaultChannel;
