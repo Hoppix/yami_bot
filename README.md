@@ -27,8 +27,8 @@ https://developers.google.com/youtube/
 ### Installation and Deployment
 - Clone this repository via ```git clone https://github.com/Hoppix/yami_bot_js ```
 - Install all needed dependencies with ````npm install ````
-- Create ``/commands/custom.json`` for custom command persistence
-- Create ``src/config.json `` with
+- Create ``resources/commands/custom.json`` for custom command persistence
+- Create ``resources/config.json `` with
 ``
 {
   "token": "your discord apikey",
@@ -38,7 +38,8 @@ https://developers.google.com/youtube/
 } 
 ``
 - Go to ``bot.js`` and change the values for sDefaultGuildName, sDefaultGuildChannelName, sDefaultVoiceChannelName, sPlayMessage, sCommandPrefix, sStartMessage
-- Start the Bot with ``nodejs bot.js``
+- Build the application via make: ```make compile```
+- Run the application via ```make start```
 
 ### Authors
 @IrateGod Irate#0002 <br />
