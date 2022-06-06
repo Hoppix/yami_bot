@@ -24,6 +24,14 @@ https://discord.js.org <br/>
 https://scryfall.com <br/>
 https://developers.google.com/youtube/
 
+### Prerequisites
+- Nodejs
+- Discord.js
+- YTDL with ffmpeg
+- tsc typescript compiler
+- make
+- docker for deployment
+
 ### Installation and Deployment
 - Clone this repository via ```git clone https://github.com/Hoppix/yami_bot_js ```
 - Install all needed dependencies with ````npm install ````
@@ -37,7 +45,18 @@ https://developers.google.com/youtube/
   "streamers": ["streamer1", "streamer2", "streamer3"]
 } 
 ``
-- Go to ``bot.js`` and change the values for sDefaultGuildName, sDefaultGuildChannelName, sDefaultVoiceChannelName, sPlayMessage, sCommandPrefix, sStartMessage
+- Go to ``bot.js`` and change the values for    
+``
+ sVersion
+ sDefaultGuildName
+ sDefaultGuildId
+ sDefaultGuildChannelId
+ sDefaultVoiceChannelId
+ sDefaultImageChannelId
+ sPlayMessage
+ sCommandPrefix
+ sStartMessage
+``
 - Build the application via make: ```make compile```
 - Run the application via ```make start```
 

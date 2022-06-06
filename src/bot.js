@@ -22,7 +22,7 @@ var defaultGuildChannels;
 var oDefaultImageChannel;
 
 //set your custom names
-const sVersion = "v2.1.0";
+const sVersion = "v2.2.0";
 
 const sDefaultGuildName = "Cult of Thighs";
 const sDefaultGuildId = "203989186397601792";
@@ -33,7 +33,7 @@ const sDefaultImageChannelId = "449693701250220056";
 
 const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
-const sStartMessage = sVersion + " Yami: 200 years of js experience!";
+const sStartMessage = sVersion + " Yami: Typescript migration!";
 
 
 /**
