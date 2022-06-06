@@ -5,6 +5,8 @@
  */
 export interface mhCalculator {
 
+    calculatorName: string;
+
     /**
      * Calculates the average hit of a weapon.
      */

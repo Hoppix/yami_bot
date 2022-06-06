@@ -30,6 +30,9 @@ interface Dummy {
 }
 
 class mhWorldCalculator implements mhCalculator {
+
+    calculatorName: string;
+
     mhSharpPhysicalMap: Map<string, number>;
     mhBloatMap: Map<string, number>;
     mhSharpElementalMap: Map<string, number>;
@@ -41,6 +44,7 @@ class mhWorldCalculator implements mhCalculator {
 
 
     constructor(mBloatMap: any, mhSharpPhysicalMap: any, mhSharpElementalMap: any, mhMvEstimatedMap: any, mhMvMapMap: any,oPhysicalDummy: any, oElementalDummy: any) {
+        this.calculatorName = "world";
         this.mhBloatMap = mBloatMap;
         this.mhSharpPhysicalMap = mhSharpPhysicalMap;
         this.mhSharpElementalMap = mhSharpElementalMap;

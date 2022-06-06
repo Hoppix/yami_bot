@@ -1,4 +1,4 @@
-const oMhCalculator = require("../mh/mhCalculator.js");
+const oMhCalculatorManager = require("../mh/mhCalculatorManager.js");
 const oYoutubeHandler = require("../requestHandler/youtubeHandler.js");
 const oUtility = require("../utility/utility.js");
 const ytdl = require('ytdl-core');
@@ -12,6 +12,7 @@ const sCommandsFile = "./resources/commands/custom.json";
 module.exports = {
 
     mCustomCommands: new Map(), // Map for saving dynamic generated commands
+    oMhCalculator: oMhCalculatorManager.get(),
 
     /**
      *    runs a command saved in the command map
