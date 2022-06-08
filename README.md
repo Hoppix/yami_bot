@@ -4,7 +4,9 @@ Discord bot made with nodejs and discordjs
 ## Functions
 - Plays Youtube videos in voice channel
 - Youtube search with query
-- Weapon calculation for Monster Hunter World
+- Weapon calculation for Monster Hunter
+  * Rise
+  * World
 - Motionvalue printtables
 - Event Message when Streamer goes online
 - Generating Custom Commands
