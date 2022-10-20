@@ -10,6 +10,6 @@ compile:
 start:
 	node build/src/bot.js
 
-test:
+check:
 	echo "Running mocha tests..."
 	npm test
