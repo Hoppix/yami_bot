@@ -19,10 +19,10 @@ function scheduleDndBeyondEvent(oChatChannel) {
   /**
    * Repeated polling and scraping the dndbeyond posts
    */
-  const iPollInterval = 12 * 1000; // every 12 hours, because cronjobs are too hard
+  const iPollInterval = 12 * 60 * 60 * 1000; // every 12 hours, because cronjobs are too hard
   async function eventLoop() {
     let articles = await scrapeDndBeyondArticles(requestConfig);
-    sendDiscordMessage(oChatChannel, articles)
+    sendDiscordMessage(oChatChannel, articles);
   }
 
   setInterval(eventLoop, iPollInterval);
@@ -89,11 +89,10 @@ function sendDiscordMessage(discordChannel, articles) {
       new Date(Date.now()).toUTCString();
 
     if (discordChannel) {
-        
-        for (let i = 0; i < articles.length; i++) {
-            message += articles[i] + "\n";
-        }
-        discordChannel.send(message);
+      for (let i = 0; i < articles.length; i++) {
+        message += articles[i] + "\n";
+      }
+      discordChannel.send(message);
     }
     console.info(message);
   }
