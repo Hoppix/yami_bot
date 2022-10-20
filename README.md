@@ -24,7 +24,8 @@ http://kiranico.com/ <br/>
 https://3000hunter.com/ <br/>
 https://discord.js.org <br/>
 https://scryfall.com <br/>
-https://developers.google.com/youtube/
+https://developers.google.com/youtube/  
+https://dndbeyond.com  
 
 ### Prerequisites
 - Nodejs
