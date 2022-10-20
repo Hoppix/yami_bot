@@ -7,13 +7,13 @@ const self = this;
 //starting date for checking uptime
 const oStartedDate = new Date();
 
-const oConfig = require("./src/config.json");
-const oUtility = require("./src/utility.js");
-const oCacheManager = require("./src/cacheManager.js");
-const oMessageHandler = require("./src/eventHandler/messagehandler");
-const oVoiceHandler = require("./src/eventHandler/voicehandler");
-const oPresenceHandler = require("./src/eventHandler/presencehandler");
-const oRequestHandler = require("./src/requestHandler/twitchRequestHandler.js");
+const oConfig = require("../resources/config.json");
+const oUtility = require("./utility/utility.js");
+const oCacheManager = require("./utility/cacheManager.js");
+const oMessageHandler = require("./eventHandler/messagehandler");
+const oVoiceHandler = require("./eventHandler/voicehandler");
+const oPresenceHandler = require("./eventHandler/presencehandler");
+const oRequestHandler = require("./requestHandler/twitchRequestHandler.js");
 
 var oDefaultGuild;
 var oDefaultChannel;
@@ -22,7 +22,7 @@ var defaultGuildChannels;
 var oDefaultImageChannel;
 
 //set your custom names
-const sVersion = "v2.1.0";
+const sVersion = "v2.2.0";
 
 const sDefaultGuildName = "Cult of Thighs";
 const sDefaultGuildId = "203989186397601792";
@@ -33,7 +33,7 @@ const sDefaultImageChannelId = "449693701250220056";
 
 const sPlayMessage = "Type: !help";
 const sCommandPrefix = "!";
-const sStartMessage = sVersion + " Yami: 200 years of js experience!";
+const sStartMessage = sVersion + " Yami: Typescript migration!";
 
 
 /**

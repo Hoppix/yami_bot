@@ -9,6 +9,6 @@ WORKDIR /usr/src/yami
 COPY package*.json ./
 
 RUN npm install
-COPY . .
+COPY /build .
 
-CMD [ "nodejs", "bot.js" ]
+CMD [ "nodejs", "build/src/bot.js" ]

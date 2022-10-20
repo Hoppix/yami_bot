@@ -4,7 +4,9 @@ Discord bot made with nodejs and discordjs
 ## Functions
 - Plays Youtube videos in voice channel
 - Youtube search with query
-- Weapon calculation for Monster Hunter World
+- Weapon calculation for Monster Hunter
+  * Rise
+  * World
 - Motionvalue printtables
 - Event Message when Streamer goes online
 - Generating Custom Commands
@@ -24,11 +26,19 @@ https://discord.js.org <br/>
 https://scryfall.com <br/>
 https://developers.google.com/youtube/
 
+### Prerequisites
+- Nodejs
+- Discord.js
+- YTDL with ffmpeg
+- tsc typescript compiler
+- make
+- docker for deployment
+
 ### Installation and Deployment
 - Clone this repository via ```git clone https://github.com/Hoppix/yami_bot_js ```
 - Install all needed dependencies with ````npm install ````
-- Create ``/commands/custom.json`` for custom command persistence
-- Create ``src/config.json `` with
+- Create ``resources/commands/custom.json`` for custom command persistence
+- Create ``resources/config.json `` with
 ``
 {
   "token": "your discord apikey",
@@ -37,8 +47,20 @@ https://developers.google.com/youtube/
   "streamers": ["streamer1", "streamer2", "streamer3"]
 } 
 ``
-- Go to ``bot.js`` and change the values for sDefaultGuildName, sDefaultGuildChannelName, sDefaultVoiceChannelName, sPlayMessage, sCommandPrefix, sStartMessage
-- Start the Bot with ``nodejs bot.js``
+- Go to ``bot.js`` and change the values for    
+``
+ sVersion
+ sDefaultGuildName
+ sDefaultGuildId
+ sDefaultGuildChannelId
+ sDefaultVoiceChannelId
+ sDefaultImageChannelId
+ sPlayMessage
+ sCommandPrefix
+ sStartMessage
+``
+- Build the application via make: ```make compile```
+- Run the application via ```make start```
 
 ### Authors
 @IrateGod Irate#0002 <br />

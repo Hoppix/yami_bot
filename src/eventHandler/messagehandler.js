@@ -1,10 +1,9 @@
-const oMhCalculator = require("../mh/mhCalculator.js");
+const oMhCalculatorManager = require("../mh/mhCalculatorManager.js");
 const oYoutubeHandler = require("../requestHandler/youtubeHandler.js");
-const oUtility = require("../utility.js");
-const oCacheManager = require("../cacheManager.js")
+const oUtility = require("../utility/utility.js");
 const ytdl = require('ytdl-core');
 
-const sCommandsFile = "./commands/custom.json";
+const sCommandsFile = "./resources/commands/custom.json";
 
 /**
  * handler vor dispatching action triggered by discord.js message events
@@ -13,6 +12,7 @@ const sCommandsFile = "./commands/custom.json";
 module.exports = {
 
     mCustomCommands: new Map(), // Map for saving dynamic generated commands
+    oMhCalculator: oMhCalculatorManager.get(),
 
     /**
      *    runs a command saved in the command map
