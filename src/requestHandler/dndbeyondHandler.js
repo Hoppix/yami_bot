@@ -106,4 +106,4 @@ if (require.main === module) {
 }
 
 // exports
-module.exports.scheduleDndBeyondEvent;
+module.exports.scheduleDndBeyondEvent = scheduleDndBeyondEvent;
