@@ -1,17 +1,17 @@
-const {Client, GatewayIntentBits } = require("discord.js");
+const { Client, GatewayIntentBits } = require("discord.js");
 
 const intents = {
   intents: [
-		GatewayIntentBits.Guilds,
-		GatewayIntentBits.GuildMessages,
-		GatewayIntentBits.MessageContent,
-		GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildVoiceStates,
     GatewayIntentBits.GuildEmojisAndStickers,
     GatewayIntentBits.GuildMessageTyping,
     GatewayIntentBits.DirectMessageReactions,
     GatewayIntentBits.DirectMessageTyping,
-	]
+  ]
 }
 const oClient = new Client(intents);
 
@@ -107,13 +107,7 @@ oClient.on("ready", async () => {
   oMessageHandler.updateCommandMap();
 
   // Set the client user's presence
-  oClient.user
-    .setPresence({
-      activity: {
-        name: sPlayMessage,
-      },
-      status: sVersion,
-    });
+  oClient.user.setPresence({ activities: [{ name: sPlayMessage }], status: sVersion });
 
   oDefaultChannel.send(sStartMessage);
 
@@ -226,7 +220,7 @@ oClient.on("messageCreate", async (oMessage) => {
     /**
      * get new posts from dndbeyond
      */
-     case "dndposts":
+    case "dndposts":
       oDndBeyondRequestHandler.getNewPosts(oMessage)
       break;
     default:
@@ -238,7 +232,7 @@ oClient.on("messageCreate", async (oMessage) => {
   //command logging for error trace
   const oDate = new Date(
     oMessage.createdAt.valueOf() -
-      oMessage.createdAt.getTimezoneOffset() * 60000
+    oMessage.createdAt.getTimezoneOffset() * 60000
   );
   const sLog =
     "Event tigger command: <" + aCommand[0] + "> at " + oDate.toUTCString();
