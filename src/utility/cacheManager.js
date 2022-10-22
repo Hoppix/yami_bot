@@ -12,14 +12,14 @@ module.exports = {
 
         try {
 
-            let aCache = oBaseManager.cache.array();
+            let aCache = oBaseManager.cache;
 
             for (const entity of aCache) {
-                console.log("cached ", entity.id);
-                aResult.push(entity.id);
+                console.log("cached ", entity[0]);
+                aResult.push(entity);
             }
         } catch (oError) {
-          console.log("Error while fetching cache: ", err);
+          console.log("Error while fetching cache: ", oError);
         }
 
         return aResult;

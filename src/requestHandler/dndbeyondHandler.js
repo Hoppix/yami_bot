@@ -28,15 +28,25 @@ function scheduleDndBeyondEvent(oChatChannel) {
   setInterval(eventLoop, iPollInterval);
 }
 
+async function getNewPosts(oGuildMessage) {
+  let articles = await scrapeDndBeyondArticles(requestConfig);
+  oGuildMessage.reply(parseMessage(articles))
+}
+
 async function scrapeDndBeyondArticles(conf) {
-  const html = await request.get(conf);
-  const document = cheerio.load(html);
-  const articlesElements = document("article");
-
-  let articles = parseArticles(document, articlesElements);
-  articles = filterArticlesByLastDays(days, articles);
-
-  return articles;
+  try {
+    const html = await request.get(conf)
+    const document = cheerio.load(html);
+    const articlesElements = document("article");
+  
+    let articles = parseArticles(document, articlesElements);
+    articles = filterArticlesByLastDays(days, articles);
+  
+    return articles;
+  } catch (error) {
+    console.log(error)
+  }
+  return [];
 }
 
 function parseArticles(dom, articleElements) {
@@ -82,20 +92,32 @@ function filterArticlesByLastDays(days, articles) {
 
 function sendDiscordMessage(discordChannel, articles) {
   if (articles.length > 0) {
-    const message =
-      "Found new Posts on DnDBeyond for the last " +
-      days +
-      " days on " +
-      new Date(Date.now()).toUTCString();
+    const message = parseMessage(articles)
 
     if (discordChannel) {
-      for (let i = 0; i < articles.length; i++) {
-        message += articles[i] + "\n";
-      }
       discordChannel.send(message);
     }
     console.info(message);
   }
+}
+
+function parseMessage(articles) {
+
+  if(!articles[0]?.link) {
+    return "I got blocked by DndBeyond.com";
+  }
+
+  let message =
+    "Found new Posts on DnDBeyond for the last " +
+    days +
+    " days on " +
+    new Date(Date.now()).toUTCString() +
+    "\n";
+
+  for (let i = 0; i < articles.length; i++) {
+    message += articles[i].link + "\n";
+  }
+  return message;
 }
 
 /**
@@ -107,3 +129,4 @@ if (require.main === module) {
 
 // exports
 module.exports.scheduleDndBeyondEvent = scheduleDndBeyondEvent;
+module.exports.getNewPosts = getNewPosts;

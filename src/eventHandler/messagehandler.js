@@ -2,6 +2,7 @@ const oMhCalculatorManager = require("../mh/mhCalculatorManager.js");
 const oYoutubeHandler = require("../requestHandler/youtubeHandler.js");
 const oUtility = require("../utility/utility.js");
 const ytdl = require('ytdl-core');
+const discordVoice = require("@discordjs/voice")
 
 const sCommandsFile = "./resources/commands/custom.json";
 
@@ -61,11 +62,11 @@ module.exports = {
 
     printCustomCommands: function(oMessage) {
         const oEmbed = {
-            embed: {
+            embeds: [{
                 color: 900000,
                 description: "Saved custom commands:",
                 fields: [],
-            }
+            }]
         };
 
         this.mCustomCommands.forEach(function(value, key) {
@@ -125,7 +126,7 @@ module.exports = {
 
         // Fetch all roles from the guild
         const aRoles = await oGuildRolesManager.fetch()
-        const oRoleDesired = aRoles.cache.find(r => r.name.toLowerCase() === sRoleName.toLowerCase());
+        const oRoleDesired = aRoles.find(r => r.name.toLowerCase() === sRoleName.toLowerCase());
 
         if (!oRoleDesired) {
             oMessage.reply("Could not find the given role")
@@ -186,51 +187,6 @@ module.exports = {
     },
 
     /**
-     *    bot joins the source voiceChannel
-     *    and plays the youtubelink using the ytdl-core library.
-     **/
-    playYoutubeLink: function(sLink, oMessage, oClient) {
-        if (!sLink) return;
-        if (!oMessage.member) return;
-        if (!oMessage.member.voice.channel) return;
-
-        var oTargetChannel = oMessage.member.voice.channel;
-
-        if (!oTargetChannel) return;
-
-        // Play streams using ytdl-core
-        var broadcast = oClient.voice.createBroadcast();
-        var streamOptions = {
-            seek: 0,
-            volume: 1
-        };
-
-        console.log("Playing youtube link: ", sLink, " in channel ");
-        oTargetChannel.join()
-            .then(connection => {
-                var stream = ytdl(sLink, {
-                    filter: 'audioonly'
-                });
-
-                broadcast.play(stream, streamOptions);
-                var dispatcher = connection.play(broadcast);
-            })
-            .catch(console.error);
-    },
-
-    /**
-     *    bot closes the all voiceConnections and leaves all channels.
-     **/
-    stopYoutubeLink: function(oClient) {
-        const mConnections = oClient.voice.connections;
-        for (const oConnection of mConnections.values()) {
-            const oChannel = oConnection.channel;
-            if (!oChannel) continue;
-            oChannel.leave()
-        };
-    },
-
-    /**
      *    Responds with an embed message containing all the existing general commands
      **/
     printHelpMessage: function(oMessage) {
@@ -282,13 +238,14 @@ module.exports = {
         };
 
         const oEmbed = {
-            embed: {
+            embeds: [{
                 color: 900000,
                 description: "@Github: https://github.com/Hoppix/yami_bot_js",
                 fields: [oHelp, oPlay, oStop, oSearch, oAddCustom, oDeleteCustom, oShowCustom, oUptime, oMhHelp, oGiveRole],
                 footer: oFooter
-            }
+            }]
         };
+        // channel.send({ embeds: [exampleEmbed] });
         oMessage.reply(oEmbed);
     },
 
@@ -346,12 +303,12 @@ module.exports = {
         };
 
         const oEmbed = {
-            embed: {
+            embeds: [{
                 color: 900000,
                 description: "Monster Hunter Calculation commands:",
                 fields: [oWeaponStrength, oWeaponCompare, oMotionvalue, oKiranicoUrl, oArmorSets, oSharpness, oAttack, oAffinity, oElemental, oWeaponType],
                 footer: oFooter
-            }
+            }]
         };
         oMessage.reply(oEmbed);
     },
