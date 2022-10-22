@@ -1,7 +1,14 @@
-FROM node:14
+FROM node:16-buster
 
 # Create app directory
 WORKDIR /usr/src/yami
+
+
+RUN set -x \
+    && apt-get update -y \
+    && apt-get dist-upgrade -y \
+    && apt-get install -y --no-install-recommends \
+        ffmpeg 
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
