@@ -1,5 +1,19 @@
-const oDiscord = require("discord.js");
-const oClient = new oDiscord.Client();
+const {Client, GatewayIntentBits } = require("discord.js");
+
+const intents = {
+  intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildVoiceStates,
+    GatewayIntentBits.GuildEmojisAndStickers,
+    GatewayIntentBits.GuildMessageTyping,
+    GatewayIntentBits.DirectMessageReactions,
+    GatewayIntentBits.DirectMessageTyping,
+	]
+}
+const oClient = new Client(intents);
 
 //help variable
 const self = this;
@@ -15,6 +29,7 @@ const oVoiceHandler = require("./eventHandler/voicehandler");
 const oPresenceHandler = require("./eventHandler/presencehandler");
 const oRequestHandler = require("./requestHandler/twitchRequestHandler.js");
 const oDndBeyondRequestHandler = require("./requestHandler/dndbeyondHandler.js");
+const oYoutubeStreamingHandler = require("./eventHandler/youtubeStreamingHandler.js");
 
 var oDefaultGuild;
 var oDefaultChannel;
@@ -98,8 +113,7 @@ oClient.on("ready", async () => {
         name: sPlayMessage,
       },
       status: sVersion,
-    })
-    .catch(console.error);
+    });
 
   oDefaultChannel.send(sStartMessage);
 
@@ -117,7 +131,7 @@ oClient.on("ready", async () => {
 /**
  * triggered on any message the oClient receives
  **/
-oClient.on("message", async (oMessage) => {
+oClient.on("messageCreate", async (oMessage) => {
   if (oMessage.content.charAt(0) !== sCommandPrefix) return;
   if (oMessage.content.length < 2) return;
 
@@ -131,10 +145,10 @@ oClient.on("message", async (oMessage) => {
      * general functions
      */
     case "play":
-      oMessageHandler.playYoutubeLink(aCommand[1], oMessage, oClient);
+      oYoutubeStreamingHandler.playYoutubeLink(aCommand[1], oMessage, oClient);
       break;
     case "stop":
-      oMessageHandler.stopYoutubeLink(oClient);
+      oYoutubeStreamingHandler.stopYoutubeLink(oClient);
       break;
     case "help":
       oMessageHandler.printHelpMessage(oMessage);
@@ -209,6 +223,12 @@ oClient.on("message", async (oMessage) => {
         oMessage
       );
       break;
+    /**
+     * get new posts from dndbeyond
+     */
+     case "dndposts":
+      oDndBeyondRequestHandler.getNewPosts(oMessage)
+      break;
     default:
       if (oMessageHandler.isCustomCommand(aCommand[0])) {
         oMessageHandler.executeCustomCommand(aCommand[0], oMessage);
@@ -264,6 +284,7 @@ oClient.on("presenceUpdate", (oldMember, newMember) => {
 
 oClient.on("error", (oError) => {
   const sMessage = "An generic error haz okuued: " + oError.message;
+  console.log(oError)
   console.log(sMessage);
   oUtility.writeLogFile(sMessage);
 });
