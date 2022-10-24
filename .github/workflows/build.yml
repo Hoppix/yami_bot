@@ -1,8 +1,6 @@
-name: Docker Image CI
+name: Build Yami
 
 on:
-   schedule:
-	 	- cron: "0 19 * * *" # at 7 pm
   push:
     branches: [ "master", "main", "dev" ]
   pull_request:
@@ -13,6 +11,7 @@ concurrency: yami
 jobs:
 
   build:
+		name: "Run build, check, docker"
 
     runs-on: ubuntu-latest
 
