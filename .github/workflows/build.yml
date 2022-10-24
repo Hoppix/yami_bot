@@ -1,10 +1,14 @@
 name: Docker Image CI
 
 on:
+   schedule:
+    - cron: "0 19 * * *" # at 7 pm
   push:
-    branches: [ "master", "dev" ]
+    branches: [ "master", "main", "dev" ]
   pull_request:
-    branches: [ "master", "dev" ]
+    branches: [ "master", "main", "dev" ]
+
+concurrency: yami
 
 jobs:
 
@@ -21,5 +25,7 @@ jobs:
     - run: npm install
     - name: build typescript
       run: make compile
+    - name: run tests
+      run: make check
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag yami_bot:$(date +%s)
