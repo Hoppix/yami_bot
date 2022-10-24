@@ -21,6 +21,8 @@ jobs:
       with:
         node-version: 16
     - run: npm install
+    - name: allow ci scripts
+      run: chmod 777 ci/*.sh
     - name: build typescript
       run: make compile
     - name: run tests
