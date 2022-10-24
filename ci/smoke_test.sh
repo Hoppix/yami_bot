@@ -15,6 +15,8 @@ if [[ ! $DOCKER_RUNS == *"Exited"* ]]; then
 fi
 
 DOCKER_BOT_STARTED=$(docker logs yami_bot | grep "Startup time:")
+echo $(docker logs yami_bot)
+ 
 if [[ -z $DOCKER_BOT_STARTED ]]; then
 	echo "There where no startup logs"
 	exit 1
