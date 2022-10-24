@@ -7,7 +7,7 @@ on:
     branches: [ "master", "main", "dev" ]
   schedule:
     # every day at 7 pm
-    - cron:  "0 19 * * * "
+    - cron:  "0 19 * * *"
 
 concurrency: yami
 
@@ -26,8 +26,8 @@ jobs:
     - name: run tests
       run: make check
     - name: Build the Docker image
-			run: docker build --file Dockerfile --tag yami_bot
-		- name: Run Image
-			run: docker run -d yami_bot
-		- name: Smoke Test
-			run: ./ci/smoke_test.sh
+      run: docker build --file Dockerfile --tag yami_bot
+    - name: Run Image
+      run: docker run -d yami_bot
+    - name: Smoke Test
+      run: ./ci/smoke_test.sh
