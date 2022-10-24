@@ -29,7 +29,3 @@ jobs:
       run: make check
     - name: Build the Docker image
       run: docker build -t yami_bot .
-    - name: Run Image
-      run: docker run -d yami_bot
-    - name: Smoke Test
-      run: ./ci/smoke_test.sh
