@@ -5,6 +5,7 @@ set -u
 set -o pipefail
 set -x
 
+sleep 60 # wait a minute for the container to run
 
 DOCKER_RUNS=$(docker ps --all | grep yami_bot) 
 
