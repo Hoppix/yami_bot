@@ -1,0 +1,24 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master", "dev" ]
+  pull_request:
+    branches: [ "master", "dev" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: docker-practice/actions-setup-docker@master
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - name: build typescript
+      run: make compile
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag yami_bot:$(date +%s)
