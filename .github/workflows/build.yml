@@ -6,8 +6,8 @@ on:
   pull_request:
     branches: [ "master", "main", "dev" ]
   schedule:
-    # * is a special character in YAML so you have to quote this string
-    - cron:  '30 5,17 * * *'
+    # every day at 7 pm
+    - cron:  "0 19 * * * "
 
 concurrency: yami
 
