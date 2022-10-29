@@ -41,15 +41,15 @@ https://dndbeyond.com
 - Install all needed dependencies with ````npm install ````
 - Create ``resources/commands/custom.json`` for custom command persistence
 - Create ``resources/api_config.json `` with
-``
+```json
 {
   "token": "your discord apikey",
   "twitchClient": "your twitch apikey",
   "youtubeClient": "your google apikey",
 } 
-``
+```
 - Create ``resources/config.json``
-``
+```json
 {
   "streamers": [
     "streamer name here for notifications"
@@ -64,9 +64,11 @@ https://dndbeyond.com
   "commandPrefix": "!",
   "startMessage": "the message at startup"
 }
-``
+```
 - Build the application via make: ```make compile```
 - Run the application via ```make start```
+- For running it on a server it´s recommended to use the provided Docker image:
+  - Run ``./ci/build_and_run.sh``
 
 ### Authors
 @IrateGod Irate#0002 <br />
