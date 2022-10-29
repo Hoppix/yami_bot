@@ -20,7 +20,6 @@ echo $(docker logs $CONTAINER_ID)
 
 if [[ -z $DOCKER_BOT_STARTED ]]; then
 	echo "There where no startup logs"
-	exit 1
 fi
 
 # do healthcheck via endpoint
