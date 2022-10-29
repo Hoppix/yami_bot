@@ -15,11 +15,12 @@ if [[ $DOCKER_RUNS == *"Exited"* ]]; then
   exit 1
 fi
 
-DOCKER_BOT_STARTED=$(docker logs $CONTAINER_ID | grep "Up")
 echo $(docker logs $CONTAINER_ID)
+DOCKER_BOT_STARTED=$(docker logs $CONTAINER_ID | grep "Started")
 
 if [[ -z $DOCKER_BOT_STARTED ]]; then
 	echo "There where no startup logs"
+	exit 1
 fi
 
 # do healthcheck via endpoint
