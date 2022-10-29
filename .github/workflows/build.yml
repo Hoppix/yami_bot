@@ -32,10 +32,12 @@ jobs:
           "youtubeClient": "${{ secrets.YOUTUBECLIENT }}"
         }
         EOF
-    - name: create log file
+    - name: create temp files
       run: |
         mkdir logs
         touch logs/log.txt
+        mkdir commands
+        touch commands/custom.json
     - name: build typescript
       run: make compile
     - name: run tests
