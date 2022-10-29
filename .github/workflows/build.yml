@@ -36,7 +36,6 @@ jobs:
       run: |
         mkdir logs
         touch logs/log.txt
-        mkdir resources
         mkdir resources/commands
         touch resources/commands/custom.json
     - name: build typescript
