@@ -1,6 +1,8 @@
 # YAMI_BOT_JS
 Discord bot made with nodejs and discordjs
 
+![](yami_image.png)
+
 ## Functions
 - Plays Youtube videos in voice channel
 - Youtube search with query
