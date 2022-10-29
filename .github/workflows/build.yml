@@ -23,9 +23,20 @@ jobs:
     - run: npm install
     - name: allow ci scripts
       run: chmod 777 ci/*.sh
+    - name: write api config for smoke test
+      run: |
+        cat << EOF > resources/test.json
+        {
+          'token':  ${{ secrets.DISCORDTOKEN }},
+          'twitchClient': ${{ secrets.TWITCHTOKEN }},
+          'youtubeClient': ${{ secrets.YOUTUBECLIENT }},
+        }
+        EOF
     - name: build typescript
       run: make compile
     - name: run tests
       run: make check
-    - name: Build the Docker image
-      run: docker build -t yami_bot .
+    - name: Build and run the image
+      run: ./ci/buid_and_run.sh
+    - name: Run smoke test
+      run: ./ci/smoke_test.sh

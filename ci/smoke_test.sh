@@ -22,3 +22,8 @@ if [[ -z $DOCKER_BOT_STARTED ]]; then
 	echo "There where no startup logs"
 	exit 1
 fi
+
+# do healthcheck via endpoint
+
+# kill the container upon confirmation
+docker kill $CONTAINER_ID
