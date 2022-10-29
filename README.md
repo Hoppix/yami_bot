@@ -9,26 +9,24 @@ Discord bot made with nodejs and discordjs
 - Weapon calculation for Monster Hunter
   * Rise
   * World
-- Motionvalue printtables
-- Event Message when Streamer goes online
+- Monster Hunter Motionvalue printtables
+- Event Message when a Twitch streamer goes online
 - Generating Custom Commands
-- Queryin DnDBeyond.com for new posts and articles
+- Querying DnDBeyond.com for new posts and articles
 
-#### How Weapon Strength is calculated
-Since actual damage in Monster Hunter is very variable, we estimate certain values to generalize parts of the calculation so that the weapon itself is the deciding factor: The raw weapon damage is calculated as usual, then we define resistance values for a default target dummy that is an average of most monster resistances. Afterwards we calculate the average motion value per hit for the weapontype used. This is important for the fact that in the raw weapon calculation elemental damage is a very small percentage, but since we want to simulate the weapon performance as accurate as possible without setting special values for target and move, we use those dummy values.
+## In developement
+- Searching anime shows on MAL via a command
 
-## In Developement
-- Monster printtables
-- Calculating best weapon average.
-- Using data for calculating best weapon for certain monsters.
+
+... This bot is my past time project so any idea I throw at it, so the features may seem a little bit over the place. :)
 
 ### Data Sources and APIs
 http://kiranico.com/ <br/>
 https://3000hunter.com/ <br/>
 https://discord.js.org <br/>
-https://scryfall.com <br/>
 https://developers.google.com/youtube/  
 https://dndbeyond.com  
+https://myanimelist.net
 
 ### Prerequisites
 - Nodejs
