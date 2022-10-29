@@ -16,7 +16,7 @@ if [[ $DOCKER_RUNS == *"Exited"* ]]; then
 fi
 
 echo $(docker logs $CONTAINER_ID)
-DOCKER_BOT_STARTED=$(docker logs $CONTAINER_ID | grep "Started")
+DOCKER_BOT_STARTED=$(docker logs $CONTAINER_ID | grep "Startup")
 
 if [[ -z $DOCKER_BOT_STARTED ]]; then
 	echo "There where no startup logs"
