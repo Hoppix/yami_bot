@@ -15,7 +15,7 @@ if [[ $DOCKER_RUNS == *"Exited"* ]]; then
   exit 1
 fi
 
-DOCKER_BOT_STARTED=$(docker logs $CONTAINER_ID | grep "Startup time:")
+DOCKER_BOT_STARTED=$(docker logs $CONTAINER_ID | grep "Up")
 echo $(docker logs $CONTAINER_ID)
 
 if [[ -z $DOCKER_BOT_STARTED ]]; then
