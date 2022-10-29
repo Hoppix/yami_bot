@@ -12,7 +12,7 @@ yarn-error.log*
 commands/
 
 #discord token
-config.json
+api_config.json
 
 #log directory
 /logs

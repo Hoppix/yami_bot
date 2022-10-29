@@ -15,12 +15,10 @@ const intents = {
 }
 const oClient = new Client(intents);
 
-//help variable
-const self = this;
-
 //starting date for checking uptime
 const oStartedDate = new Date();
 
+const oApiConfig = require("../resources/api_config.json");
 const oConfig = require("../resources/config.json");
 const oUtility = require("./utility/utility.js");
 const oCacheManager = require("./utility/cacheManager.js");
@@ -37,19 +35,16 @@ var oDefaultVoiceChannel;
 var defaultGuildChannels;
 var oDefaultImageChannel;
 
-//set your custom names
-const sVersion = "v2.2.0";
-
-const sDefaultGuildName = "Cult of Thighs";
-const sDefaultGuildId = "203989186397601792";
-
-const sDefaultGuildChannelId = "307629566938054656";
-const sDefaultVoiceChannelId = "203989186947186688";
-const sDefaultImageChannelId = "449693701250220056";
-
-const sPlayMessage = "Type: !help";
-const sCommandPrefix = "!";
-const sStartMessage = sVersion + " Yami: Typescript migration!";
+// load config
+const sVersion = oConfig.version;
+const sDefaultGuildName = oConfig.defaultGuildName;
+const sDefaultGuildId = oConfig.defaultGuildId;
+const sDefaultGuildChannelId = oConfig.defaultChannelId;
+const sDefaultVoiceChannelId = oConfig.defaultVoiceChannelId;
+const sDefaultImageChannelId = oConfig.defaultImageChannelId;
+const sPlayMessage = oConfig.playMessage;
+const sCommandPrefix = oConfig.commandPrefix;
+const sStartMessage = sVersion + " " + oConfig.sStartMessage;
 
 /**
  * Initiates default variables
@@ -96,7 +91,7 @@ oClient.on("ready", async () => {
     oRequestHandler.pollStream(
       oDefaultChannel,
       oConfig.streamers[i],
-      oConfig.twitchClient
+      oApiConfig.twitchClient
     );
   }
 
@@ -187,7 +182,7 @@ oClient.on("messageCreate", async (oMessage) => {
       oMessageHandler.getYoutubeSearch(
         aCommand.splice(1, aCommand.length),
         oMessage,
-        oConfig.youtubeClient
+        oApiConfig.youtubeClient
       );
       break;
     /**
@@ -285,5 +280,5 @@ oClient.on("error", (oError) => {
 
 //login with private token from config.json
 console.log("PreLogin");
-oClient.login(oConfig.token).then((r) => console.log("LOGIN EVENT " + r));
+oClient.login(oApiConfig.token).then((r) => console.log("LOGIN EVENT " + r));
 console.log("PostLogin");

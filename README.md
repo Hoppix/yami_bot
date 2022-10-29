@@ -10,6 +10,7 @@ Discord bot made with nodejs and discordjs
 - Motionvalue printtables
 - Event Message when Streamer goes online
 - Generating Custom Commands
+- Queryin DnDBeyond.com for new posts and articles
 
 #### How Weapon Strength is calculated
 Since actual damage in Monster Hunter is very variable, we estimate certain values to generalize parts of the calculation so that the weapon itself is the deciding factor: The raw weapon damage is calculated as usual, then we define resistance values for a default target dummy that is an average of most monster resistances. Afterwards we calculate the average motion value per hit for the weapontype used. This is important for the fact that in the raw weapon calculation elemental damage is a very small percentage, but since we want to simulate the weapon performance as accurate as possible without setting special values for target and move, we use those dummy values.
@@ -39,26 +40,30 @@ https://dndbeyond.com
 - Clone this repository via ```git clone https://github.com/Hoppix/yami_bot_js ```
 - Install all needed dependencies with ````npm install ````
 - Create ``resources/commands/custom.json`` for custom command persistence
-- Create ``resources/config.json `` with
+- Create ``resources/api_config.json `` with
 ``
 {
   "token": "your discord apikey",
   "twitchClient": "your twitch apikey",
   "youtubeClient": "your google apikey",
-  "streamers": ["streamer1", "streamer2", "streamer3"]
 } 
 ``
-- Go to ``bot.js`` and change the values for    
+- Create ``resources/config.json``
 ``
- sVersion
- sDefaultGuildName
- sDefaultGuildId
- sDefaultGuildChannelId
- sDefaultVoiceChannelId
- sDefaultImageChannelId
- sPlayMessage
- sCommandPrefix
- sStartMessage
+{
+  "streamers": [
+    "streamer name here for notifications"
+  ],
+  "defaultGuildName": "name",
+  "defaultGuildId": "id",
+  "defaultChannelId": "id",
+  "defaultVoiceChannelId": "id",
+  "defaultImageChannelId": "id",
+  "version": "1.0.0",
+  "playMessage": "message that shows as status",
+  "commandPrefix": "!",
+  "startMessage": "the message at startup"
+}
 ``
 - Build the application via make: ```make compile```
 - Run the application via ```make start```
