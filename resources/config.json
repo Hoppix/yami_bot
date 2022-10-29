@@ -1,0 +1,19 @@
+{
+  "streamers": [
+    "starcitygames",
+    "cantaperme92",
+    "jeffhoogland",
+    "asmongold",
+    "elite500",
+    "bobross"
+  ],
+  "defaultGuildName": "Cult of Thighs",
+  "defaultGuildId": "203989186397601792",
+  "defaultChannelId": "307629566938054656",
+  "defaultVoiceChannelId": "203989186947186688",
+  "defaultImageChannelId": "449693701250220056",
+  "version": "v2.2.1",
+  "playMessage": "Type: !help",
+  "commandPrefix": "!",
+  "startMessage": "Yami: I cleaned up some stuff!"
+}
