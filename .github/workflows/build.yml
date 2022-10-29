@@ -25,7 +25,7 @@ jobs:
       run: chmod 777 ci/*.sh
     - name: write api config for smoke test
       run: |
-        cat << EOF > resources/test.json
+        cat << EOF > resources/api_config.json
         {
           'token':  ${{ secrets.DISCORDTOKEN }},
           'twitchClient': ${{ secrets.TWITCHTOKEN }},
