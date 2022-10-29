@@ -37,6 +37,6 @@ jobs:
     - name: run tests
       run: make check
     - name: Build and run the image
-      run: ./ci/buid_and_run.sh
+      run: ./ci/build_and_run.sh
     - name: Run smoke test
       run: ./ci/smoke_test.sh
