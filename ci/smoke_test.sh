@@ -10,7 +10,7 @@ sleep 10 # wait a minute for the container to run
 DOCKER_RUNS=$(docker ps --all | grep yami_bot) 
 CONTAINER_ID=${DOCKER_RUNS:0:3}
 
-if [[ ! $DOCKER_RUNS == *"Exited"* ]]; then
+if [[ $DOCKER_RUNS == *"Exited"* ]]; then
 	echo "The container is not running"
   exit 1
 fi
