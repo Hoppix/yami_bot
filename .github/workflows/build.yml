@@ -38,6 +38,9 @@ jobs:
         touch logs/log.txt
         mkdir resources/commands
         touch resources/commands/custom.json
+        cat << EOF > resources/commands/custom.json
+        []
+        EOF
     - name: build typescript
       run: make compile
     - name: run tests
