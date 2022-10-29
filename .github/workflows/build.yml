@@ -32,6 +32,8 @@ jobs:
           "youtubeClient": "${{ secrets.YOUTUBECLIENT }}"
         }
         EOF
+    - name: create log file
+      run: touch logs/log.txt
     - name: build typescript
       run: make compile
     - name: run tests
