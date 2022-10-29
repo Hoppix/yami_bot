@@ -33,7 +33,9 @@ jobs:
         }
         EOF
     - name: create log file
-      run: touch logs/log.txt
+      run: |
+        mkdir logs
+        touch logs/log.txt
     - name: build typescript
       run: make compile
     - name: run tests
