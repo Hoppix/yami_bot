@@ -12,7 +12,8 @@ CONTAINER_ID=${DOCKER_RUNS:0:3}
 
 if [[ $DOCKER_RUNS == *"Exited"* ]]; then
 	echo "The container is not running"
-  exit 1
+	echo $(docker logs $CONTAINER_ID)
+  	exit 1
 fi
 
 echo $(docker logs $CONTAINER_ID)
