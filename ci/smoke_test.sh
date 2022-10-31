@@ -25,7 +25,7 @@ if [[ -z $DOCKER_BOT_STARTED ]]; then
 fi
 
 # do healthcheck via endpoint
-HEALTH=$(curl http://localhost:8080/actuator/health)
+HEALTH=$(docker exec ${CONTAINER_ID} curl http://localhost:8080/actuator/health)
 if [[ $HEALTH == *"ok"* ]]; then
 	echo "Healthcheck ok.."
 fi
