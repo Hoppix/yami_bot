@@ -28,6 +28,7 @@ const oPresenceHandler = require("./eventHandler/presencehandler");
 const oRequestHandler = require("./requestHandler/twitchRequestHandler.js");
 const oDndBeyondRequestHandler = require("./requestHandler/dndbeyondHandler.js");
 const oYoutubeStreamingHandler = require("./eventHandler/youtubeStreamingHandler.js");
+const oServer = require("./healthcheck/server");
 
 var oDefaultGuild;
 var oDefaultChannel;
@@ -103,6 +104,9 @@ oClient.on("ready", async () => {
 
   // Set the client user's presence
   oClient.user.setPresence({ activities: [{ name: sPlayMessage }], status: sVersion });
+
+  // Start a healthcheck for curling the apps state
+  oServer.startHealthcheck()
 
   oDefaultChannel.send(sStartMessage);
 
