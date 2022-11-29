@@ -70,7 +70,7 @@ module.exports = {
         };
 
         this.mCustomCommands.forEach(function(value, key) {
-            oEmbed.embed.fields.push({
+            oEmbed.embeds.fields.push({
                 name: key,
                 value: "##################"
             });
@@ -245,7 +245,6 @@ module.exports = {
                 footer: oFooter
             }]
         };
-        // channel.send({ embeds: [exampleEmbed] });
         oMessage.reply(oEmbed);
     },
 
