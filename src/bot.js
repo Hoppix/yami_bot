@@ -45,7 +45,7 @@ const sDefaultVoiceChannelId = oConfig.defaultVoiceChannelId;
 const sDefaultImageChannelId = oConfig.defaultImageChannelId;
 const sPlayMessage = oConfig.playMessage;
 const sCommandPrefix = oConfig.commandPrefix;
-const sStartMessage = sVersion + " " + oConfig.sStartMessage;
+const sStartMessage = sVersion + " " + oConfig.startMessage;
 
 /**
  * Initiates default variables
