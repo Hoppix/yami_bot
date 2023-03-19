@@ -1,11 +1,13 @@
 const fs = require('fs');
-const logfile = "./logs/log.txt";
+const path = require('path');
+
+const logfile = "/tmp/yami/logs/log.txt";
 
 module.exports = {
     /**
      * returns a date string in UTC
      **/
-    parseDateString: function() {
+    parseDateString: function () {
         var date = new Date();
         return date.toUTCString();
     },
@@ -14,22 +16,43 @@ module.exports = {
      * writes into a specified logfile for debugging purposes
      * now adds a fucking datestring
      **/
-    writeLogFile: function(str) {
+    writeLogFile: function (str) {
         if (!str) return;
+        this._checkDirectory(logfile)
+
         var sDate = this.parseDateString();
 
-        fs.appendFile(logfile, sDate + ": " + str + "\n", function(err) {
+        fs.appendFile(logfile, sDate + ": " + str + "\n", function (err) {
             if (err) {
                 return console.log(err);
             }
-            console.log("saved logfile");
+            console.log("Saved logfile");
         });
+    },
+
+    /**
+     * checks for a file path, 
+     * if it does not exists it will be created with all directories
+     * 
+     * @param {string} path 
+     */
+    _checkDirectory: async function (filePath) {
+        const parentDirPath = path.dirname(filePath);
+        if (!fs.existsSync(parentDirPath)) {
+            // Create the directory if it doesn't exist
+            fs.mkdirSync(parentDirPath, { recursive: true });
+            fs.writeFileSync(filePath, '', { flag: 'wx' });
+
+            console.log(`Directory '${filePath}' created successfully`);
+            return
+        }
+        console.log(`Directory '${path}' already exists`);    
     },
 
     /**
      * Writes into a file with stringified JSON-input
      */
-    writeJSONFile: function(sFile, oData) {
+    writeJSONFile: function (sFile, oData) {
         console.log(oData);
         var sData = JSON.stringify([...oData]);
         console.log("Writing to JSON: ", sFile, "with data: ", sData);
@@ -39,7 +62,7 @@ module.exports = {
     /**
      * Reads a JSON-File and returns the parsed data
      */
-    readJSONFile: function(sFile) {
+    readJSONFile: function (sFile) {
         var sJSON = fs.readFileSync(sFile);
         console.log("Reading from JSON: ", sFile, "data: ", sJSON);
         return new Map(JSON.parse(sJSON));
@@ -49,7 +72,7 @@ module.exports = {
      * returns an objects which contains passed time since started
      * in hours, minutes, seconds
      **/
-    uptimeSince: function(oDate) {
+    uptimeSince: function (oDate) {
         var rDate = new Date();
         var diff = rDate - oDate;
 
@@ -70,7 +93,7 @@ module.exports = {
      * @param duration
      * @returns {object}
      */
-    msToTime: function(duration) {
+    msToTime: function (duration) {
         var milliseconds = parseInt((duration % 1000) / 100),
             seconds = Math.floor((duration / 1000) % 60),
             minutes = Math.floor((duration / (1000 * 60)) % 60),
@@ -94,7 +117,7 @@ module.exports = {
      * @returns {Date}
      * @private
      */
-    getDateFromDateString: function(sDate) {
+    getDateFromDateString: function (sDate) {
         const sDateDay = sDate.split("-")[0];
         const sTime = sDate.split("-")[1];
 
@@ -120,7 +143,7 @@ module.exports = {
      * @param oUserB
      * @returns {boolean}
      */
-    isSameUserClient: function(oUserA, oUserB) {
+    isSameUserClient: function (oUserA, oUserB) {
         return oUserA.id === oUserB.id;
     }
 };
