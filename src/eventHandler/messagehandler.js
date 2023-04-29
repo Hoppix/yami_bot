@@ -60,21 +60,24 @@ module.exports = {
     },
 
     printCustomCommands: function(oMessage) {
-        const oEmbed = {
-            embeds: [{
-                color: 900000,
-                description: "Saved custom commands:",
-                fields: [],
-            }]
-        };
 
+        let commands = []
         this.updateCommandMap();
         this.mCustomCommands.forEach(function(value, key) {
-            oEmbed.embeds.fields.push({
+            commands.push({
                 name: key,
                 value: "##################"
             });
         });
+
+        const oEmbed = {
+            embeds: [{
+                color: 900000,
+                description: "Saved custom commands:",
+                fields: commands,
+            }]
+        };
+
 
         oMessage.reply(oEmbed)
     },
