@@ -15,5 +15,6 @@
   "version": "v2.2.1",
   "playMessage": "Type: !help",
   "commandPrefix": "!",
-  "startMessage": "Yami: I cleaned up some stuff!"
+  "startMessage": "Yami: I cleaned up some stuff!",
+  "customCommandsPath": "./resources/commands/custom.json"
 }

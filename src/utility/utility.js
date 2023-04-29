@@ -41,12 +41,21 @@ module.exports = {
         if (!fs.existsSync(parentDirPath)) {
             // Create the directory if it doesn't exist
             fs.mkdirSync(parentDirPath, { recursive: true });
-            fs.writeFileSync(filePath, '', { flag: 'wx' });
 
-            console.log(`Directory '${filePath}' created successfully`);
-            return
+            console.log(`Directory '${parentDirPath}' created successfully`);
+            return;
         }
-        console.log(`Directory '${path}' already exists`);    
+
+        if(!fs.existsSync(filePath)) {
+            // create file if it does not exist
+            let defaultContent = "";
+            if(filePath.endsWith(".json")) defaultContent = "[]"
+
+            fs.writeFileSync(filePath, defaultContent, { flag: 'wx' });
+            console.log(`File '${filePath}' created successfully`);
+            return;
+        }
+        console.log(`Path '${filePath}' already exists`);    
     },
 
     /**
@@ -54,6 +63,7 @@ module.exports = {
      */
     writeJSONFile: function (sFile, oData) {
         console.log(oData);
+        this._checkDirectory(sFile);
         var sData = JSON.stringify([...oData]);
         console.log("Writing to JSON: ", sFile, "with data: ", sData);
         fs.writeFileSync(sFile, sData, "utf8")
@@ -63,6 +73,7 @@ module.exports = {
      * Reads a JSON-File and returns the parsed data
      */
     readJSONFile: function (sFile) {
+        this._checkDirectory(sFile);
         var sJSON = fs.readFileSync(sFile);
         console.log("Reading from JSON: ", sFile, "data: ", sJSON);
         return new Map(JSON.parse(sJSON));
@@ -87,6 +98,7 @@ module.exports = {
         };
         return oReturn;
     },
+
 
     /**
      * https://stackoverflow.com/questions/19700283/how-to-convert-time-milliseconds-to-hours-min-sec-format-in-javascript

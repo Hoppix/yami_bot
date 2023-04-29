@@ -1,10 +1,9 @@
 const oMhCalculatorManager = require("../mh/mhCalculatorManager.js");
 const oYoutubeHandler = require("../requestHandler/youtubeHandler.js");
 const oUtility = require("../utility/utility.js");
-const ytdl = require('ytdl-core');
-const discordVoice = require("@discordjs/voice")
+const oConfig = require("../../resources/config.json")
 
-const sCommandsFile = "./resources/commands/custom.json";
+const sCommandsFile = oConfig.customCommandsPath;
 
 /**
  * handler vor dispatching action triggered by discord.js message events
@@ -69,6 +68,7 @@ module.exports = {
             }]
         };
 
+        this.updateCommandMap();
         this.mCustomCommands.forEach(function(value, key) {
             oEmbed.embeds.fields.push({
                 name: key,
@@ -103,6 +103,7 @@ module.exports = {
     updateCommandMap: function() {
         this.mCustomCommands = oUtility.readJSONFile(sCommandsFile);
     },
+
 
     /**
      * adds a role to the user, if the user has the rights for this role
