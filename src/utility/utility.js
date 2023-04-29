@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
+const oConfig = require("../../resources/config.json")
 
-const logfile = "/tmp/yami/logs/log.txt";
+const logfile = oConfig.logFilePath;
 
 module.exports = {
     /**

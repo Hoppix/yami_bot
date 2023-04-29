@@ -63,7 +63,8 @@ https://myanimelist.net
   "playMessage": "message that shows as status",
   "commandPrefix": "!",
   "startMessage": "the message at startup",
-  "customCommandsPath": "path/to/custom/command/file.json"
+  "customCommandsPath": "path/to/custom/command/file.json",
+  "logFilePath": "path/to/log.txt"
 }
 ```
 - Build the application via make: ```make compile```
