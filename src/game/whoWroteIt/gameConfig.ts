@@ -3,11 +3,13 @@ import { TextChannel } from "discord.js";
 
 export class gameConfig {
 
-    channel: TextChannel;
+    gameChannel: TextChannel;
+    dataChannels: Array<TextChannel>;
     members: Array<String>;
 
-    constructor(channel : TextChannel, members: Array<String>) {
-        this.channel = channel;
+    constructor(gameChannel : TextChannel, dataChannels: Array<TextChannel>, members: Array<String>) {
+        this.gameChannel = gameChannel;
+        this.dataChannels = dataChannels
         this.members = members;
     }
 

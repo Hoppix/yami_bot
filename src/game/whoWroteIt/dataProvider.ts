@@ -11,7 +11,9 @@ export class dataProvider {
     }
 
     async createGameData(): Promise<Array<Message>> {
-        let gameChannel: TextChannel = this.config.channel;
+
+        // for now only retrieve data from the main game channel, later get it from config.dataChannels
+        let gameChannel: TextChannel = this.config.gameChannel;
         let gameMembers: Array<String> = this.config.members;
         let manager: MessageManager = gameChannel.messages;
 
@@ -32,6 +34,9 @@ export class dataProvider {
         if(!members.includes(authorName)) return false;
 
         if(!(messageText.split(" ").length > this.MIN_WORD_COUNT)) return false;
+
+        if(messageText.includes("https://")) return false;
+        if(messageText.includes("http://")) return false;
 
         return true;
     }

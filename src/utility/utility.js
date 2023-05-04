@@ -47,16 +47,16 @@ module.exports = {
             return;
         }
 
-        if(!fs.existsSync(filePath)) {
+        if (!fs.existsSync(filePath)) {
             // create file if it does not exist
             let defaultContent = "";
-            if(filePath.endsWith(".json")) defaultContent = "[]"
+            if (filePath.endsWith(".json")) defaultContent = "[]"
 
             fs.writeFileSync(filePath, defaultContent, { flag: 'wx' });
             console.log(`File '${filePath}' created successfully`);
             return;
         }
-        console.log(`Path '${filePath}' already exists`);    
+        console.log(`Path '${filePath}' already exists`);
     },
 
     /**
@@ -158,5 +158,44 @@ module.exports = {
      */
     isSameUserClient: function (oUserA, oUserB) {
         return oUserA.id === oUserB.id;
+    },
+
+    /**
+     * overengineered comparison function for usernames in the johndoe#1234 schema
+     * 
+     * no regex >:(
+     * 
+     * its tested tho :^)
+     * 
+     * @param {*} sUserNameA 
+     * @param {*} sUserNameA 
+     * @returns {boolean}
+     */
+    isSameUserName: function (sUserNameA, sUserNameB) {
+
+        const DISCORD_ID_LENGTH = 5
+
+        if (sUserNameA === sUserNameB) return true;
+        if (!sUserNameA || !sUserNameB) return false;
+
+        sUserNameA = sUserNameA.toLowerCase();
+        sUserNameB = sUserNameB.toLowerCase()
+
+        if (sUserNameA === sUserNameB) return true;
+
+
+        if (sUserNameA.includes("#") && !sUserNameB.includes("#")) {
+            let simpleUserA = sUserNameA.substring(0, sUserNameA.length - DISCORD_ID_LENGTH);
+
+            if (simpleUserA === sUserNameB) return true;
+        }
+
+        if (!sUserNameA.includes("#") && sUserNameB.includes("#")) {
+            let simpleUserB = sUserNameB.substring(0, sUserNameB.length - DISCORD_ID_LENGTH);
+
+            if (sUserNameA === simpleUserB) return true;
+        }
+
+        return false;
     }
 };
