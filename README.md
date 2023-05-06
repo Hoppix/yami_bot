@@ -1,4 +1,4 @@
-# YAMI_BOT_JS
+# YAMI_BOT
 Discord bot made with nodejs and discordjs
 
 ![](yami_image.png)
