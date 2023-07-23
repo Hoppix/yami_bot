@@ -1,43 +1,69 @@
-import { TextChannel, MessageManager, Snowflake, Message } from "discord.js";
+import { TextChannel, MessageManager, Snowflake, Message, GuildMember } from "discord.js";
 
 import { gameConfig } from "./gameConfig"
 
 export class dataProvider {
-    config: gameConfig;
-    MIN_WORD_COUNT: number = 5;
+    private config: gameConfig;
+    private static MIN_WORD_COUNT: number = 5;
 
     constructor(config: gameConfig) {
         this.config = config;
     }
 
-    async createGameData(): Promise<Array<Message>> {
+    // todo improve message handling here and feedback
+    public async createGameData(): Promise<Array<Message>> {
 
-        // for now only retrieve data from the main game channel, later get it from config.dataChannels
+        // todo for now only retrieve data from the main game channel, later get it from config.dataChannels
         let gameChannel: TextChannel = this.config.gameChannel;
-        let gameMembers: Array<String> = this.config.members;
+        let gameMembers: Array<GuildMember> = this.config.members;
         let manager: MessageManager = gameChannel.messages;
 
+        if (gameMembers.length < 1) {
+            const errorMessage = "Needs atleast 2 members but was: " + gameMembers.length
+            await gameChannel.send(errorMessage)
+
+            // todo make these errors to runtime errors or catch them somehow
+            throw new Error(errorMessage);
+        }
+
+        console.log("Loading message from " + gameChannel.name + " - " + gameMembers + " - " + manager);
+
+        // todo fetch does not seem to work for all messages in a channel
         let messages: Map<Snowflake, Message> = await manager.fetch();
 
-        let filteredMessages: Array<Message> = Array.from(messages.values()).filter(message => this._isGameValid(message, gameMembers));
-        return filteredMessages;
+        console.log("Fetched: " + messages.size);
 
+        let filteredMessages: Array<Message> = Array.from(messages.values()).filter(message => this.isGameValid(message, gameMembers));
+        return filteredMessages;
     }
 
-    _isGameValid(message: any, members: Array<String>): boolean {
-        if(!(message instanceof Message)) return false;
+    // visible for testing
+    public isGameValid(message: any, members: Array<GuildMember>): boolean {
 
-        let gameMessage = <Message> message;
-        let authorName: String = gameMessage.author.username;
+        let gameMessage = <Message>message;
         let messageText: String = gameMessage.content;
 
-        if(!members.includes(authorName)) return false;
+        if (!this.isFromGameMember(message, members)) {
+            console.info("Message not from game member, exiting ...");
+            return false
+        };
 
-        if(!(messageText.split(" ").length > this.MIN_WORD_COUNT)) return false;
+        if (!(messageText.split(" ").length > dataProvider.MIN_WORD_COUNT)) {
+            console.info("Message not long enough, exiting ...");
+            return false;
+        }
 
-        if(messageText.includes("https://")) return false;
-        if(messageText.includes("http://")) return false;
+        if (messageText.includes("https://") || messageText.includes("http://")) {
+            console.info("Message includes link, exiting ...");
+            return false;
+        }
 
         return true;
+    }
+
+    private isFromGameMember(message: Message, members: Array<GuildMember>): boolean {
+        const authorId: string = message.author.id as string;
+        const filteredById: Array<GuildMember> = members.filter(member => authorId === member.id);
+        return filteredById.length === 1;
     }
 }

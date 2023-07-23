@@ -28,6 +28,7 @@ const oPresenceHandler = require("./eventHandler/presencehandler");
 const oRequestHandler = require("./requestHandler/twitchRequestHandler.js");
 const oDndBeyondRequestHandler = require("./requestHandler/dndbeyondHandler.js");
 const oYoutubeStreamingHandler = require("./eventHandler/youtubeStreamingHandler.js");
+const oWWIGameManager = require("./game/whoWroteIt/manager")
 const oServer = require("./healthcheck/server");
 
 var oDefaultGuild;
@@ -125,6 +126,10 @@ oClient.on("ready", async () => {
  * triggered on any message the oClient receives
  **/
 oClient.on("messageCreate", async (oMessage) => {
+
+  // Check for any relevant game session
+  if (oWWIGameManager.isActive(oMessage)) oWWIGameManager.guessForGame(oMessage);
+
   if (oMessage.content.charAt(0) !== sCommandPrefix) return;
   if (oMessage.content.length < 2) return;
 
@@ -151,6 +156,12 @@ oClient.on("messageCreate", async (oMessage) => {
       break;
     case "uptime":
       oMessageHandler.printUptimeMessage(oUtility, oMessage, oStartedDate);
+      break;
+    /**
+     * Game functions
+     */
+    case "wwi":
+      oWWIGameManager.newGame(oMessage);
       break;
     /**
      * Monster hunter functions

@@ -1,53 +1,114 @@
-import { Message, ChannelType, TextChannel } from "discord.js";
+import { Message, ChannelType, TextChannel, GuildMember, Guild } from "discord.js";
 
 import { game } from "./game"
 import { gameConfig } from "./gameConfig"
 
-class gameManager {
+import utility from "../../utility/utility";
 
-    games: Array<game>
+class gameManager {
+    // todo logs
+
+    private games: Map<string, game>
 
     constructor() {
-        this.games = new Array();
+        this.games = new Map();
     }
 
-    async newGame(message: any) {
+    public isActive(message: any): boolean {
 
-        if(!message || !(message instanceof Message)) throw new Error("Message can't be null!");
+        if (!(this.games.size > 0)) return false;
+        if (!message || !(message instanceof Message)) return false;
+        if (!message.guild || !message.channel || !(message.channel instanceof TextChannel)) return false;
+        if (!this.games.has(message.channelId)) return false;
 
-        if(!message.guild || !message.channel || !(message.channel instanceof TextChannel)) {
+        return true;
+    }
+
+    public async newGame(message: any) {
+
+        if (!message || !(message instanceof Message)) throw new Error("Message can't be null!");
+
+        if (!message.guild || !message.channel || !(message.channel instanceof TextChannel)) {
             const errorMessage: string = "Must be a message from a guild text channel!"
             message.reply(errorMessage);
             throw new Error(errorMessage);
         }
 
-        const gameMembers: Array<string> = this._getGameMembersFromMessage(message);
+        const channelId: string = (message.channel as TextChannel).id;
+        if (this.games.has(channelId)) {
+            // todo make message this detailed
+            const errorMessage: string = "Game already running!"
+            message.reply(errorMessage);
+            throw new Error(errorMessage);
+        }
+
+        const guild: Guild = message.guild;
+        const gameMembers: Array<GuildMember> = await this.getGameMembersFromMessage(message, guild);
         const guildChannels: any = await message.guild.channels.fetch()
-        const textGuildChannels: Array<TextChannel> = guildChannels.filter((c: any) => (c ? c.type === ChannelType.GuildText: false))
+        const textGuildChannels: Array<TextChannel> = guildChannels.filter((c: any) => (c ? c.type === ChannelType.GuildText : false))
         const gameChannel: TextChannel = message.channel as TextChannel;
 
         const config: gameConfig = new gameConfig(gameChannel, textGuildChannels, gameMembers);
-        let wwiGame: game = new game(config);
+        const wwiGame: game = new game(config);
 
         await wwiGame.initialize();
-        this.games.push(wwiGame);
+        await wwiGame.start();
+        this.games.set(wwiGame.id, wwiGame);
     }
 
-    guessForGame(message: any) {
-        throw new Error("nyi");
+    public guessForGame(message: any) {
+        if (!message || !(message instanceof Message)) throw new Error("Message can't be null!");
+
+        const channelId: string = (message as Message).channelId;
+
+        if (!this.games.has(channelId)) return;
+
+        const currentGame: game = this.games.get(channelId) as game;
+        const isCorrect = currentGame.guess(message.content);
+
+        if (isCorrect) {
+            this.games.delete(channelId)
+        }
     }
 
-    _getGameMembersFromMessage(message: Message): Array<string> {
-        // todo implement me
-        throw new Error("nyi");
-    }
+    private async getGameMembersFromMessage(message: Message, guild: Guild): Promise<Array<GuildMember>> {
+        let messageContent: string = message.content;
 
-    _finishGame(game: game) {
-        throw new Error("nyi");
-    }
+        console.info("Loading members from message:" + message.content)
 
- 
+        const gameMembers: Array<GuildMember> = new Array();
+        const guildMembers: Array<GuildMember> = Array.from((await guild.members.fetch()).values());
+        const tokens: Array<string> = messageContent.split(" ");
+        tokens.shift() // remove command token
+
+        console.info("Slashing tokens: " + tokens);
+
+        let indexMembers = guildMembers.length
+        let indexTokens = tokens.length
+
+        console.info("index are: ", indexMembers, indexTokens);
+
+        // Iterate in reserve to not shift the iterating index while splicing
+        while (indexMembers--) {
+            while (indexTokens--) {
+                const selectedToken: string = tokens[indexTokens];
+                const guildMember: GuildMember = guildMembers[indexMembers];
+                const guildMemberUserName: string = guildMember.user.username;
+
+                console.info("Comparing: " + selectedToken + " with: " + guildMemberUserName);
+                if (utility.isSameUserName(selectedToken, guildMemberUserName)) {
+                    gameMembers.push(guildMember);
+
+                    // remove each (1) comparing element at the index
+                    guildMembers.splice(indexMembers, 1);
+                    tokens.splice(indexTokens, 1);
+                }
+            }
+            indexTokens = tokens.length; // reset indexTokens
+        }
+        return gameMembers;
+    }
 }
 
-module.exports.wwiGameManager = new gameManager();
+module.exports = new gameManager();
 

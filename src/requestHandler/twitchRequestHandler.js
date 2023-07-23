@@ -38,7 +38,8 @@ function pollStream(oChatChannel, sStreamer, apikey) {
                 try {
                     streamChannel = JSON.parse(source);
                 } catch (e) {
-                    console.log("Request returned html content");
+                    // todo back in error message
+                    // console.error("Request returned html content: ", e);
                     return;
                 }
 
