@@ -88,15 +88,6 @@ oClient.on("ready", async () => {
     return;
   }
 
-  //start twitch api polling
-  for (var i = 0; i < oConfig.streamers.length; i++) {
-    oRequestHandler.pollStream(
-      oDefaultChannel,
-      oConfig.streamers[i],
-      oApiConfig.twitchClient
-    );
-  }
-
   // start dndbeyond post polling
   oDndBeyondRequestHandler.scheduleDndBeyondEvent(oDefaultChannel);
 
