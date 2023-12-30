@@ -10,7 +10,6 @@ export class dataProvider {
         this.config = config;
     }
 
-    // todo improve message handling here and feedback
     public async createGameData(): Promise<Array<Message>> {
 
         // todo for now only retrieve data from the main game channel, later get it from config.dataChannels
@@ -22,14 +21,12 @@ export class dataProvider {
             const errorMessage = "Needs atleast 2 members but was: " + gameMembers.length
             await gameChannel.send(errorMessage)
 
-            // todo make these errors to runtime errors or catch them somehow
             throw new Error(errorMessage);
         }
 
         console.log("Loading message from " + gameChannel.name + " - " + gameMembers + " - " + manager);
 
-        // todo fetch does not seem to work for all messages in a channel
-        let messages: Map<Snowflake, Message> = await manager.fetch();
+        let messages: Map<Snowflake, Message> = await this.fetchAllMessages(manager);
 
         console.log("Fetched: " + messages.size);
 
@@ -66,4 +63,19 @@ export class dataProvider {
         const filteredById: Array<GuildMember> = members.filter(member => authorId === member.id);
         return filteredById.length === 1;
     }
+
+    private async fetchAllMessages(manager: MessageManager): Promise<Map<Snowflake, Message>> {
+        const initialMessages: Map<Snowflake, Message> = await manager.fetch({limit: 1});
+        let lastMessage: Message = initialMessages.values().next().value // there can only be one element here
+
+        console.info("Found message: ", lastMessage);
+
+        while(lastMessage) {
+            const page: Map<Snowflake, Message> = await manager.fetch({ limit: 100, before: lastMessage.id });
+        }
+        
+        return new Map<Snowflake, Message>();
+    }
+
+
 }

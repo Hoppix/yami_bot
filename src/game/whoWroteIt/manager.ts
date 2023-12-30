@@ -139,7 +139,6 @@ class gameManager {
         });
 
         return gameMembers;
-
     }
 }
 
