@@ -6,7 +6,6 @@ import { gameConfig } from "./gameConfig"
 import utility from "../../utility/utility";
 
 class gameManager {
-    // todo logs
 
     private games: Map<string, game>
 
@@ -31,19 +30,25 @@ class gameManager {
         if (!message.guild || !message.channel || !(message.channel instanceof TextChannel)) {
             const errorMessage: string = "Must be a message from a guild text channel!"
             message.reply(errorMessage);
-            throw new Error(errorMessage);
+            return;
         }
 
         const channelId: string = (message.channel as TextChannel).id;
         if (this.games.has(channelId)) {
-            // todo make message this detailed
             const errorMessage: string = "Game already running!"
             message.reply(errorMessage);
-            throw new Error(errorMessage);
+            return;
         }
 
-        const guild: Guild = message.guild;
-        const gameMembers: Array<GuildMember> = await this.getGameMembersFromMessage(message, guild);
+        const guild: Guild | null = message.guild;
+
+        if (!guild) {
+            const errorMessage: string = "Only in guild channels allowed!"
+            message.reply(errorMessage);
+            return;
+        }
+
+        const gameMembers: Array<GuildMember> = await this.getGameMembersFromMessageLambda(message, guild);
         const guildChannels: any = await message.guild.channels.fetch()
         const textGuildChannels: Array<TextChannel> = guildChannels.filter((c: any) => (c ? c.type === ChannelType.GuildText : false))
         const gameChannel: TextChannel = message.channel as TextChannel;
@@ -51,9 +56,15 @@ class gameManager {
         const config: gameConfig = new gameConfig(gameChannel, textGuildChannels, gameMembers);
         const wwiGame: game = new game(config);
 
-        await wwiGame.initialize();
-        await wwiGame.start();
-        this.games.set(wwiGame.id, wwiGame);
+        try {
+            await wwiGame.initialize();
+            await wwiGame.start();
+            this.games.set(wwiGame.id, wwiGame);
+        }
+        catch(e) {
+            console.error("Non recoverable error ocurred, game not initialized", e)
+        }
+        
     }
 
     public guessForGame(message: any) {
@@ -93,6 +104,7 @@ class gameManager {
             while (indexTokens--) {
                 const selectedToken: string = tokens[indexTokens];
                 const guildMember: GuildMember = guildMembers[indexMembers];
+                console.info(guildMembers)
                 const guildMemberUserName: string = guildMember.user.username;
 
                 console.info("Comparing: " + selectedToken + " with: " + guildMemberUserName);
@@ -105,8 +117,29 @@ class gameManager {
                 }
             }
             indexTokens = tokens.length; // reset indexTokens
-        }
+        } 
         return gameMembers;
+    }
+
+    private async getGameMembersFromMessageLambda(message: Message, guild: Guild): Promise<Array<GuildMember>> {
+        let messageContent: string = message.content;
+
+        console.info("Loading members from message:" + message.content)
+        
+        const gameMembers: Array<GuildMember> = [];
+        const guildMembers: Array<GuildMember> = Array.from((await guild.members.fetch()).values());
+        const tokens: Array<string> = messageContent.split(" ");
+        tokens.shift() // remove command token
+
+        console.info("Slashing tokens: " + tokens);
+        
+        tokens.forEach(token => {
+            const guildMember = guildMembers.find((guildMember: GuildMember) => utility.isSameUserName(guildMember.user.username, token));
+            if (guildMember) gameMembers.push(guildMember);
+        });
+
+        return gameMembers;
+
     }
 }
 

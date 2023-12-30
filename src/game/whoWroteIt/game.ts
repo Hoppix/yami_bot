@@ -39,7 +39,7 @@ export class game {
 
     public async start() {
         if (!this.messages || this.messages.length == 0) {
-            let errorMessage: string = "Error: Game was not initialized!";
+            let errorMessage: string = "Error: Game was not initialized! There were no eligible messages in this channel.";
             await this.gameOutput(errorMessage);
             throw new Error(errorMessage);
         }

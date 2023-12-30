@@ -26,12 +26,12 @@
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
     "ts-mockito": "^2.6.1",
-    "ts-node": "^10.9.1",
     "uws": "^200.0.0",
     "ytdl-core": "^4.11.2"
   },
   "devDependencies": {
     "@types/jest": "^28.1.1",
-    "@types/node": "^17.0.45"
+    "@types/node": "^17.0.45",
+    "ts-node": "^10.9.2"
   }
 }
