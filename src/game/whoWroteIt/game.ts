@@ -1,9 +1,9 @@
-import { TextChannel, Message} from "discord.js";
+import { TextChannel, Message, userMention, channelMention } from "discord.js";
 
 import { gameConfig } from "./gameConfig";
 import { dataProvider } from "./dataProvider";
 
-import utiliy from "../../utility/utility";
+import utility from "../../utility/utility";
 
 
 export class game {
@@ -27,7 +27,7 @@ export class game {
         this.gameOutput("Starting game with id: " + this.id);
 
         const membersPing: string = this.config.members.map(member => {
-            return "@" + member.user.tag;
+            return userMention(member.id);
         }).join(" - ");
 
         await this.gameOutput("Loading game data for members: " + membersPing);
@@ -56,18 +56,12 @@ export class game {
     public guess(guessedMember: string): boolean {
 
         // todo make this better ie. tagging the winner who made the guess
-        let correctMember = this.answer.author.username;
-        this.isEnded = utiliy.isSameUserName(correctMember, guessedMember);
+        let correctMemberUsername = this.answer.author.username;
+        let correctMemberNickname = this.answer.member?.nickname;
+        this.isEnded = utility.isSameUserName(correctMemberUsername, guessedMember) || utility.isSameUserName(correctMemberNickname, guessedMember);
 
         if(this.isEnded) {
-            this.gameOutput("Correct! " 
-            + correctMember 
-            + " wrote this at " 
-            + this.answer.createdAt.toUTCString()
-            + " in " 
-            + "#" 
-            + (this.answer.channel as TextChannel).name);
-
+            this.gameOutput(`Correct! ${userMention(this.answer.author.id)} wrote this at ${this.answer.createdAt.toUTCString()} in ${channelMention(this.answer.channelId)}`);
         }
 
         return this.isEnded; 

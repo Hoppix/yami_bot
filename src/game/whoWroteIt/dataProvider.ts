@@ -5,6 +5,8 @@ import { gameConfig } from "./gameConfig"
 export class dataProvider {
     private config: gameConfig;
     private static MIN_WORD_COUNT: number = 5;
+    private static UPPER_MSG_LIMIT: number = 4000;
+    private static MAX_ITERATION_COUNT: number = 100;
 
     constructor(config: gameConfig) {
         this.config = config;
@@ -26,11 +28,11 @@ export class dataProvider {
 
         console.log("Loading message from " + gameChannel.name + " - " + gameMembers + " - " + manager);
 
-        let messages: Map<Snowflake, Message> = await this.fetchAllMessages(manager);
+        let messages: Array<Message> = await this.fetchAllMessages(manager);
 
-        console.log("Fetched: " + messages.size);
+        console.log("Fetched: " + messages.length);
 
-        let filteredMessages: Array<Message> = Array.from(messages.values()).filter(message => this.isGameValid(message, gameMembers));
+        let filteredMessages: Array<Message> = messages.filter(message => this.isGameValid(message, gameMembers));
         return filteredMessages;
     }
 
@@ -42,7 +44,7 @@ export class dataProvider {
 
         if (!this.isFromGameMember(message, members)) {
             console.info("Message not from game member, exiting ...");
-            return false
+            return false;
         };
 
         if (!(messageText.split(" ").length > dataProvider.MIN_WORD_COUNT)) {
@@ -64,17 +66,22 @@ export class dataProvider {
         return filteredById.length === 1;
     }
 
-    private async fetchAllMessages(manager: MessageManager): Promise<Map<Snowflake, Message>> {
-        const initialMessages: Map<Snowflake, Message> = await manager.fetch({limit: 1});
-        let lastMessage: Message = initialMessages.values().next().value // there can only be one element here
+    private async fetchAllMessages(manager: MessageManager): Promise<Array<Message>> {
+        const allMessages: Array<Message> = [];
+        let initialMessages = await manager.fetch({limit: 1});
+        let lastMessage: Message | undefined = initialMessages.size === 1 ? initialMessages.at(0) : undefined;
 
-        console.info("Found message: ", lastMessage);
 
-        while(lastMessage) {
-            const page: Map<Snowflake, Message> = await manager.fetch({ limit: 100, before: lastMessage.id });
+        for (let iterationCount: number = 0; iterationCount < dataProvider.MAX_ITERATION_COUNT; iterationCount++) {
+            if (!lastMessage) break;
+            if (allMessages.length > dataProvider.UPPER_MSG_LIMIT) break;
+
+            const page = await manager.fetch({ limit: 100, before: lastMessage.id });
+            page.forEach(message => allMessages.push(message));
+            lastMessage = page.at(-1);
         }
-        
-        return new Map<Snowflake, Message>();
+
+        return allMessages;
     }
 
 

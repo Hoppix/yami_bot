@@ -134,7 +134,8 @@ class gameManager {
         console.info("Slashing tokens: " + tokens);
         
         tokens.forEach(token => {
-            const guildMember = guildMembers.find((guildMember: GuildMember) => utility.isSameUserName(guildMember.user.username, token));
+            const guildMember = guildMembers.find((guildMember: GuildMember) =>
+                utility.isSameUserName(guildMember.nickname, token) || utility.isSameUserName(guildMember.user.username, token));
             if (guildMember) gameMembers.push(guildMember);
         });
 
