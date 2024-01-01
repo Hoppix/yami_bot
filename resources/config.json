@@ -12,10 +12,10 @@
   "defaultChannelId": "307629566938054656",
   "defaultVoiceChannelId": "203989186947186688",
   "defaultImageChannelId": "449693701250220056",
-  "version": "v2.2.1",
+  "version": "v2.3.0",
   "playMessage": "Type: !help",
   "commandPrefix": "!",
-  "startMessage": "Yami: I cleaned up some stuff!",
+  "startMessage": "Yami: now with games!",
   "customCommandsPath": "/tmp/yami/commands/custom.json",
   "logFilePath": "/tmp/yami/logs/log.txt"
 }

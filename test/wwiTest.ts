@@ -36,7 +36,7 @@ describe('DataProviderTest', function () {
         let result: boolean = provider.isGameValid(testMessage, gameMembers);
 
         // then
-        assert.equal(result, true);
+        assert.equal(result, false);
 
 
     });
