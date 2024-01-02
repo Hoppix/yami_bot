@@ -6,7 +6,7 @@ export class moderator {
     private static ICON_URL: string = 'https://puu.sh/JXUgh/a79259e7a7.png';
     private static YAMI_NAME: string = 'Yami';
     private static GAME_COLOR: number = 0x5d086e;
-    private static ERROR_COLOR: number = 0x30b00;
+    private static ERROR_COLOR: number = 0x6e000b;
 
     private static GAME_TITLE: string = 'WhoWroteIt?'
 
@@ -69,7 +69,24 @@ export class moderator {
     public static async sendAbortGameMessage(targetChannel: TextChannel) {
         const content: string = `Game aborted!`
 
-        console.info(content);
+        console.error(content);
+
+        const embed: APIEmbed =  new EmbedBuilder()
+            .setColor(moderator.ERROR_COLOR)
+            .setTitle(moderator.GAME_TITLE)
+            .setAuthor({ name: moderator.YAMI_NAME, iconURL: moderator.ICON_URL, url: moderator.YAMI_URL })
+            .setDescription(content)
+            .setTimestamp()
+            .setFooter({ text: moderator.YAMI_NAME, iconURL: moderator.ICON_URL })
+            .toJSON();
+
+        await targetChannel.send({embeds: [embed]});
+    }
+
+    
+    public static async sendGameErrorMessage(content: string, targetChannel: TextChannel) {
+
+        console.error(content);
 
         const embed: APIEmbed =  new EmbedBuilder()
             .setColor(moderator.ERROR_COLOR)

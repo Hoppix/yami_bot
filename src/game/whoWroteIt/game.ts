@@ -26,8 +26,8 @@ export class game {
 
     public async initialize(): Promise<game> {
         if (this.config.members.length < 2) {
-            const errorMessage: string = "Error: There were not enough members. Atleast 2.";
-            await moderator.sendDefaultGameMessage(errorMessage, this.config.gameChannel);
+            const errorMessage: string = "Error: There were not enough valid members. Atleast 2.";
+            await moderator.sendGameErrorMessage(errorMessage, this.config.gameChannel);
             throw new Error(errorMessage);
         }
 
