@@ -74,3 +74,9 @@ typings/
 
 # vs code 
 .vscode
+
+# counter 
+.VSCodeCounter
+
+# todo
+todo.md

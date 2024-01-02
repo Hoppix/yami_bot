@@ -2,15 +2,40 @@ import { Message, ChannelType, TextChannel, GuildMember, Guild } from "discord.j
 
 import { game } from "./game"
 import { gameConfig } from "./gameConfig"
-
+import { wwiState } from "./state";
 import utility from "../../utility/utility";
 
 class gameManager {
 
-    private games: Map<string, game>
+    private games: Map<string, game>;
+    private static ABORT_COMMAND: string = "abort"
 
     constructor() {
         this.games = new Map();
+    }
+
+    public delegate(message: any) {
+        if (!message || !(message instanceof Message)) throw new Error("Message can't be null!");
+
+        if (!message.guild || !message.channel || !(message.channel instanceof TextChannel)) {
+            const errorMessage: string = "Must be a message from a guild text channel!"
+            message.reply(errorMessage);
+            return;
+        }
+
+        const channelId: string = (message.channel as TextChannel).id;
+        if (message.content.includes(gameManager.ABORT_COMMAND)) {
+            this.abortGame(message)
+            return;
+        }
+
+        if (this.games.has(channelId)) {
+            const errorMessage: string = "Game already running!"
+            message.reply(errorMessage);
+            return;
+        }
+
+       this.newGame(message)
     }
 
     public isActive(message: any): boolean {
@@ -23,24 +48,25 @@ class gameManager {
         return true;
     }
 
-    public async newGame(message: any) {
+    public abortGame(message: Message): boolean {
+        const channel = message.channel;
+        const current: game | undefined = this.games.get(channel.id);
+        
+        if(!current || current.state === wwiState.INITIALIZING) {
+            console.warn("Cannot abort game!")
+            return false;
+        }
+
+        this.games.delete(channel.id);
+        console.info("Game aborted: " + channel.id)
+        return true;
+    }
+
+    public async newGame(message: Message) {
 
         if (!message || !(message instanceof Message)) throw new Error("Message can't be null!");
 
-        if (!message.guild || !message.channel || !(message.channel instanceof TextChannel)) {
-            const errorMessage: string = "Must be a message from a guild text channel!"
-            message.reply(errorMessage);
-            return;
-        }
-
-        const channelId: string = (message.channel as TextChannel).id;
-        if (this.games.has(channelId)) {
-            const errorMessage: string = "Game already running!"
-            message.reply(errorMessage);
-            return;
-        }
-
-        const guild: Guild | null = message.guild;
+        const guild: Guild | null  = message.guild;
 
         if (!guild) {
             const errorMessage: string = "Only in guild channels allowed!"
@@ -48,8 +74,8 @@ class gameManager {
             return;
         }
 
-        const gameMembers: Array<GuildMember> = await this.getGameMembersFromMessageLambda(message, guild);
-        const guildChannels: any = await message.guild.channels.fetch()
+        const gameMembers: Array<GuildMember> = await this.getGameMembersFromMessage(message, guild);
+        const guildChannels: any = await guild.channels.fetch()
         const textGuildChannels: Array<TextChannel> = guildChannels.filter((c: any) => (c ? c.type === ChannelType.GuildText : false))
         const gameChannel: TextChannel = message.channel as TextChannel;
 
@@ -63,8 +89,7 @@ class gameManager {
         }
         catch(e) {
             console.error("Non recoverable error ocurred, game not initialized", e)
-        }
-        
+        }       
     }
 
     public guessForGame(message: any) {
@@ -75,7 +100,7 @@ class gameManager {
         if (!this.games.has(channelId)) return;
 
         const currentGame: game = this.games.get(channelId) as game;
-        const isCorrect = currentGame.guess(message.content);
+        const isCorrect = currentGame.guess(message);
 
         if (isCorrect) {
             this.games.delete(channelId)
@@ -83,46 +108,7 @@ class gameManager {
     }
 
     private async getGameMembersFromMessage(message: Message, guild: Guild): Promise<Array<GuildMember>> {
-        let messageContent: string = message.content;
-
-        console.info("Loading members from message:" + message.content)
-
-        const gameMembers: Array<GuildMember> = new Array();
-        const guildMembers: Array<GuildMember> = Array.from((await guild.members.fetch()).values());
-        const tokens: Array<string> = messageContent.split(" ");
-        tokens.shift() // remove command token
-
-        console.info("Slashing tokens: " + tokens);
-
-        let indexMembers = guildMembers.length
-        let indexTokens = tokens.length
-
-        console.info("index are: ", indexMembers, indexTokens);
-
-        // Iterate in reserve to not shift the iterating index while splicing
-        while (indexMembers--) {
-            while (indexTokens--) {
-                const selectedToken: string = tokens[indexTokens];
-                const guildMember: GuildMember = guildMembers[indexMembers];
-                console.info(guildMembers)
-                const guildMemberUserName: string = guildMember.user.username;
-
-                console.info("Comparing: " + selectedToken + " with: " + guildMemberUserName);
-                if (utility.isSameUserName(selectedToken, guildMemberUserName)) {
-                    gameMembers.push(guildMember);
-
-                    // remove each (1) comparing element at the index
-                    guildMembers.splice(indexMembers, 1);
-                    tokens.splice(indexTokens, 1);
-                }
-            }
-            indexTokens = tokens.length; // reset indexTokens
-        } 
-        return gameMembers;
-    }
-
-    private async getGameMembersFromMessageLambda(message: Message, guild: Guild): Promise<Array<GuildMember>> {
-        let messageContent: string = message.content;
+        const messageContent: string = message.content;
 
         console.info("Loading members from message:" + message.content)
         
@@ -136,7 +122,12 @@ class gameManager {
         tokens.forEach(token => {
             const guildMember = guildMembers.find((guildMember: GuildMember) =>
                 utility.isSameUserName(guildMember.nickname, token) || utility.isSameUserName(guildMember.user.username, token));
-            if (guildMember) gameMembers.push(guildMember);
+            if (guildMember) {
+                gameMembers.push(guildMember);
+            } 
+            else {
+                console.warn("Could not find user for token:" + token)
+            }
         });
 
         return gameMembers;
@@ -144,4 +135,3 @@ class gameManager {
 }
 
 module.exports = new gameManager();
-

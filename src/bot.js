@@ -119,7 +119,8 @@ oClient.on("ready", async () => {
 oClient.on("messageCreate", async (oMessage) => {
 
   // Check for any relevant game session
-  if (oWWIGameManager.isActive(oMessage)) oWWIGameManager.guessForGame(oMessage);
+  if (oWWIGameManager.isActive(oMessage)) 
+    oWWIGameManager.guessForGame(oMessage);
 
   if (oMessage.content.charAt(0) !== sCommandPrefix) return;
   if (oMessage.content.length < 2) return;
@@ -152,7 +153,7 @@ oClient.on("messageCreate", async (oMessage) => {
      * Game functions
      */
     case "wwi":
-      oWWIGameManager.newGame(oMessage);
+      oWWIGameManager.delegate(oMessage);
       break;
     /**
      * Monster hunter functions

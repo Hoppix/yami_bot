@@ -1,88 +1,92 @@
-import { TextChannel, Message, userMention, channelMention } from "discord.js";
+import { TextChannel, Message, GuildMember } from "discord.js";
 
 import { gameConfig } from "./gameConfig";
 import { dataProvider } from "./dataProvider";
-
+import { moderator } from "./moderator";
+import { wwiState, wwiStateMachine} from "./state";
 import utility from "../../utility/utility";
 
 
 export class game {
     public id: string;
     public config: gameConfig;
+    public state: wwiState
     private dataProvider: dataProvider;
     private messages: Array<Message>;
     private answer: Message;
-    private isEnded: boolean
 
     constructor(config: gameConfig) {
         this.id = config.gameChannel.id;
         this.config = config;
         this.dataProvider = new dataProvider(config);
         this.messages = new Array();
-        this.answer = {} as Message
-        this.isEnded = false;
+        this.answer = {} as Message;
+        this.state = wwiState.CREATED;
     }
 
     public async initialize(): Promise<game> {
-        this.gameOutput("Starting game with id: " + this.id);
+        if (this.config.members.length < 2) {
+            const errorMessage: string = "Error: There were not enough members. Atleast 2.";
+            await moderator.sendDefaultGameMessage(errorMessage, this.config.gameChannel);
+            throw new Error(errorMessage);
+        }
 
-        const membersPing: string = this.config.members.map(member => {
-            return userMention(member.id);
-        }).join(" - ");
+        moderator.sendStartGameMessage(this.id, this.config.gameChannel, this.config.members, this.config.gameChannel);
 
-        await this.gameOutput("Loading game data for members: " + membersPing);
-        this.messages = await this.dataProvider.createGameData()
-        await this.gameOutput("Created game data with : " + this.messages.length + " messages");
+        await moderator.sendDefaultGameMessage("Loading game data ... (this might take a while)", this.config.gameChannel);
+        this.state = wwiStateMachine.initialize(this.state);
+        this.messages = await this.dataProvider.createGameData();
+        await moderator.sendDefaultGameMessage("Created game data with : " + this.messages.length + " messages", this.config.gameChannel);
+
         return this;
-
     }
 
     public async start() {
         if (!this.messages || this.messages.length == 0) {
-            let errorMessage: string = "Error: Game was not initialized! There were no eligible messages in this channel.";
-            await this.gameOutput(errorMessage);
+            const errorMessage: string = "Error: Game was not initialized! There were no eligible messages in this channel.";
+            await moderator.sendDefaultGameMessage(errorMessage, this.config.gameChannel);
             throw new Error(errorMessage);
         }
 
         const randomMessage: Message = this.messages[Math.floor(Math.random() * this.messages.length)];
+
         this.answer = randomMessage;
-        await this.gameOutput("Who wrote this message at "
-            + randomMessage.createdAt.toDateString()
+        this.state = wwiStateMachine.start(this.state);
+        await moderator.sendDefaultGameMessage("Who wrote this message"
             + "?\n "
-            + randomMessage.content)
-
+            + "'"
+            + randomMessage.content
+            + "'", 
+            this.config.gameChannel);
     }
 
-    public guess(guessedMember: string): boolean {
+    public guess(guess: Message): boolean {
 
-        // todo make this better ie. tagging the winner who made the guess
-        let correctMemberUsername = this.answer.author.username;
-        let correctMemberNickname = this.answer.member?.nickname;
-        this.isEnded = utility.isSameUserName(correctMemberUsername, guessedMember) || utility.isSameUserName(correctMemberNickname, guessedMember);
+        const guessedMember: string  = guess.content;
+        const guesser: GuildMember | null = guess.member;
+        const guessChannel = guess.channel
 
-        if(this.isEnded) {
-            this.gameOutput(`Correct! ${userMention(this.answer.author.id)} wrote this at ${this.answer.createdAt.toUTCString()} in ${channelMention(this.answer.channelId)}`);
+        if(!(guessChannel instanceof TextChannel)) {
+            console.warn("Illegal state: not in a text channel");
+            return this.state === wwiState.ENDED
         }
 
-        return this.isEnded; 
-    }
-
-    private async gameOutput(message: string) {
-        // todo make this with fancy embeds
-        let channel: TextChannel = this.config.gameChannel;
-
-        if(!channel) {
-            console.log("Channel not initialized!");
-            return;
+        if(!guesser) {
+            console.warn("Illegal state: guesser does not exist");
+            return this.state === wwiState.ENDED
         }
 
-        if(!message) {
-            console.log("Message is empty!");
-            return;
+        const correctMemberUsername = this.answer.author.username;
+        const correctMemberNickname = this.answer.member?.nickname;
+        const correct: boolean = utility.isSameUserName(correctMemberUsername, guessedMember) || utility.isSameUserName(correctMemberNickname, guessedMember);
+
+        if(correct) {
+            moderator.sendFinishGameMessage(guesser, this.answer, guessChannel, guessChannel);
+            this.state = wwiStateMachine.end(this.state);
         }
 
-        console.log(message)
-        await channel.send(message);
+        return this.state === wwiState.ENDED
     }
 }
+
 
