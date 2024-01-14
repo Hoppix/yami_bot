@@ -19,6 +19,8 @@ export class dataProvider {
         let gameMembers: Array<GuildMember> = this.config.members;
         let manager: MessageManager = gameChannel.messages;
 
+        const guessMember: GuildMember = gameMembers[Math.floor(Math.random() * gameMembers.length)];
+
         if (gameMembers.length < 1) {
             const errorMessage = "Needs atleast 2 members but was: " + gameMembers.length
             await gameChannel.send(errorMessage)
@@ -32,7 +34,11 @@ export class dataProvider {
 
         console.log("Fetched: " + messages.length);
 
-        let filteredMessages: Array<Message> = messages.filter(message => this.isGameValid(message, gameMembers));
+        let filteredMessages: Array<Message> = messages
+              .filter(message => this.isGameValid(message, gameMembers))
+              .filter(message => {
+                return message.member?.id === guessMember.id;
+              });
         return filteredMessages;
     }
 

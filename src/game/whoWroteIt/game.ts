@@ -47,7 +47,6 @@ export class game {
             await moderator.sendDefaultGameMessage(errorMessage, this.config.gameChannel);
             throw new Error(errorMessage);
         }
-
         const randomMessage: Message = this.messages[Math.floor(Math.random() * this.messages.length)];
 
         this.answer = randomMessage;
