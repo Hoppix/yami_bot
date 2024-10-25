@@ -1,4 +1,4 @@
-FROM node:16-buster
+FROM node:23-buster
 
 # Create app directory
 WORKDIR /usr/src/yami
