@@ -4,7 +4,7 @@ import { gameConfig } from "./gameConfig";
 import { dataProvider } from "./dataProvider";
 import { moderator } from "./moderator";
 import { wwiState, wwiStateMachine} from "./state";
-import { isSameUserName} from "../../utility/utility";
+import utility from "../../utility/utility";
 
 
 export class game {
@@ -77,7 +77,7 @@ export class game {
 
         const correctMemberUsername = this.answer.author.username;
         const correctMemberNickname = this.answer.member?.nickname;
-        const correct: boolean = isSameUserName(correctMemberUsername, guessedMember) || isSameUserName(correctMemberNickname, guessedMember);
+        const correct: boolean = utility.isSameUserName(correctMemberUsername, guessedMember) || utility.isSameUserName(correctMemberNickname, guessedMember);
 
         if(correct) {
             moderator.sendFinishGameMessage(guesser, this.answer, guessChannel, guessChannel);

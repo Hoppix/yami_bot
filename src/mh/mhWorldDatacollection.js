@@ -135,7 +135,5 @@ export { _mhSharpElementalMap as mhSharpElementalMap };
 const _mhMvEstimatedMap = mhMvEstimatedMap;
 export { _mhMvEstimatedMap as mhMvEstimatedMap };
 export const mhPhysicalDummy = oPhysicalDummy;
-export const oPhysicalDummy = oPhysicalDummy;
 export const mhElementalDummy = oElementalDummy;
-export const oElementalDummy = oElementalDummy;
 export const bowElementalMv = 62.625;

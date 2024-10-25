@@ -3,7 +3,7 @@ import { Message, ChannelType, TextChannel, GuildMember, Guild } from "discord.j
 import { game } from "./game"
 import { gameConfig } from "./gameConfig"
 import { wwiState } from "./state";
-import { isSameUserName } from "../../utility/utility";
+import utility from "../../utility/utility";
 
 class gameManager {
 
@@ -121,7 +121,7 @@ class gameManager {
         
         tokens.forEach(token => {
             const guildMember = guildMembers.find((guildMember: GuildMember) =>
-                isSameUserName(guildMember.nickname, token) || isSameUserName(guildMember.user.username, token));
+                utility.isSameUserName(guildMember.nickname, token) || utility.isSameUserName(guildMember.user.username, token));
             if (guildMember) {
                 gameMembers.push(guildMember);
             } 
