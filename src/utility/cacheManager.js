@@ -1,27 +1,21 @@
-module.exports = {
+export function fetchCache(oBaseManager, _) {
+    console.log("Fetching cache ...");
+    let aResult = [];
 
-    /**
-     * Helper function to load all entities of a particular manager
-     *
-     **/
-    fetchCache: function(oBaseManager, id) {
-        console.log("Fetching cache ...");
-        let aResult = [];
+    if (!oBaseManager)
+        return;
 
-        if(!oBaseManager) return;
+    try {
 
-        try {
+        let aCache = oBaseManager.cache;
 
-            let aCache = oBaseManager.cache;
-
-            for (const entity of aCache) {
-                console.log("cached ", entity[0]);
-                aResult.push(entity);
-            }
-        } catch (oError) {
-          console.log("Error while fetching cache: ", oError);
+        for (const entity of aCache) {
+            console.log("cached ", entity[0]);
+            aResult.push(entity);
         }
-
-        return aResult;
+    } catch (oError) {
+        console.log("Error while fetching cache: ", oError);
     }
+
+    return aResult;
 }

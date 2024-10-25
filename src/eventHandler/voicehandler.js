@@ -2,47 +2,42 @@
  * handler vor dispatching action triggered by discord.js voicestatus updates
  * @type {{}}
  */
-module.exports = {
-    /**
-     *	called when a user enters/leaves/switches a channel
-     * handles logging and sends a message to te defaultGuildChannel
-     *
-     **/
-    handleEventLogging: function(oUtility, oldVoiceState, newVoiceState, oDefaultChannel) {
+export function handleEventLogging(oUtility, oldVoiceState, newVoiceState, oDefaultChannel) {
 
-        const member = newVoiceState.member;
-        if (!member) return;
-        
-        var oldChannel = oldVoiceState.channel;
-        var newChannel = newVoiceState.channel;
+    const member = newVoiceState.member;
+    if (!member)
+        return;
 
-        var sUsername = member.user.username;
+    var oldChannel = oldVoiceState.channel;
+    var newChannel = newVoiceState.channel;
 
-        var sNewChannelName;
-        var sOldChannelName;
-        var sMessage;
+    var sUsername = member.user.username;
 
-        if (!oldChannel && newChannel) {
-            //User joins a channel
-            sNewChannelName = newChannel.name;
-            sMessage = "User: " + sUsername + " joined channel: " + sNewChannelName;
-        } else if (oldChannel && !newChannel) {
-            //User leaves a channel
-            sOldChannelName = oldChannel.name;
-            sMessage = "User: " + sUsername + " left channel: " + sOldChannelName;
+    var sNewChannelName;
+    var sOldChannelName;
+    var sMessage;
 
-        } else if (oldChannel && newChannel) {
-            //User switched a channel
-            sOldChannelName = oldChannel.name;
-            sNewChannelName = newChannel.name;
-            if (sOldChannelName === sNewChannelName || !sOldChannelName || !sNewChannelName) return;
-            sMessage = "User: " + sUsername + " switched from: " + sOldChannelName + " to: " + sNewChannelName;
-        } else {
-            //Nothing happened
-            sMessage = "I logged an voiceStateUpdateEvent but nothing was triggered!"
-        }
-        console.log(sMessage)
-        oDefaultChannel.send(sMessage);
-        oUtility.writeLogFile(sMessage);
+    if (!oldChannel && newChannel) {
+        //User joins a channel
+        sNewChannelName = newChannel.name;
+        sMessage = "User: " + sUsername + " joined channel: " + sNewChannelName;
+    } else if (oldChannel && !newChannel) {
+        //User leaves a channel
+        sOldChannelName = oldChannel.name;
+        sMessage = "User: " + sUsername + " left channel: " + sOldChannelName;
+
+    } else if (oldChannel && newChannel) {
+        //User switched a channel
+        sOldChannelName = oldChannel.name;
+        sNewChannelName = newChannel.name;
+        if (sOldChannelName === sNewChannelName || !sOldChannelName || !sNewChannelName)
+            return;
+        sMessage = "User: " + sUsername + " switched from: " + sOldChannelName + " to: " + sNewChannelName;
+    } else {
+        //Nothing happened
+        sMessage = "I logged an voiceStateUpdateEvent but nothing was triggered!";
     }
+    console.log(sMessage);
+    oDefaultChannel.send(sMessage);
+    oUtility.writeLogFile(sMessage);
 }

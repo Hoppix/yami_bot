@@ -1,7 +1,7 @@
 /**
  * Created by khopf on 10/01/2018.
  */
-var request = require('request');
+import request from 'request';
 
 /**
  * Starts a scheduled Twitch-API poll for the @param sStreamer.
@@ -59,4 +59,5 @@ function pollStream(oChatChannel, sStreamer, apikey) {
 }
 
 //exports
-module.exports.pollStream = pollStream;
+const _pollStream = pollStream;
+export { _pollStream as pollStream };

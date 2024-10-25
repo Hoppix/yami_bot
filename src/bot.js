@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits } = require("discord.js");
+import { Client, GatewayIntentBits } from "discord.js";
 
 const intents = {
   intents: [
@@ -18,18 +18,17 @@ const oClient = new Client(intents);
 //starting date for checking uptime
 const oStartedDate = new Date();
 
-const oApiConfig = require("../resources/api_config.json");
-const oConfig = require("../resources/config.json");
-const oUtility = require("./utility/utility.js");
-const oCacheManager = require("./utility/cacheManager.js");
-const oMessageHandler = require("./eventHandler/messagehandler");
-const oVoiceHandler = require("./eventHandler/voicehandler");
-const oPresenceHandler = require("./eventHandler/presencehandler");
-const oRequestHandler = require("./requestHandler/twitchRequestHandler.js");
-const oDndBeyondRequestHandler = require("./requestHandler/dndbeyondHandler.js");
-const oYoutubeStreamingHandler = require("./eventHandler/youtubeStreamingHandler.js");
-const oWWIGameManager = require("./game/whoWroteIt/manager")
-const oServer = require("./healthcheck/server");
+import { youtubeClient, token } from "../resources/api_config.json";
+import { version, defaultGuildName, defaultGuildId, defaultChannelId, defaultVoiceChannelId, defaultImageChannelId, playMessage, commandPrefix, startMessage } from "../resources/config.json";
+import oUtility, { writeLogFile } from "./utility/utility.js";
+import { fetchCache } from "./utility/cacheManager.js";
+import { updateCommandMap, printHelpMessage, printMhHelpMessage, printUptimeMessage, handleWeaponCalculation, handleWeaponCompare, getWeaponMV, getArmorSpreadsheetUrl, getKiranicoUrl, getYoutubeSearch, addCustomCommand, deleteCustomCommand, printCustomCommands, addRoleToUser, isCustomCommand, executeCustomCommand } from "./eventHandler/messagehandler";
+import { handleEventLogging } from "./eventHandler/voicehandler";
+import { handleStatusUpdate, handleGameUpdate } from "./eventHandler/presencehandler";
+import { scheduleDndBeyondEvent, getNewPosts } from "./requestHandler/dndbeyondHandler.js";
+import { playYoutubeLink, stopYoutubeLink } from "./eventHandler/youtubeStreamingHandler.js";
+import { isActive, guessForGame, delegate } from "./game/whoWroteIt/manager";
+import { startHealthcheck } from "./healthcheck/server";
 
 var oDefaultGuild;
 var oDefaultChannel;
@@ -38,15 +37,15 @@ var defaultGuildChannels;
 var oDefaultImageChannel;
 
 // load config
-const sVersion = oConfig.version;
-const sDefaultGuildName = oConfig.defaultGuildName;
-const sDefaultGuildId = oConfig.defaultGuildId;
-const sDefaultGuildChannelId = oConfig.defaultChannelId;
-const sDefaultVoiceChannelId = oConfig.defaultVoiceChannelId;
-const sDefaultImageChannelId = oConfig.defaultImageChannelId;
-const sPlayMessage = oConfig.playMessage;
-const sCommandPrefix = oConfig.commandPrefix;
-const sStartMessage = sVersion + " " + oConfig.startMessage;
+const sVersion = version;
+const sDefaultGuildName = defaultGuildName;
+const sDefaultGuildId = defaultGuildId;
+const sDefaultGuildChannelId = defaultChannelId;
+const sDefaultVoiceChannelId = defaultVoiceChannelId;
+const sDefaultImageChannelId = defaultImageChannelId;
+const sPlayMessage = playMessage;
+const sCommandPrefix = commandPrefix;
+const sStartMessage = sVersion + " " + startMessage;
 
 /**
  * Initiates default variables
@@ -89,22 +88,22 @@ oClient.on("ready", async () => {
   }
 
   // start dndbeyond post polling
-  oDndBeyondRequestHandler.scheduleDndBeyondEvent(oDefaultChannel);
+  scheduleDndBeyondEvent(oDefaultChannel);
 
   //initialize persitence for custom commands
-  oMessageHandler.updateCommandMap();
+  updateCommandMap();
 
   // Set the client user's presence
   oClient.user.setPresence({ activities: [{ name: sPlayMessage }], status: sVersion });
 
   // Start a healthcheck for curling the apps state
-  oServer.startHealthcheck()
+  startHealthcheck()
 
   oDefaultChannel.send(sStartMessage);
 
-  const aUsers = oCacheManager.fetchCache(oClient.users);
-  const aChannels = oCacheManager.fetchCache(oClient.channels);
-  const aGuilds = oCacheManager.fetchCache(oClient.guilds);
+  const aUsers = fetchCache(oClient.users);
+  const aChannels = fetchCache(oClient.channels);
+  const aGuilds = fetchCache(oClient.guilds);
   console.log(
     `Bot has started, with ${aUsers.length} users, in ${aChannels.length} channels of ${aGuilds.length} guilds.`
   );
@@ -119,8 +118,8 @@ oClient.on("ready", async () => {
 oClient.on("messageCreate", async (oMessage) => {
 
   // Check for any relevant game session
-  if (oWWIGameManager.isActive(oMessage)) 
-    oWWIGameManager.guessForGame(oMessage);
+  if (isActive(oMessage)) 
+    guessForGame(oMessage);
 
   if (oMessage.content.charAt(0) !== sCommandPrefix) return;
   if (oMessage.content.length < 2) return;
@@ -135,49 +134,49 @@ oClient.on("messageCreate", async (oMessage) => {
      * general functions
      */
     case "play":
-      oYoutubeStreamingHandler.playYoutubeLink(aCommand[1], oMessage, oClient);
+      playYoutubeLink(aCommand[1], oMessage, oClient);
       break;
     case "stop":
-      oYoutubeStreamingHandler.stopYoutubeLink(oClient);
+      stopYoutubeLink(oClient);
       break;
     case "help":
-      oMessageHandler.printHelpMessage(oMessage);
+      printHelpMessage(oMessage);
       break;
     case "mhhelp":
-      oMessageHandler.printMhHelpMessage(oMessage);
+      printMhHelpMessage(oMessage);
       break;
     case "uptime":
-      oMessageHandler.printUptimeMessage(oUtility, oMessage, oStartedDate);
+      printUptimeMessage(oUtility, oMessage, oStartedDate);
       break;
     /**
      * Game functions
      */
     case "wwi":
-      oWWIGameManager.delegate(oMessage);
+      delegate(oMessage);
       break;
     /**
      * Monster hunter functions
      */
     case "weaponstrength":
-      oMessageHandler.handleWeaponCalculation(
+      handleWeaponCalculation(
         aCommand.slice(1, aCommand.length),
         oMessage
       );
       break;
     case "weaponcompare":
-      oMessageHandler.handleWeaponCompare(
+      handleWeaponCompare(
         aCommand.slice(1, aCommand.length),
         oMessage
       );
       break;
     case "motionvalues":
-      oMessageHandler.getWeaponMV(aCommand.slice(1, aCommand.length), oMessage);
+      getWeaponMV(aCommand.slice(1, aCommand.length), oMessage);
       break;
     case "armorsets":
-      oMessageHandler.getArmorSpreadsheetUrl(oMessage);
+      getArmorSpreadsheetUrl(oMessage);
       break;
     case "kiranico":
-      oMessageHandler.getKiranicoUrl(
+      getKiranicoUrl(
         aCommand.splice(1, aCommand.length),
         oMessage
       );
@@ -186,35 +185,35 @@ oClient.on("messageCreate", async (oMessage) => {
      * youtube functions
      */
     case "youtubesearch":
-      oMessageHandler.getYoutubeSearch(
+      getYoutubeSearch(
         aCommand.splice(1, aCommand.length),
         oMessage,
-        oApiConfig.youtubeClient
+        youtubeClient
       );
       break;
     /**
      * Custom command functions
      */
     case "addcustom":
-      oMessageHandler.addCustomCommand(
+      addCustomCommand(
         aCommand.splice(1, aCommand.length),
         oMessage
       );
       break;
     case "deletecustom":
-      oMessageHandler.deleteCustomCommand(
+      deleteCustomCommand(
         aCommand.splice(1, aCommand.length),
         oMessage
       );
       break;
     case "showcustom":
-      oMessageHandler.printCustomCommands(oMessage);
+      printCustomCommands(oMessage);
       break;
     /**
      * Adding roles to user
      */
     case "giverole":
-      oMessageHandler.addRoleToUser(
+      addRoleToUser(
         aCommand.splice(1, aCommand.length).join(" "),
         oMessage
       );
@@ -223,11 +222,11 @@ oClient.on("messageCreate", async (oMessage) => {
      * get new posts from dndbeyond
      */
     case "dndposts":
-      oDndBeyondRequestHandler.getNewPosts(oMessage)
+      getNewPosts(oMessage)
       break;
     default:
-      if (oMessageHandler.isCustomCommand(aCommand[0])) {
-        oMessageHandler.executeCustomCommand(aCommand[0], oMessage);
+      if (isCustomCommand(aCommand[0])) {
+        executeCustomCommand(aCommand[0], oMessage);
       }
   }
 
@@ -238,7 +237,7 @@ oClient.on("messageCreate", async (oMessage) => {
   );
   const sLog =
     "Event tigger command: <" + aCommand[0] + "> at " + oDate.toUTCString();
-  oUtility.writeLogFile(sLog);
+  writeLogFile(sLog);
   console.log(sLog);
 });
 
@@ -246,7 +245,7 @@ oClient.on("messageCreate", async (oMessage) => {
  * Event for logging voiceChannel updates
  **/
 oClient.on("voiceStateUpdate", (oldVoiceState, newVoiceState) => {
-  oVoiceHandler.handleEventLogging(
+  handleEventLogging(
     oUtility,
     oldVoiceState,
     newVoiceState,
@@ -260,7 +259,7 @@ oClient.on("voiceStateUpdate", (oldVoiceState, newVoiceState) => {
 oClient.on("presenceUpdate", (oldMember, newMember) => {
   //user comes online or goes offline
   if (oldMember.presence.status !== newMember.presence.status) {
-    oPresenceHandler.handleStatusUpdate(
+    handleStatusUpdate(
       oUtility,
       newMember,
       oldMember,
@@ -269,7 +268,7 @@ oClient.on("presenceUpdate", (oldMember, newMember) => {
   }
   //user starts playing a game
   else if (oldMember.presence.game !== newMember.presence.game) {
-    oPresenceHandler.handleGameUpdate(
+    handleGameUpdate(
       oUtility,
       newMember,
       oldMember,
@@ -282,10 +281,10 @@ oClient.on("error", (oError) => {
   const sMessage = "An generic error haz okuued: " + oError.message;
   console.log(oError)
   console.log(sMessage);
-  oUtility.writeLogFile(sMessage);
+  writeLogFile(sMessage);
 });
 
 //login with private token from config.json
 console.log("PreLogin");
-oClient.login(oApiConfig.token).then((r) => console.log("LOGIN EVENT " + r));
+oClient.login(token).then((r) => console.log("LOGIN EVENT " + r));
 console.log("PostLogin");

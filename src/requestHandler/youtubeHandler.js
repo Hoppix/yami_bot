@@ -1,8 +1,8 @@
 /**
  * created by IrateGod on 20/10/2018
  */
-var request = require('request');
-var q = require('q');
+import request from 'request';
+import { defer as _defer } from 'q';
 
 /**
  * Look up a specified YouTube video. Only match the first result.
@@ -11,7 +11,7 @@ var q = require('q');
  * @param apiKey YouTube API key
  */
 function youtubeSearchRequest(aSearchQuery, apiKey) {
-    const defer = q.defer();
+    const defer = _defer();
     const YOUTUBE_API_URL_BASE = "https://www.googleapis.com/youtube/v3/search";
     const oCall = {
         uri: YOUTUBE_API_URL_BASE,
@@ -48,4 +48,5 @@ function youtubeSearchRequest(aSearchQuery, apiKey) {
 }
 
 // exports
-module.exports.youtubeSearchRequest = youtubeSearchRequest;
+const _youtubeSearchRequest = youtubeSearchRequest;
+export { _youtubeSearchRequest as youtubeSearchRequest };
