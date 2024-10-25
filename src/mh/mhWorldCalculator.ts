@@ -1,7 +1,7 @@
 /**
  * Created by khopf on 29/12/2017.
  */
-import mhDatacollection from './mhWorldDatacollection.js';
+import * as mhDatacollection from './mhWorldDatacollection.js';
 import {mhCalculator} from './mhCalculator';
 
 interface Dummy {
