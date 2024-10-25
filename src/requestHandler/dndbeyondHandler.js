@@ -1,8 +1,8 @@
 /**
  * @author hoppix
  */
-import { get } from "request-promise";
-import { load } from "cheerio";
+const request = require("request-promise");
+const cheerio = require("cheerio");
 
 const requestConfig = {
   url: "http://www.dndbeyond.com/posts",
@@ -35,8 +35,8 @@ async function getNewPosts(oGuildMessage) {
 
 async function scrapeDndBeyondArticles(conf) {
   try {
-    const html = await get(conf)
-    const document = load(html);
+    const html = await request.get(conf)
+    const document = cheerio.load(html);
     const articlesElements = document("article");
   
     let articles = parseArticles(document, articlesElements);
@@ -128,7 +128,5 @@ if (require.main === module) {
 }
 
 // exports
-const _scheduleDndBeyondEvent = scheduleDndBeyondEvent;
-export { _scheduleDndBeyondEvent as scheduleDndBeyondEvent };
-const _getNewPosts = getNewPosts;
-export { _getNewPosts as getNewPosts };
+module.exports.scheduleDndBeyondEvent = scheduleDndBeyondEvent;
+module.exports.getNewPosts = getNewPosts;

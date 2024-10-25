@@ -120,20 +120,15 @@ for (let i = 0; i < 14; i++) {
 }
 
 //load the hitzone json files for each Dummy
-import oPhysicalDummy from '../../resources/MH_Data/WorldMonsterLists/physicalDummy.json';
-import oElementalDummy from '../../resources/MH_Data/WorldMonsterLists/elementalDummy.json';
+const oPhysicalDummy = require('../../resources/MH_Data/WorldMonsterLists/physicalDummy.json');
+const oElementalDummy = require('../../resources/MH_Data/WorldMonsterLists/elementalDummy.json');
 
 
-const _mhMvMapMap = mhMvMapMap;
-export { _mhMvMapMap as mhMvMapMap };
-const _mhBloatMap = mhBloatMap;
-export { _mhBloatMap as mhBloatMap };
-const _mhSharpPhysicalMap = mhSharpPhysicalMap;
-export { _mhSharpPhysicalMap as mhSharpPhysicalMap };
-const _mhSharpElementalMap = mhSharpElementalMap;
-export { _mhSharpElementalMap as mhSharpElementalMap };
-const _mhMvEstimatedMap = mhMvEstimatedMap;
-export { _mhMvEstimatedMap as mhMvEstimatedMap };
-export const mhPhysicalDummy = oPhysicalDummy;
-export const mhElementalDummy = oElementalDummy;
-export const bowElementalMv = 62.625;
+module.exports.mhMvMapMap = mhMvMapMap;
+module.exports.mhBloatMap = mhBloatMap;
+module.exports.mhSharpPhysicalMap = mhSharpPhysicalMap;
+module.exports.mhSharpElementalMap = mhSharpElementalMap;
+module.exports.mhMvEstimatedMap = mhMvEstimatedMap;
+module.exports.mhPhysicalDummy = oPhysicalDummy;
+module.exports.mhElementalDummy = oElementalDummy;
+module.exports.bowElementalMv = 62.625;

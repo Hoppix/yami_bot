@@ -1,10 +1,10 @@
 import { mock, instance, when } from "ts-mockito"
-import { TextChannel, Message, GuildMember, User } from "discord.js";
+import { TextChannel, MessageManager, Snowflake, Message, GuildMember, User } from "discord.js";
 
 import { dataProvider } from "../src/game/whoWroteIt/dataProvider";
 import { gameConfig } from "../src/game/whoWroteIt/gameConfig";
 
-import assert from 'assert';
+const assert = require('assert');
 
 
 describe('DataProviderTest', function () {

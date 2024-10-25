@@ -1,4 +1,4 @@
-import { TextChannel, MessageManager,  Message, GuildMember } from "discord.js";
+import { TextChannel, MessageManager, Snowflake, Message, GuildMember } from "discord.js";
 
 import { gameConfig } from "./gameConfig"
 
