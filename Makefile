@@ -1,15 +1,9 @@
-compile:
-	echo "Clearing build..."
-	rm -rf build
-	mkdir build
-	echo "Copying resources..."
-	cp -r resources build
-	echo "Generating js from typescript files..."
-	npx tsc
-
 start:
-	node build/src/bot.js
+	uv run python src/bot.py
 
 check:
-	echo "Running mocha tests..."
-	npm test
+	uv run pytest
+
+lint:
+	uv run ruff check src test
+	uv run ruff format --check src test

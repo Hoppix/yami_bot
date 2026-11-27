@@ -5,3 +5,7 @@ logs
 commands
 pi-backup
 resources/api_config.json
+.venv
+__pycache__
+.ruff_cache
+.pytest_cache

@@ -1,22 +1,24 @@
-FROM node:23-bookworm
+FROM python:3.14-slim
 
-# Create app directory
-WORKDIR /usr/src/yami
+COPY --from=ghcr.io/astral-sh/uv:0.13 /uv /bin/uv
 
+# the app lives in .../build so the token mount path on the Pi stays the same as for the js version
+WORKDIR /usr/src/yami/build
 
-RUN set -x \
-    && apt-get update -y \
-    && apt-get dist-upgrade -y \
-    && apt-get install -y --no-install-recommends \
-        ffmpeg 
+# ffmpeg for voice playback, curl for the docker healthcheck
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ffmpeg curl \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    UV_PYTHON_DOWNLOADS=never \
+    PYTHONUNBUFFERED=1 \
+    PATH="/usr/src/yami/build/.venv/bin:$PATH"
 
-RUN npm install
+COPY pyproject.toml uv.lock .python-version ./
+RUN uv sync --frozen --no-dev --no-install-project
+
 COPY . .
-RUN make compile
 
-CMD [ "node", "build/src/bot.js" ]
+CMD ["python", "src/bot.py"]

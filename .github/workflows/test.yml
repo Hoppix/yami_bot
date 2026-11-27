@@ -18,10 +18,8 @@ jobs:
     runs-on: ubuntu-24.04-arm
     steps:
     - uses: actions/checkout@v7
-    - uses: actions/setup-node@v7
-      with:
-        node-version: 23
-    - run: npm install
+    - uses: astral-sh/setup-uv@v10
+    - run: uv sync --frozen
     - name: allow ci scripts
       run: chmod 777 ci/*.sh
     - name: write api config for smoke test
@@ -33,17 +31,8 @@ jobs:
           "youtubeClient": "${{ secrets.YOUTUBECLIENT }}"
         }
         EOF
-    - name: create temp files
-      run: |
-        mkdir logs
-        touch logs/log.txt
-        mkdir resources/commands
-        touch resources/commands/custom.json
-        cat << EOF > resources/commands/custom.json
-        []
-        EOF
-    - name: build typescript
-      run: make compile
+    - name: lint
+      run: make lint
     - name: run tests
       run: make check
     - name: Build and run the image
