@@ -1,5 +1,6 @@
 import json
 import logging
+import sys
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -25,6 +26,7 @@ def configureLogging() -> None:
     plus the persisted event log (voice/presence/commands) in the configured logfile
     """
     logging.basicConfig(
+        stream=sys.stdout,
         level=logging.INFO,
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     )
