@@ -1,4 +1,4 @@
-FROM node:23-bookworm
+FROM node:24-bookworm
 
 # Create app directory
 WORKDIR /usr/src/yami

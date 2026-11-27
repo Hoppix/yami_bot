@@ -4,7 +4,7 @@ import { TextChannel, MessageManager, Snowflake, Message, GuildMember, User } fr
 import { dataProvider } from "../src/game/whoWroteIt/dataProvider";
 import { gameConfig } from "../src/game/whoWroteIt/gameConfig";
 
-const assert = require('assert');
+import assert from "assert";
 
 
 describe('DataProviderTest', function () {

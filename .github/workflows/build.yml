@@ -16,10 +16,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
-        node-version: 23
+        node-version: 24
     - run: npm install
     - name: allow ci scripts
       run: chmod 777 ci/*.sh
@@ -28,7 +28,6 @@ jobs:
         cat << EOF > resources/api_config.json
         {
           "token":  "${{ secrets.DISCORDTOKEN }}",
-          "twitchClient": "${{ secrets.TWITCHTOKEN }}",
           "youtubeClient": "${{ secrets.YOUTUBECLIENT }}"
         }
         EOF

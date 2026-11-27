@@ -134,4 +134,4 @@ class gameManager {
     }
 }
 
-module.exports = new gameManager();
+export default new gameManager();

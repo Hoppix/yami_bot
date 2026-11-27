@@ -1,17 +1,16 @@
 import { mhCalculator } from "./mhCalculator";
-const oMhWorldCalculator = require("../mh/mhWorldCalculator.js");
+import { worldCalculator } from "./mhWorldCalculator";
 
 class mhCalculatorManager {
     calculator: mhCalculator;
 
     constructor() {
-        this.calculator = oMhWorldCalculator;
+        this.calculator = worldCalculator;
     }
 
-    set(calculatorDefinition: string ): string{
-
+    set(calculatorDefinition: string): string {
         if (calculatorDefinition === "world") {
-            this.calculator = oMhWorldCalculator;
+            this.calculator = worldCalculator;
         }
         return "Current calculator set to: " + this.calculator.calculatorName;
     }
@@ -21,4 +20,4 @@ class mhCalculatorManager {
     }
 }
 
-module.exports = new mhCalculatorManager();
+export default new mhCalculatorManager();
