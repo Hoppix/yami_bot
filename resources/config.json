@@ -4,7 +4,6 @@
   "defaultChannelId": "307629566938054656",
   "defaultVoiceChannelId": "203989186947186688",
   "defaultImageChannelId": "449693701250220056",
-  "version": "v3.0.0",
   "playMessage": "Type: !help",
   "commandPrefix": "!",
   "startMessage": "Yami: now with games!",

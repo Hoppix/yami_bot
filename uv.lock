@@ -703,7 +703,7 @@ wheels = [
 [[package]]
 name = "yami-bot"
 version = "3.0.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "aiohttp" },
     { name = "beautifulsoup4" },

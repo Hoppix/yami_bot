@@ -1,69 +1,112 @@
-# YAMI_BOT
-Discord bot made with nodejs and discordjs
+# Yami 🌙
+
+A Discord bot for our server, written in Python with [discord.py](https://discordpy.readthedocs.io/).
+It's a pastime project, so the features are a bit all over the place. :)
 
 ![](yami_image.png)
 
-## Functions
-- Plays Youtube videos in voice channel
-- Youtube search with query
-- Weapon calculation for Monster Hunter
-  * Rise
-  * World
-- Monster Hunter Motionvalue printtables
-- Generating Custom Commands
-- Querying DnDBeyond.com for new posts and articles
+## ✨ Features
 
-## In developement
-- Searching anime shows on MAL via a command
+### Commands
 
+| Command | What it does |
+|---|---|
+| `!help` | Lists the general commands |
+| `!play <youtube link>` | Joins your voice channel and plays the audio |
+| `!stop` | Stops playback and leaves the channel |
+| `!youtubesearch <query>` | Replies with the first matching video |
+| `!uptime` | How long Yami has been running |
+| `!giverole <role>` | Gives you a role, if it's not above your highest one |
+| `!dndposts` | DnDBeyond posts from the last 7 days |
 
-... This bot is my past time project so any idea I throw at it, so the features may seem a little bit over the place. :)
+### 🎮 WhoWroteIt
 
-### Data Sources and APIs
-http://kiranico.com/ <br/>
-https://3000hunter.com/ <br/>
-https://discord.js.org <br/>
-https://developers.google.com/youtube/  
-https://dndbeyond.com  
-https://myanimelist.net
+`!wwi <name> <name> ...` starts a game in the current channel. Yami picks an old message (more than 5 words, no links)
+from one of the players and everyone guesses who wrote it by typing a name. The first correct guess wins.
+`!wwi abort` stops a running game.
 
-### Prerequisites
-- Python 3.14 and [uv](https://docs.astral.sh/uv/)
-- ffmpeg for voice playback
-- make
-- docker for deployment
+### 📝 Custom commands
 
-### Installation and Deployment
-- Clone this repository via ```git clone https://github.com/Hoppix/yami_bot ```
-- Install all needed dependencies with ```uv sync```
-- Create ``resources/api_config.json `` with
+| Command | What it does |
+|---|---|
+| `!addcustom <name> <text>` | Creates `!<name>`, which replies with the text |
+| `!deletecustom <name>` | Deletes it again |
+| `!showcustom` | Lists all custom commands |
+
+### 🐉 Monster Hunter World
+
+| Command | What it does |
+|---|---|
+| `!mhhelp` | Lists the Monster Hunter commands and parameters |
+| `!weaponstrength <sharpness> <attack> <affinity> <element> <weapon>` | Average damage per hit against a generic target |
+| `!weaponcompare <4 values weapon 1> <4 values weapon 2> <weapon>` | Which weapon is better, and by how much |
+| `!motionvalues <weapon>` | Motion values for every attack of a weapon type |
+| `!kiranico [category] [object]` | Link to [Kiranico](https://mhworld.kiranico.com) |
+| `!armorsets` | Link to the armor set spreadsheet |
+
+### In the background
+
+- 🔊 Announces when someone joins, leaves or switches a voice channel
+- 📜 Checks DnDBeyond every 12 hours and posts new articles
+- 🩺 Health endpoint on `:8080/actuator/health`
+
+## 🛠️ Development
+
+You need Python 3.14, [uv](https://docs.astral.sh/uv/), ffmpeg (for voice) and make.
+
+```bash
+uv sync
+make start   # run the bot
+make check   # pytest
+make lint    # ruff check + format check
+```
+
+The bot needs two config files in `resources/`. `api_config.json` holds the secrets and is gitignored:
+
 ```json
 {
-  "token": "your discord apikey",
-  "youtubeClient": "your google apikey",
-} 
+  "token": "your discord bot token",
+  "youtubeClient": "your google api key"
+}
 ```
-- Create ``resources/config.json``
+
+`config.json` holds the server setup:
+
 ```json
 {
   "defaultGuildName": "name",
   "defaultGuildId": "id",
-  "defaultChannelId": "id",
+  "defaultChannelId": "id for announcements",
   "defaultVoiceChannelId": "id",
   "defaultImageChannelId": "id",
-  "version": "1.0.0",
-  "playMessage": "message that shows as status",
+  "playMessage": "status text",
   "commandPrefix": "!",
-  "startMessage": "the message at startup",
-  "customCommandsPath": "path/to/custom/command/file.json",
-  "logFilePath": "path/to/log.txt"
+  "startMessage": "message posted on startup",
+  "customCommandsPath": "/tmp/yami/commands/custom.json",
+  "logFilePath": "/tmp/yami/logs/log.txt"
 }
 ```
-- Run the application via ```make start```
-- Run tests and linting via ```make check``` and ```make lint```
-- Production runs as a Docker image on a Raspberry Pi, see ``deploy/docker-compose.yml``
 
-### Authors
+In the Discord developer portal, enable the **Message Content** and **Server Members** intents for the bot.
+Use a separate test bot for local development.
+
+## 🚀 Deployment
+
+Work happens on `dev`. A PR into `main` (protected, needs green CI) deploys:
+
+1. `publish.yml` builds the arm64 image, bumps the patch version from the last `vX.Y.*` tag and pushes it to
+   `ghcr.io/hoppix/yami_bot` as `:prod`, `:<version>` and `:<commit>`
+2. The Raspberry Pi pulls `:prod` every 5 minutes and restarts Yami, see `deploy/docker-compose.yml`
+
+Major and minor versions are bumped by hand with `uv version --bump minor` (or `major`).
+
+## 🔗 Sources
+
+[Kiranico](https://mhworld.kiranico.com) · [YouTube Data API](https://developers.google.com/youtube/) ·
+[DnDBeyond](https://www.dndbeyond.com) · [yt-dlp](https://github.com/yt-dlp/yt-dlp)
+
+## 👥 Authors
+
 @IrateGod Irate#0002 <br />
 @Rathalos93 Wolf#4328 <br />
 @Hoppix Hoppix#6723
