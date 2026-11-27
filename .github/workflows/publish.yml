@@ -1,0 +1,31 @@
+name: Publish Yami
+
+# main only changes through PRs that passed test.yml (branch protection)
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+concurrency: publish
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04-arm
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - uses: actions/checkout@v7
+    - uses: docker/login-action@v4
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - uses: docker/build-push-action@v7
+      with:
+        context: .
+        push: true
+        tags: |
+          ghcr.io/hoppix/yami_bot:prod
+          ghcr.io/hoppix/yami_bot:${{ github.sha }}
+        labels: org.opencontainers.image.source=https://github.com/${{ github.repository }}
