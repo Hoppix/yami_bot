@@ -51,6 +51,12 @@ class Yami(commands.Bot):
             await self.add_cog(cog)
         self.tree.on_error = on_app_command_error
 
+        await server.start_healthcheck(self)
+        self.loop.create_task(self.sync_commands())
+        self.loop.create_task(self.announce_start())
+
+    async def sync_commands(self) -> None:
+        """in the background, because discord rate limits syncs and startup should not wait for that"""
         # guild commands show up instantly, global ones can take an hour
         self.tree.copy_global_to(guild=default_guild)
         try:
@@ -58,9 +64,6 @@ class Yami(commands.Bot):
             logger.info("Synced %s commands", len(synced))
         except discord.HTTPException:
             logger.exception("Could not sync commands, is the bot invited with the applications.commands scope?")
-
-        await server.start_healthcheck(self)
-        self.loop.create_task(self.announce_start())
 
     async def announce_start(self) -> None:
         await self.wait_until_ready()
