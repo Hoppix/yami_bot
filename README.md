@@ -51,7 +51,6 @@ https://myanimelist.net
   "defaultChannelId": "id",
   "defaultVoiceChannelId": "id",
   "defaultImageChannelId": "id",
-  "version": "1.0.0",
   "playMessage": "message that shows as status",
   "commandPrefix": "!",
   "startMessage": "the message at startup",

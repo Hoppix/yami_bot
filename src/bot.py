@@ -1,6 +1,7 @@
 import logging
 import time
 from datetime import UTC, datetime
+from importlib.metadata import version as package_version
 
 import discord
 
@@ -32,7 +33,7 @@ started_time = time.monotonic()
 api_config = utility.load_resource("api_config.json")
 config = utility.config
 
-version: str = config["version"]
+version = package_version("yami-bot")
 default_guild_name: str = config["defaultGuildName"]
 default_guild_id = int(config["defaultGuildId"])
 default_guild_channel_id = int(config["defaultChannelId"])
@@ -40,7 +41,7 @@ default_voice_channel_id = int(config["defaultVoiceChannelId"])
 default_image_channel_id = int(config["defaultImageChannelId"])
 play_message: str = config["playMessage"]
 command_prefix: str = config["commandPrefix"]
-start_message = f"{version} {config['startMessage']}"
+start_message = f"v{version} {config['startMessage']}"
 
 default_channel: discord.TextChannel | None = None
 initialized = False
