@@ -5,7 +5,7 @@ compile:
 	echo "Copying resources..."
 	cp -r resources build
 	echo "Generating js from typescript files..."
-	tsc
+	npx tsc
 
 start:
 	node build/src/bot.js
