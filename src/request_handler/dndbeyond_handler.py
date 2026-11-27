@@ -1,6 +1,5 @@
 """@author hoppix"""
 
-import asyncio
 import logging
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
@@ -23,7 +22,6 @@ HEADERS = {
     ),
 }
 DAYS = 7
-POLL_INTERVAL_SECONDS = 12 * 60 * 60  # every 12 hours, because cronjobs are too hard
 
 
 @dataclass
@@ -35,21 +33,14 @@ class Article:
     link: str | None
 
 
-def schedule_dnd_beyond_event(chat_channel: discord.TextChannel) -> asyncio.Task[None]:
-    """Repeated polling and scraping the dndbeyond posts"""
-
-    async def event_loop() -> None:
-        while True:
-            await asyncio.sleep(POLL_INTERVAL_SECONDS)
-            articles = await scrape_dnd_beyond_articles()
-            await send_discord_message(chat_channel, articles)
-
-    return asyncio.create_task(event_loop())
-
-
-async def get_new_posts(message: discord.Message) -> None:
+async def get_new_posts() -> str:
     articles = await scrape_dnd_beyond_articles()
-    await message.reply(parse_message(articles))
+    return parse_message(articles)
+
+
+def unseen_articles(articles: list[Article], seen_links: set[str]) -> list[Article]:
+    """articles whose link was not posted yet"""
+    return [article for article in articles if article.link and article.link not in seen_links]
 
 
 async def scrape_dnd_beyond_articles() -> list[Article]:

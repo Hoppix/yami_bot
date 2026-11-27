@@ -22,18 +22,14 @@ jobs:
     - run: uv sync --frozen
     - name: allow ci scripts
       run: chmod 777 ci/*.sh
-    - name: write api config for smoke test
-      run: |
-        cat << EOF > resources/api_config.json
-        {
-          "token":  "${{ secrets.DISCORDTOKEN }}",
-          "youtubeClient": "${{ secrets.YOUTUBECLIENT }}"
-        }
-        EOF
+    - name: write .env for smoke test
+      run: echo "DISCORDTOKEN=${{ secrets.DISCORDTOKEN }}" > .env
     - name: lint
-      run: make lint
+      run: |
+        uv run ruff check src test
+        uv run ruff format --check src test
     - name: run tests
-      run: make check
+      run: uv run pytest
     - name: Build and run the image
       run: ./ci/build_and_run.sh
     - name: Run smoke test

@@ -1,4 +1,0 @@
-{
-    "port": 8080,
-    "healthcheck_path": "/actuator/health"  
-}

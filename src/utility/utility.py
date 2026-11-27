@@ -5,6 +5,8 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from config import CONFIG
+
 RESOURCES_PATH = Path(__file__).resolve().parents[2] / "resources"
 
 logger = logging.getLogger(__name__)
@@ -17,9 +19,6 @@ def load_resource(name: str) -> Any:
         return json.load(file)
 
 
-config = load_resource("config.json")
-
-
 def configure_logging() -> None:
     """
     console logging for everything,
@@ -30,7 +29,7 @@ def configure_logging() -> None:
         level=logging.INFO,
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     )
-    logfile = Path(config["logFilePath"])
+    logfile = Path(CONFIG.log_file_path)
     logfile.parent.mkdir(parents=True, exist_ok=True)
     file_handler = logging.FileHandler(logfile, encoding="utf8")
     file_handler.setFormatter(logging.Formatter("%(asctime)s: %(message)s"))
@@ -81,16 +80,6 @@ def read_json_file(file: str) -> dict[str, str]:
     return dict(json.loads(content))
 
 
-def uptime_since(date: datetime) -> dict[str, int]:
-    """returns the passed time since date in hours, minutes, seconds"""
-    diff = int((datetime.now(UTC) - date).total_seconds())
-    return {
-        "hours": diff // 3600,
-        "minutes": (diff % 3600) // 60,
-        "seconds": diff % 60,
-    }
-
-
 def ms_to_time(duration: int) -> dict[str, int]:
     """converts milliseconds into hours (mod 24), minutes, seconds"""
     return {
@@ -107,37 +96,3 @@ def get_date_from_date_string(date: str) -> datetime:
 
 def is_same_user_client(user_a: Any, user_b: Any) -> bool:
     return user_a.id == user_b.id
-
-
-def is_same_user_name(user_name_a: str | None, user_name_b: str | None) -> bool:
-    """
-    overengineered comparison function for usernames in the johndoe#1234 schema
-
-    no regex >:(
-
-    its tested tho :^)
-    """
-    DISCORD_ID_LENGTH = 5
-
-    if user_name_a == user_name_b:
-        return True
-    if not user_name_a or not user_name_b:
-        return False
-
-    user_name_a = user_name_a.lower()
-    user_name_b = user_name_b.lower()
-
-    if user_name_a == user_name_b:
-        return True
-
-    if "#" in user_name_a and "#" not in user_name_b:
-        simple_user_a = user_name_a[: len(user_name_a) - DISCORD_ID_LENGTH]
-        if simple_user_a == user_name_b:
-            return True
-
-    if "#" not in user_name_a and "#" in user_name_b:
-        simple_user_b = user_name_b[: len(user_name_b) - DISCORD_ID_LENGTH]
-        if user_name_a == simple_user_b:
-            return True
-
-    return False
