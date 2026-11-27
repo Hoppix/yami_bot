@@ -83,3 +83,9 @@ todo.md
 
 # backup of the old raspberry pi deployment
 /pi-backup
+
+# python
+.venv
+__pycache__/
+.ruff_cache/
+.pytest_cache/

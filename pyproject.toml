@@ -1,0 +1,29 @@
+[project]
+name = "yami-bot"
+version = "3.0.0"
+description = "Discord bot Yami"
+requires-python = ">=3.14"
+dependencies = [
+    "aiohttp>=3.14.5",
+    "beautifulsoup4>=4.15.0",
+    "discord-py[voice]>=2.7.1",
+    "python-dateutil>=4.0.0",
+    "yt-dlp>=2026.11.23",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.6",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["test"]
+
+[tool.ruff]
+src = ["src", "test"]
+line-length = 120
+
+[tool.ruff.lint]
+extend-select = ["I", "UP", "B"]
