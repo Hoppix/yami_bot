@@ -17,5 +17,6 @@ COPY package*.json ./
 
 RUN npm install
 COPY . .
+RUN make compile
 
 CMD [ "node", "build/src/bot.js" ]

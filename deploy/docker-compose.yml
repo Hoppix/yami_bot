@@ -1,0 +1,16 @@
+# Prod deployment on the Pi, lives in /opt/yami.
+# Auto-update via crontab of hoppix:
+#   */5 * * * * cd /opt/yami && docker compose pull -q && docker compose up -d && docker image prune -f
+services:
+  yami:
+    image: ghcr.io/hoppix/yami_bot:prod
+    restart: unless-stopped
+    volumes:
+      - ./config/api_config.json:/usr/src/yami/build/resources/api_config.json:ro
+      - ./data/commands:/tmp/yami/commands
+      - ./data/logs:/tmp/yami/logs
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "http://localhost:8080/actuator/health"]
+      interval: 1m
+      timeout: 5s
+      retries: 3

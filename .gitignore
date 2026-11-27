@@ -80,3 +80,6 @@ typings/
 
 # todo
 todo.md
+
+# backup of the old raspberry pi deployment
+/pi-backup
