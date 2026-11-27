@@ -12,7 +12,7 @@
     "@discordjs/voice": "^0.17.0",
     "bufferutil": "^4.0.8",
     "cheerio": "^1.0.0",
-    "discord.js": "^14.16.3",
+    "discord.js": "^14.28.1",
     "express": "^4.21.1",
     "ffmpeg": "0.0.4",
     "fs": "0.0.1-security",
