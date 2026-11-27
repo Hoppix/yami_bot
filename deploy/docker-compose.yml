@@ -7,7 +7,7 @@ services:
     image: ghcr.io/hoppix/yami_bot:prod
     restart: unless-stopped
     volumes:
-      - ./config/api_config.json:/usr/src/yami/build/resources/api_config.json:ro
+      - ./config/api_config.json:/app/resources/api_config.json:ro
       - ./data/commands:/tmp/yami/commands
       - ./data/logs:/tmp/yami/logs
     healthcheck:

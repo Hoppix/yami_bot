@@ -10,7 +10,6 @@ Discord bot made with nodejs and discordjs
   * Rise
   * World
 - Monster Hunter Motionvalue printtables
-- Event Message when a Twitch streamer goes online
 - Generating Custom Commands
 - Querying DnDBeyond.com for new posts and articles
 
@@ -29,31 +28,24 @@ https://dndbeyond.com
 https://myanimelist.net
 
 ### Prerequisites
-- Nodejs
-- Discord.js
-- YTDL with ffmpeg
-- tsc typescript compiler
+- Python 3.14 and [uv](https://docs.astral.sh/uv/)
+- ffmpeg for voice playback
 - make
 - docker for deployment
 
 ### Installation and Deployment
-- Clone this repository via ```git clone https://github.com/Hoppix/yami_bot_js ```
-- Install all needed dependencies with ````npm install ````
-- Create ``resources/commands/custom.json`` for custom command persistence
+- Clone this repository via ```git clone https://github.com/Hoppix/yami_bot ```
+- Install all needed dependencies with ```uv sync```
 - Create ``resources/api_config.json `` with
 ```json
 {
   "token": "your discord apikey",
-  "twitchClient": "your twitch apikey",
   "youtubeClient": "your google apikey",
 } 
 ```
 - Create ``resources/config.json``
 ```json
 {
-  "streamers": [
-    "streamer name here for notifications"
-  ],
   "defaultGuildName": "name",
   "defaultGuildId": "id",
   "defaultChannelId": "id",
@@ -67,10 +59,9 @@ https://myanimelist.net
   "logFilePath": "path/to/log.txt"
 }
 ```
-- Build the application via make: ```make compile```
 - Run the application via ```make start```
-- For running it on a server it´s recommended to use the provided Docker image:
-  - Run ``./ci/build_and_run.sh``
+- Run tests and linting via ```make check``` and ```make lint```
+- Production runs as a Docker image on a Raspberry Pi, see ``deploy/docker-compose.yml``
 
 ### Authors
 @IrateGod Irate#0002 <br />
