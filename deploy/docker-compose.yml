@@ -1,6 +1,7 @@
 # Prod deployment on the Pi, lives in /opt/yami.
 # Auto-update via crontab of hoppix:
-#   */5 * * * * cd /opt/yami && docker compose pull -q && docker compose up -d && docker image prune -f
+#   */5 * * * * flock -n /tmp/yami-deploy.lock sh -c 'cd /opt/yami && docker compose pull -q && docker compose up -d && docker image prune -f' 2>&1 | logger -t yami-deploy
+# Deploy output: journalctl -t yami-deploy
 services:
   yami:
     image: ghcr.io/hoppix/yami_bot:prod
@@ -14,3 +15,7 @@ services:
       interval: 1m
       timeout: 5s
       retries: 3
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
