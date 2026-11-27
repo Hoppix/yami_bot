@@ -27,22 +27,25 @@ class Moderator:
         return embed
 
     @staticmethod
-    async def send_default_game_message(content: str, target_channel: discord.TextChannel) -> None:
+    async def send_default_game_message(
+        content: str, target_channel: discord.TextChannel, view: discord.ui.View | None = None
+    ) -> discord.Message:
         logger.info(content)
-        await target_channel.send(embed=Moderator._game_embed(content, Moderator.GAME_COLOR))
+        embed = Moderator._game_embed(content, Moderator.GAME_COLOR)
+        if view is None:
+            return await target_channel.send(embed=embed)
+        return await target_channel.send(embed=embed, view=view)
 
     @staticmethod
-    async def send_start_game_message(
-        channel: discord.TextChannel, members: list[discord.Member], target_channel: discord.TextChannel
-    ) -> None:
+    def start_game_embed(channel: discord.TextChannel, members: list[discord.Member]) -> discord.Embed:
         member_mentions = " ".join(member.mention for member in members)
         content = f"Starting game with members: {member_mentions} in channel: {channel.mention}"
         logger.info(content)
-        await target_channel.send(embed=Moderator._game_embed(content, Moderator.GAME_COLOR))
+        return Moderator._game_embed(content, Moderator.GAME_COLOR)
 
     @staticmethod
     async def send_finish_game_message(
-        winner: discord.Member,
+        winner: discord.Member | discord.User,
         answer: discord.Message,
         channel: discord.TextChannel,
         target_channel: discord.TextChannel,

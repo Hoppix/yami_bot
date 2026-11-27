@@ -26,14 +26,15 @@ jobs:
       run: |
         cat << EOF > resources/api_config.json
         {
-          "token":  "${{ secrets.DISCORDTOKEN }}",
-          "youtubeClient": "${{ secrets.YOUTUBECLIENT }}"
+          "token":  "${{ secrets.DISCORDTOKEN }}"
         }
         EOF
     - name: lint
-      run: make lint
+      run: |
+        uv run ruff check src test
+        uv run ruff format --check src test
     - name: run tests
-      run: make check
+      run: uv run pytest
     - name: Build and run the image
       run: ./ci/build_and_run.sh
     - name: Run smoke test
