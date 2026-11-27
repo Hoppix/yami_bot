@@ -58,37 +58,20 @@ You need Python 3.14, [uv](https://docs.astral.sh/uv/), and ffmpeg (for voice).
 
 ```bash
 uv sync
-uv run src/bot.py # run the bot
-uv run pytest     # pytest
+uv run --env-file .env src/bot.py # run the bot
+uv run pytest                     # tests
+uv run ruff check src test        # lint, CI also runs ruff format --check
 ```
 
-The bot needs two config files in `resources/`. `api_config.json` holds the secrets and is gitignored:
+The server setup (guild and channel ids, messages, paths, health check) lives in `src/config.py`.
+The token goes into a gitignored `.env` in the repo root:
 
-```json
-{
-  "token": "your discord bot token"
-}
-```
-
-`config.json` holds the server setup:
-
-```json
-{
-  "defaultGuildName": "name",
-  "defaultGuildId": "id",
-  "defaultChannelId": "id for announcements",
-  "defaultVoiceChannelId": "id",
-  "defaultImageChannelId": "id",
-  "playMessage": "status text",
-  "commandPrefix": "!",
-  "startMessage": "message posted on startup",
-  "customCommandsPath": "/tmp/yami/commands/custom.json",
-  "logFilePath": "/tmp/yami/logs/log.txt"
-}
+```bash
+DISCORDTOKEN=your discord bot token
 ```
 
 In the Discord developer portal, enable the **Message Content** intent (WhoWroteIt reads old messages) and invite the
-bot with the `bot` and `applications.commands` scopes. The commands are synced to `defaultGuildId` on startup.
+bot with the `bot` and `applications.commands` scopes. The commands are synced to `default_guild_id` on startup.
 Use a separate test bot for local development.
 
 ## 🚀 Deployment
@@ -97,7 +80,8 @@ Work happens on `dev`. A PR into `main` (protected, needs green CI) deploys:
 
 1. `publish.yml` builds the arm64 image, bumps the patch version from the last `vX.Y.*` tag and pushes it to
    `ghcr.io/hoppix/yami_bot` as `:prod`, `:<version>` and `:<commit>`
-2. The Raspberry Pi pulls `:prod` every 5 minutes and restarts Yami, see `deploy/docker-compose.yml`
+2. The Raspberry Pi pulls `:prod` every 5 minutes and restarts Yami, see `deploy/docker-compose.yml`.
+   The prod token lives next to it in `config/.env`
 
 Major and minor versions are bumped by hand with `uv version --bump minor` (or `major`).
 

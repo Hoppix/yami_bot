@@ -2,13 +2,14 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
+from config import CONFIG
 from utility import utility
 
 EMBED_COLOR = 900000
 EMBED_FIELD_LIMIT = 25  # discord rejects embeds with more fields
 AUTOCOMPLETE_LIMIT = 25  # discord shows at most 25 suggestions
 
-commands_file: str = utility.config["customCommandsPath"]
+commands_file = CONFIG.custom_commands_path
 
 
 class CustomCommands(commands.GroupCog, group_name="custom", group_description="Commands anyone can create"):

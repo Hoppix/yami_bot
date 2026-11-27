@@ -1,4 +1,5 @@
 # Prod deployment on the Pi, lives in /opt/yami.
+# Token: config/.env with DISCORDTOKEN=..., chmod 600
 # Auto-update via crontab of hoppix:
 #   */5 * * * * flock -n /tmp/yami-deploy.lock sh -c 'cd /opt/yami && docker compose pull -q && docker compose up -d && docker image prune -f' 2>&1 | logger -t yami-deploy
 # Deploy output: journalctl -t yami-deploy
@@ -6,8 +7,8 @@ services:
   yami:
     image: ghcr.io/hoppix/yami_bot:prod
     restart: unless-stopped
+    env_file: ./config/.env
     volumes:
-      - ./config/api_config.json:/app/resources/api_config.json:ro
       - ./data/commands:/tmp/yami/commands
       - ./data/logs:/tmp/yami/logs
     healthcheck:

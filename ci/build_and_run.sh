@@ -6,5 +6,5 @@ set -o pipefail
 set -x
 
 sudo docker build -t yami_bot .
-sudo docker run -d -v "$PWD/resources/api_config.json:/app/resources/api_config.json:ro" -v /tmp/yami/logs:/tmp/yami/logs -v /tmp/yami/commands:/tmp/yami/commands yami_bot
+sudo docker run -d --env-file .env -v /tmp/yami/logs:/tmp/yami/logs -v /tmp/yami/commands:/tmp/yami/commands yami_bot
 

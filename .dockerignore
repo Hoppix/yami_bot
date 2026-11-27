@@ -5,6 +5,7 @@ logs
 commands
 pi-backup
 resources/api_config.json
+.env
 .venv
 __pycache__
 .ruff_cache

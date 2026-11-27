@@ -13,6 +13,7 @@ from cogs.general import General
 from cogs.monster_hunter import MonsterHunter
 from cogs.music import Music
 from cogs.who_wrote_it import WhoWroteIt
+from config import CONFIG
 from event_handler import voice_handler
 from healthcheck import server
 from utility import utility
@@ -20,14 +21,9 @@ from utility import utility
 utility.configure_logging()
 logger = logging.getLogger("yami")
 
-api_config = utility.load_resource("api_config.json")
-config = utility.config
-
 version = package_version("yami-bot")
-default_guild = discord.Object(id=int(config["defaultGuildId"]))
-default_guild_channel_id = int(config["defaultChannelId"])
-play_message: str = config["playMessage"]
-start_message = f"v{version} {config['startMessage']}"
+default_guild = discord.Object(id=CONFIG.default_guild_id)
+start_message = f"v{version} {CONFIG.start_message}"
 
 
 class Yami(commands.Bot):
@@ -39,7 +35,7 @@ class Yami(commands.Bot):
         super().__init__(
             command_prefix=commands.when_mentioned,
             intents=intents,
-            activity=discord.Game(play_message),
+            activity=discord.Game(CONFIG.play_message),
         )
         self.started_date = datetime.now(UTC)
         self.started_time = time.monotonic()
@@ -67,9 +63,9 @@ class Yami(commands.Bot):
 
     async def announce_start(self) -> None:
         await self.wait_until_ready()
-        channel = self.get_channel(default_guild_channel_id)
+        channel = self.get_channel(CONFIG.default_channel_id)
         if not isinstance(channel, discord.TextChannel):
-            logger.error("No channel with id %s found!", default_guild_channel_id)
+            logger.error("No channel with id %s found!", CONFIG.default_channel_id)
             return
         self.default_channel = channel
         logger.info("defaultChannel: %s", channel.name)
@@ -114,4 +110,4 @@ async def on_app_command_error(interaction: discord.Interaction, error: app_comm
 if __name__ == "__main__":
     logger.info("PreLogin")
     # log_handler=None: keep our logging configuration instead of discord.py's default
-    Yami().run(api_config["token"], log_handler=None)
+    Yami().run(CONFIG.discord_token, log_handler=None)

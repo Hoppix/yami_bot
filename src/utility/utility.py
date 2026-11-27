@@ -5,6 +5,8 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from config import CONFIG
+
 RESOURCES_PATH = Path(__file__).resolve().parents[2] / "resources"
 
 logger = logging.getLogger(__name__)
@@ -17,9 +19,6 @@ def load_resource(name: str) -> Any:
         return json.load(file)
 
 
-config = load_resource("config.json")
-
-
 def configure_logging() -> None:
     """
     console logging for everything,
@@ -30,7 +29,7 @@ def configure_logging() -> None:
         level=logging.INFO,
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     )
-    logfile = Path(config["logFilePath"])
+    logfile = Path(CONFIG.log_file_path)
     logfile.parent.mkdir(parents=True, exist_ok=True)
     file_handler = logging.FileHandler(logfile, encoding="utf8")
     file_handler.setFormatter(logging.Formatter("%(asctime)s: %(message)s"))
