@@ -56,9 +56,8 @@ You need Python 3.14, [uv](https://docs.astral.sh/uv/), ffmpeg (for voice) and m
 
 ```bash
 uv sync
-make start   # run the bot
-make check   # pytest
-make lint    # ruff check + format check
+uv run src/bot.py # run the bot
+uv run pytest     # pytest
 ```
 
 The bot needs two config files in `resources/`. `api_config.json` holds the secrets and is gitignored:
