@@ -12,17 +12,17 @@ class Comparison(TypedDict):
     value: float
 
 
-class mhCalculator(Protocol):
-    calculatorName: str
-    mhMvMapMap: dict[str, dict[str, list[int]]]
+class MhCalculator(Protocol):
+    calculator_name: str
+    mh_mv_map_map: dict[str, dict[str, list[int]]]
 
-    def calculateWeaponStrength(
+    def calculate_weapon_strength(
         self, sharpness: str, attack: float, affinity: float, elemental: float, weapon: str
     ) -> float | str:
         """Calculates the average hit of a weapon, or returns an error message."""
         ...
 
-    def compareWeaponStrength(
+    def compare_weapon_strength(
         self,
         sharpness: str,
         attack: float,

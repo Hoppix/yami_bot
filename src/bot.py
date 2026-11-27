@@ -4,13 +4,13 @@ from datetime import UTC, datetime
 
 import discord
 
-from eventHandler import messagehandler, presencehandler, voicehandler, youtubeStreamingHandler
-from game.whoWroteIt.manager import wwiGameManager
+from event_handler import message_handler, presence_handler, voice_handler, youtube_streaming_handler
+from game.who_wrote_it.manager import wwi_game_manager
 from healthcheck import server
-from requestHandler import dndbeyondHandler
-from utility import cacheManager, utility
+from request_handler import dndbeyond_handler
+from utility import cache_manager, utility
 
-utility.configureLogging()
+utility.configure_logging()
 logger = logging.getLogger("yami")
 
 intents = discord.Intents.none()
@@ -26,80 +26,80 @@ intents.dm_typing = True
 client = discord.Client(intents=intents)
 
 # starting date for checking uptime
-startedDate = datetime.now(UTC)
-startedTime = time.monotonic()
+started_date = datetime.now(UTC)
+started_time = time.monotonic()
 
-apiConfig = utility.loadResource("api_config.json")
+api_config = utility.load_resource("api_config.json")
 config = utility.config
 
 version: str = config["version"]
-defaultGuildName: str = config["defaultGuildName"]
-defaultGuildId = int(config["defaultGuildId"])
-defaultGuildChannelId = int(config["defaultChannelId"])
-defaultVoiceChannelId = int(config["defaultVoiceChannelId"])
-defaultImageChannelId = int(config["defaultImageChannelId"])
-playMessage: str = config["playMessage"]
-commandPrefix: str = config["commandPrefix"]
-startMessage = f"{version} {config['startMessage']}"
+default_guild_name: str = config["defaultGuildName"]
+default_guild_id = int(config["defaultGuildId"])
+default_guild_channel_id = int(config["defaultChannelId"])
+default_voice_channel_id = int(config["defaultVoiceChannelId"])
+default_image_channel_id = int(config["defaultImageChannelId"])
+play_message: str = config["playMessage"]
+command_prefix: str = config["commandPrefix"]
+start_message = f"{version} {config['startMessage']}"
 
-defaultChannel: discord.TextChannel | None = None
+default_channel: discord.TextChannel | None = None
 initialized = False
 
 
 @client.event
 async def on_ready() -> None:
     """Initiates default variables, on_ready fires again after reconnects so only once"""
-    global defaultChannel, initialized
+    global default_channel, initialized
     if initialized:
         logger.info("Reconnected")
         return
 
-    defaultGuild = client.get_guild(defaultGuildId) or await client.fetch_guild(defaultGuildId)
-    logger.info("defaultGuild: %s", defaultGuild)
+    default_guild = client.get_guild(default_guild_id) or await client.fetch_guild(default_guild_id)
+    logger.info("defaultGuild: %s", default_guild)
 
-    if not defaultGuild.channels:
-        logger.error("Guild %s has no channels!", defaultGuildName)
+    if not default_guild.channels:
+        logger.error("Guild %s has no channels!", default_guild_name)
         return
 
-    channel = defaultGuild.get_channel(defaultGuildChannelId)
+    channel = default_guild.get_channel(default_guild_channel_id)
     if not isinstance(channel, discord.TextChannel):
-        logger.error("No channel with id %s found!", defaultGuildChannelId)
+        logger.error("No channel with id %s found!", default_guild_channel_id)
         return
-    defaultChannel = channel
-    logger.info("defaultChannel: %s", defaultChannel.name)
+    default_channel = channel
+    logger.info("defaultChannel: %s", default_channel.name)
 
-    defaultImageChannel = defaultGuild.get_channel(defaultImageChannelId)
-    if not defaultImageChannel:
-        logger.error("No channel with id %s found!", defaultImageChannelId)
+    default_image_channel = default_guild.get_channel(default_image_channel_id)
+    if not default_image_channel:
+        logger.error("No channel with id %s found!", default_image_channel_id)
         return
-    logger.info("defaultImageChannel: %s", defaultImageChannel.name)
+    logger.info("defaultImageChannel: %s", default_image_channel.name)
 
-    if not defaultGuild.get_channel(defaultVoiceChannelId):
-        logger.error("No VoiceChannel with id %s found!", defaultVoiceChannelId)
+    if not default_guild.get_channel(default_voice_channel_id):
+        logger.error("No VoiceChannel with id %s found!", default_voice_channel_id)
         return
 
     initialized = True
 
     # start dndbeyond post polling
-    dndbeyondHandler.scheduleDndBeyondEvent(defaultChannel)
+    dndbeyond_handler.schedule_dnd_beyond_event(default_channel)
 
     # initialize persistence for custom commands
-    messagehandler.updateCommandMap()
+    message_handler.update_command_map()
 
-    await client.change_presence(activity=discord.Game(playMessage))
+    await client.change_presence(activity=discord.Game(play_message))
 
     # Start a healthcheck for curling the apps state
-    await server.startHealthcheck()
+    await server.start_healthcheck()
 
-    await defaultChannel.send(startMessage)
+    await default_channel.send(start_message)
 
-    users = cacheManager.fetchCache(client.users)
-    channels = cacheManager.fetchCache(client.get_all_channels())
-    guilds = cacheManager.fetchCache(client.guilds)
+    users = cache_manager.fetch_cache(client.users)
+    channels = cache_manager.fetch_cache(client.get_all_channels())
+    guilds = cache_manager.fetch_cache(client.guilds)
     logger.info("Bot has started, with %s users, in %s channels of %s guilds.", len(users), len(channels), len(guilds))
 
-    startupTime = round((time.monotonic() - startedTime) * 1000)
-    logger.info("Startup time: %sms", startupTime)
+    startup_time = round((time.monotonic() - started_time) * 1000)
+    logger.info("Startup time: %sms", startup_time)
 
 
 @client.event
@@ -107,10 +107,10 @@ async def on_message(message: discord.Message) -> None:
     """triggered on any message the client receives"""
 
     # Check for any relevant game session
-    if wwiGameManager.isActive(message):
-        await wwiGameManager.guessForGame(message)
+    if wwi_game_manager.is_active(message):
+        await wwi_game_manager.guess_for_game(message)
 
-    if not message.content.startswith(commandPrefix) or len(message.content) < 2:
+    if not message.content.startswith(command_prefix) or len(message.content) < 2:
         return
 
     command = message.content[1:].split(" ")
@@ -120,88 +120,88 @@ async def on_message(message: discord.Message) -> None:
     match name:
         # general functions
         case "play":
-            await youtubeStreamingHandler.playYoutubeLink(arguments[0] if arguments else None, message)
+            await youtube_streaming_handler.play_youtube_link(arguments[0] if arguments else None, message)
         case "stop":
-            await youtubeStreamingHandler.stopYoutubeLink()
+            await youtube_streaming_handler.stop_youtube_link()
         case "help":
-            await messagehandler.printHelpMessage(message)
+            await message_handler.print_help_message(message)
         case "mhhelp":
-            await messagehandler.printMhHelpMessage(message)
+            await message_handler.print_mh_help_message(message)
         case "uptime":
-            await messagehandler.printUptimeMessage(message, startedDate)
+            await message_handler.print_uptime_message(message, started_date)
         # game functions
         case "wwi":
-            await wwiGameManager.delegate(message)
+            await wwi_game_manager.delegate(message)
         # monster hunter functions
         case "weaponstrength":
-            await messagehandler.handleWeaponCalculation(arguments, message)
+            await message_handler.handle_weapon_calculation(arguments, message)
         case "weaponcompare":
-            await messagehandler.handleWeaponCompare(arguments, message)
+            await message_handler.handle_weapon_compare(arguments, message)
         case "motionvalues":
-            await messagehandler.getWeaponMV(arguments, message)
+            await message_handler.get_weapon_mv(arguments, message)
         case "armorsets":
-            await messagehandler.getArmorSpreadsheetUrl(message)
+            await message_handler.get_armor_spreadsheet_url(message)
         case "kiranico":
-            await messagehandler.getKiranicoUrl(arguments, message)
+            await message_handler.get_kiranico_url(arguments, message)
         # youtube functions
         case "youtubesearch":
-            await messagehandler.getYoutubeSearch(arguments, message, apiConfig["youtubeClient"])
+            await message_handler.get_youtube_search(arguments, message, api_config["youtubeClient"])
         # custom command functions
         case "addcustom":
-            await messagehandler.addCustomCommand(arguments, message)
+            await message_handler.add_custom_command(arguments, message)
         case "deletecustom":
-            await messagehandler.deleteCustomCommand(arguments, message)
+            await message_handler.delete_custom_command(arguments, message)
         case "showcustom":
-            await messagehandler.printCustomCommands(message)
+            await message_handler.print_custom_commands(message)
         # adding roles to user
         case "giverole":
-            await messagehandler.addRoleToUser(" ".join(arguments), message)
+            await message_handler.add_role_to_user(" ".join(arguments), message)
         # get new posts from dndbeyond
         case "dndposts":
-            await dndbeyondHandler.getNewPosts(message)
+            await dndbeyond_handler.get_new_posts(message)
         case _:
-            if messagehandler.isCustomCommand(command[0]):
-                await messagehandler.executeCustomCommand(command[0], message)
+            if message_handler.is_custom_command(command[0]):
+                await message_handler.execute_custom_command(command[0], message)
 
     # command logging for error trace
     log = f"Event trigger command: <{command[0]}> at {message.created_at.strftime('%a, %d %b %Y %H:%M:%S GMT')}"
-    utility.writeLogFile(log)
+    utility.write_log_file(log)
     logger.info(log)
 
 
 @client.event
 async def on_voice_state_update(
-    member: discord.Member, oldVoiceState: discord.VoiceState, newVoiceState: discord.VoiceState
+    member: discord.Member, old_voice_state: discord.VoiceState, new_voice_state: discord.VoiceState
 ) -> None:
     """Event for logging voiceChannel updates"""
-    if defaultChannel is None:
+    if default_channel is None:
         return
-    await voicehandler.handleEventLogging(member, oldVoiceState, newVoiceState, defaultChannel)
+    await voice_handler.handle_event_logging(member, old_voice_state, new_voice_state, default_channel)
 
 
 @client.event
-async def on_presence_update(oldMember: discord.Member, newMember: discord.Member) -> None:
+async def on_presence_update(old_member: discord.Member, new_member: discord.Member) -> None:
     """
     Event for online status etc.
     Only fires with the presences intent, which is not requested (same as the js version)
     """
-    if defaultChannel is None:
+    if default_channel is None:
         return
     # user comes online or goes offline
-    if oldMember.status != newMember.status:
-        await presencehandler.handleStatusUpdate(newMember, oldMember, defaultChannel)
+    if old_member.status != new_member.status:
+        await presence_handler.handle_status_update(new_member, old_member, default_channel)
     # user starts playing a game
-    elif oldMember.activity != newMember.activity:
-        await presencehandler.handleGameUpdate(newMember, oldMember, defaultChannel)
+    elif old_member.activity != new_member.activity:
+        await presence_handler.handle_game_update(new_member, old_member, default_channel)
 
 
 @client.event
 async def on_error(event: str, *args: object, **kwargs: object) -> None:
     logger.exception("An generic error haz okuued in %s", event)
-    utility.writeLogFile(f"An generic error haz okuued in {event}")
+    utility.write_log_file(f"An generic error haz okuued in {event}")
 
 
 if __name__ == "__main__":
     logger.info("PreLogin")
     # log_handler=None: keep our logging configuration instead of discord.py's default
-    client.run(apiConfig["token"], log_handler=None)
+    client.run(api_config["token"], log_handler=None)

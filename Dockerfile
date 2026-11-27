@@ -2,8 +2,7 @@ FROM python:3.14-slim
 
 COPY --from=ghcr.io/astral-sh/uv:0.13 /uv /bin/uv
 
-# the app lives in .../build so the token mount path on the Pi stays the same as for the js version
-WORKDIR /usr/src/yami/build
+WORKDIR /app
 
 # ffmpeg for voice playback, curl for the docker healthcheck
 RUN apt-get update \
@@ -14,7 +13,7 @@ ENV UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
     UV_PYTHON_DOWNLOADS=never \
     PYTHONUNBUFFERED=1 \
-    PATH="/usr/src/yami/build/.venv/bin:$PATH"
+    PATH="/app/.venv/bin:$PATH"
 
 COPY pyproject.toml uv.lock .python-version ./
 RUN uv sync --frozen --no-dev --no-install-project

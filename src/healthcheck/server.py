@@ -8,12 +8,12 @@ from utility import utility
 
 logger = logging.getLogger(__name__)
 
-serverConfig = utility.loadResource("server_config.json")
+server_config = utility.load_resource("server_config.json")
 
 
-async def startHealthcheck() -> None:
-    port: int = serverConfig["port"]
-    path: str = serverConfig["healthcheck_path"]
+async def start_healthcheck() -> None:
+    port: int = server_config["port"]
+    path: str = server_config["healthcheck_path"]
 
     async def health(request: web.Request) -> web.Response:
         return web.Response(text="ok")

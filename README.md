@@ -10,7 +10,6 @@ Discord bot made with nodejs and discordjs
   * Rise
   * World
 - Monster Hunter Motionvalue printtables
-- Event Message when a Twitch streamer goes online
 - Generating Custom Commands
 - Querying DnDBeyond.com for new posts and articles
 
@@ -41,16 +40,12 @@ https://myanimelist.net
 ```json
 {
   "token": "your discord apikey",
-  "twitchClient": "your twitch apikey",
   "youtubeClient": "your google apikey",
 } 
 ```
 - Create ``resources/config.json``
 ```json
 {
-  "streamers": [
-    "streamer name here for notifications"
-  ],
   "defaultGuildName": "name",
   "defaultGuildId": "id",
   "defaultChannelId": "id",

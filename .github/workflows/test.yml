@@ -27,7 +27,6 @@ jobs:
         cat << EOF > resources/api_config.json
         {
           "token":  "${{ secrets.DISCORDTOKEN }}",
-          "twitchClient": "${{ secrets.TWITCHTOKEN }}",
           "youtubeClient": "${{ secrets.YOUTUBECLIENT }}"
         }
         EOF

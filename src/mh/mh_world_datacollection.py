@@ -13,7 +13,7 @@ from utility import utility
 logger = logging.getLogger(__name__)
 
 # bloat value for each weapon type
-mhBloatMap: dict[str, float] = {
+mh_bloat_map: dict[str, float] = {
     "SNS": 1.4,
     "DS": 1.4,
     "GS": 4.8,
@@ -31,7 +31,7 @@ mhBloatMap: dict[str, float] = {
 }
 
 # physical sharpness modifier
-mhSharpPhysicalMap: dict[str, float] = {
+mh_sharp_physical_map: dict[str, float] = {
     "RED": 0.5,
     "ORANGE": 0.75,
     "YELLOW": 1.0,
@@ -43,7 +43,7 @@ mhSharpPhysicalMap: dict[str, float] = {
 }
 
 # elemental sharpness modifier
-mhSharpElementalMap: dict[str, float] = {
+mh_sharp_elemental_map: dict[str, float] = {
     "RED": 0.25,
     "ORANGE": 0.5,
     "YELLOW": 0.75,
@@ -55,7 +55,7 @@ mhSharpElementalMap: dict[str, float] = {
 }
 
 # estimated average motion value for each weapon type
-mhMvEstimatedMap: dict[str, int] = {
+mh_mv_estimated_map: dict[str, int] = {
     "SNS": 16,  # ~average on dash and 2 hits
     "DS": 11,  # ~average Ranbu!
     "GS": 90,  # Lv3 Draw Charge
@@ -72,18 +72,18 @@ mhMvEstimatedMap: dict[str, int] = {
     "HBG": 30,  # ignored, because shot elementless
 }
 
-bowElementalMv = 62.625
+bow_elemental_mv = 62.625
 
 
-def _loadMotionValues(weapon: str) -> dict[str, list[int]]:
+def _load_motion_values(weapon: str) -> dict[str, list[int]]:
     path = f"MH_Data/WorldMotionvalues/mhw_{weapon}.json"
     logger.debug("Reading %s", path)
-    return {move["name"]: move["hits"] for move in utility.loadResource(path)}
+    return {move["name"]: move["hits"] for move in utility.load_resource(path)}
 
 
 # motion values per move for each weapon type
-mhMvMapMap: dict[str, dict[str, list[int]]] = {weapon: _loadMotionValues(weapon) for weapon in mhMvEstimatedMap}
+mh_mv_map_map: dict[str, dict[str, list[int]]] = {weapon: _load_motion_values(weapon) for weapon in mh_mv_estimated_map}
 
 # hitzones of the target dummies
-mhPhysicalDummy: dict[str, Any] = utility.loadResource("MH_Data/WorldMonsterLists/physicalDummy.json")
-mhElementalDummy: dict[str, Any] = utility.loadResource("MH_Data/WorldMonsterLists/elementalDummy.json")
+mh_physical_dummy: dict[str, Any] = utility.load_resource("MH_Data/WorldMonsterLists/physicalDummy.json")
+mh_elemental_dummy: dict[str, Any] = utility.load_resource("MH_Data/WorldMonsterLists/elementalDummy.json")

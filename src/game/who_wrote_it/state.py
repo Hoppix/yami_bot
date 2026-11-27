@@ -17,7 +17,7 @@
 from enum import Enum, auto
 
 
-class wwiState(Enum):
+class WwiState(Enum):
     CREATED = auto()
     ENDED = auto()
     GUESSING = auto()
@@ -25,25 +25,25 @@ class wwiState(Enum):
 
 
 class IllegalStateTransition(Exception):
-    def __init__(self, current: wwiState, target: wwiState) -> None:
+    def __init__(self, current: WwiState, target: WwiState) -> None:
         super().__init__(f"Illegal state transition from: {current.name} to {target.name}")
 
 
-class wwiStateMachine:
+class WwiStateMachine:
     @staticmethod
-    def initialize(state: wwiState) -> wwiState:
-        if state != wwiState.CREATED:
-            raise IllegalStateTransition(state, wwiState.INITIALIZING)
-        return wwiState.INITIALIZING
+    def initialize(state: WwiState) -> WwiState:
+        if state != WwiState.CREATED:
+            raise IllegalStateTransition(state, WwiState.INITIALIZING)
+        return WwiState.INITIALIZING
 
     @staticmethod
-    def end(state: wwiState) -> wwiState:
-        if state in (wwiState.INITIALIZING, wwiState.ENDED):
-            raise IllegalStateTransition(state, wwiState.ENDED)
-        return wwiState.ENDED
+    def end(state: WwiState) -> WwiState:
+        if state in (WwiState.INITIALIZING, WwiState.ENDED):
+            raise IllegalStateTransition(state, WwiState.ENDED)
+        return WwiState.ENDED
 
     @staticmethod
-    def start(state: wwiState) -> wwiState:
-        if state != wwiState.INITIALIZING:
-            raise IllegalStateTransition(state, wwiState.GUESSING)
-        return wwiState.GUESSING
+    def start(state: WwiState) -> WwiState:
+        if state != WwiState.INITIALIZING:
+            raise IllegalStateTransition(state, WwiState.GUESSING)
+        return WwiState.GUESSING

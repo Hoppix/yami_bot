@@ -20,8 +20,6 @@ dev = [
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["test"]
-# keep the original test filenames (testMain, wwiTest)
-python_files = ["*Test.py", "test*.py"]
 
 [tool.ruff]
 src = ["src", "test"]
@@ -29,5 +27,3 @@ line-length = 120
 
 [tool.ruff.lint]
 extend-select = ["I", "UP", "B"]
-# filenames are kept from the js version (camelCase)
-ignore = ["N999"]
